@@ -86,10 +86,10 @@ export default function ProfilePage() {
       <AppCard className="p-6">
         <div className="flex items-center gap-4">
           <div className="grid h-14 w-14 place-items-center rounded-full bg-(--color-glass2) text-xl font-semibold text-ink">
-            M
+            A
           </div>
           <div className="min-w-0 flex-1">
-            <p className="truncate text-lg font-semibold text-ink">Mykhail Druz</p>
+            <p className="truncate text-lg font-semibold text-ink">Andres</p>
             <p className="mt-1 text-xs text-muted">Level 1 · 0 XP</p>
           </div>
           <span className="rounded-full border border-border bg-(--color-glass2) px-3 py-1 text-xs font-semibold text-muted">
