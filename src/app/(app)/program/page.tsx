@@ -61,12 +61,12 @@ function DayAvatar({
 }
 
 export default async function ProgramPage() {
-  const { user } = await getUserOrNull();
+  const { user, supabase } = await getUserOrNull();
   if (!user) redirect("/sign-in");
 
   const [profile, progress] = await Promise.all([
-    getUserProfile(user.id),
-    ensureProgramProgressRows(user.id),
+    getUserProfile(user.id, supabase),
+    ensureProgramProgressRows(user.id, supabase),
   ]);
 
   return (

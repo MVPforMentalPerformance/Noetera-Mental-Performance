@@ -46,18 +46,19 @@ export default async function ProgramDayPage({
   searchParams,
 }: {
   params: Promise<{ day: string }>;
-  searchParams?: { error?: string };
+  searchParams: Promise<{ error?: string }>;
 }) {
-  const { user } = await getUserOrNull();
+  const { user, supabase } = await getUserOrNull();
   if (!user) redirect("/sign-in");
 
   const { day: dayStr } = await params;
+  const { error } = await searchParams;
   const day = Number(dayStr);
   if (!Number.isInteger(day) || day < 1 || day > 5) redirect("/program");
 
   const [profile, progress] = await Promise.all([
-    getUserProfile(user.id),
-    ensureProgramProgressRows(user.id),
+    getUserProfile(user.id, supabase),
+    ensureProgramProgressRows(user.id, supabase),
   ]);
 
   if (day > profile.program_max_unlocked_day) redirect("/program");
@@ -67,7 +68,6 @@ export default async function ProgramDayPage({
 
   const meta = dayMeta[day];
   const isCompleted = row.completed_at != null;
-  const error = searchParams?.error;
   const completedCount = progress.filter((d) => d.completed_at != null).length;
   const progressPct = clamp(Math.round((completedCount / 5) * 100), 0, 100);
 
@@ -91,7 +91,7 @@ export default async function ProgramDayPage({
               <span>Journey progress</span>
               <span>{progressPct}%</span>
             </div>
-            <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-surface">
+            <div className="mt-2 h-2 w-full overflow-hidden rounded-full border border-border/80 bg-(--color-ringTrack) shadow-[inset_0_1px_0_color-mix(in_srgb,white_12%,transparent)]">
               <div
                 className="h-full rounded-full bg-linear-to-r from-accent to-accent2"
                 style={{ width: `${progressPct}%` }}

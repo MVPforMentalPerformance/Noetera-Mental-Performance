@@ -1,14 +1,11 @@
 import { BottomNav } from "@/components/bottom-nav";
-import { createClient } from "@/lib/supabase/server";
+import { getUserOrNull } from "@/lib/program/server";
 import { redirect } from "next/navigation";
 import type { ReactNode } from "react";
 import { signOutAction } from "./_actions";
 
 export default async function AppLayout({ children }: { children: ReactNode }) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { user } = await getUserOrNull();
 
   if (!user) redirect("/sign-in");
 

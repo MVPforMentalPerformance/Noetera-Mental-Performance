@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { cache } from "react";
 
 export type UserProfile = {
   id: string;
@@ -18,17 +19,35 @@ export function clampDayIndex(day: number) {
   return Math.max(1, Math.min(5, day));
 }
 
-export async function getUserOrNull() {
+const DEBUG_PERF = process.env.DEBUG_PERF === "1";
+
+function perfNowMs() {
+  // Server-only timing helper
+  return typeof performance !== "undefined" && "now" in performance ? performance.now() : Date.now();
+}
+
+type SupabaseServerClient = Awaited<ReturnType<typeof createClient>>;
+
+const getSupabaseAndUserCached = cache(async () => {
+  const t0 = DEBUG_PERF ? perfNowMs() : 0;
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  if (DEBUG_PERF) {
+    const dt = perfNowMs() - t0;
+    console.log(`[perf] auth.getUser() ${Math.round(dt)}ms (cached request-scope)`);
+  }
   return { supabase, user };
+});
+
+export async function getUserOrNull() {
+  return await getSupabaseAndUserCached();
 }
 
-export async function getUserProfile(userId: string) {
-  const supabase = await createClient();
-  const { data, error } = await supabase
+export async function getUserProfile(userId: string, supabase?: SupabaseServerClient) {
+  const client = supabase ?? (await createClient());
+  const { data, error } = await client
     .from("user_profiles")
     .select("id, program_max_unlocked_day")
     .eq("id", userId)
@@ -38,9 +57,9 @@ export async function getUserProfile(userId: string) {
   return data as UserProfile;
 }
 
-export async function listProgramProgress(userId: string) {
-  const supabase = await createClient();
-  const { data, error } = await supabase
+export async function listProgramProgress(userId: string, supabase?: SupabaseServerClient) {
+  const client = supabase ?? (await createClient());
+  const { data, error } = await client
     .from("program_day_progress")
     .select("id, user_id, day_index, unlocked_at, completed_at, reflection_payload")
     .eq("user_id", userId)
@@ -50,33 +69,38 @@ export async function listProgramProgress(userId: string) {
   return (data ?? []) as ProgramDayProgressRow[];
 }
 
-export async function ensureProgramProgressRows(userId: string) {
-  const supabase = await createClient();
+export async function ensureProgramProgressRows(userId: string, supabase?: SupabaseServerClient) {
+  const client = supabase ?? (await createClient());
+  const t0 = DEBUG_PERF ? perfNowMs() : 0;
 
-  const existing = await listProgramProgress(userId);
-  const existingSet = new Set(existing.map((r) => r.day_index));
-
-  const toUpsert: Array<Partial<ProgramDayProgressRow>> = [];
+  // Idempotent: attempt to insert all 5 rows, but do not overwrite existing rows.
+  // This replaces the hot-path pattern SELECT → UPSERT → SELECT with UPSERT → SELECT.
   const now = new Date().toISOString();
-
-  for (let day = 1; day <= 5; day += 1) {
-    if (existingSet.has(day)) continue;
-    toUpsert.push({
+  const rows: Array<Partial<ProgramDayProgressRow>> = Array.from({ length: 5 }, (_, i) => {
+    const day = i + 1;
+    return {
       user_id: userId,
       day_index: day,
       unlocked_at: day === 1 ? now : null,
       completed_at: null,
       reflection_payload: null,
-    });
+    };
+  });
+
+  const { error: upsertError } = await client
+    .from("program_day_progress")
+    .upsert(rows, { onConflict: "user_id,day_index", ignoreDuplicates: true });
+  if (upsertError) throw upsertError;
+
+  const progress = await listProgramProgress(userId, client);
+
+  if (DEBUG_PERF) {
+    const dt = perfNowMs() - t0;
+    console.log(
+      `[perf] ensureProgramProgressRows() ${Math.round(dt)}ms (upsert+select, rows=${progress.length})`,
+    );
   }
 
-  if (toUpsert.length > 0) {
-    const { error } = await supabase
-      .from("program_day_progress")
-      .upsert(toUpsert, { onConflict: "user_id,day_index" });
-    if (error) throw error;
-  }
-
-  return await listProgramProgress(userId);
+  return progress;
 }
 

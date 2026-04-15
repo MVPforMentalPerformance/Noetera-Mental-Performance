@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: light;
   --canvas: #f6efe5;
   --canvas-glow: #efe2cf;
   --surface: #fff9f1;
@@ -9,7 +10,7 @@
   --muted: #66584a;
   --border: rgba(83, 61, 43, 0.2);
   --shadow: rgba(60, 36, 20, 0.16);
-  --accent: #a4632b;
+  --accent: #a4632b; /* Earth */
   --accent-2: #c9833f;
   --accent-ink: #fff6ea;
   --danger: #9d3f31;
@@ -17,6 +18,84 @@
   --font-body: "Avenir Next", "Segoe UI", "Trebuchet MS", sans-serif;
   --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
   --font-code: "JetBrains Mono", "Cascadia Mono", "Consolas", monospace;
+
+  /* Subtle rounding for premium blocks */
+  --radius-card: 1.25rem;
+  --radius-pill: 999px;
+
+  --blur-glass: 10px;
+  --glass: color-mix(in srgb, var(--surface) 74%, transparent);
+  --glass-2: color-mix(in srgb, var(--surface-2) 68%, transparent);
+  --glass-border: color-mix(in srgb, var(--border) 70%, transparent);
+  --ring-track: color-mix(in srgb, var(--border) 65%, transparent);
+  --ring-shadow: color-mix(in srgb, var(--shadow) 85%, transparent);
+
+  --bg-accent-wash: color-mix(in srgb, var(--accent) 10%, transparent);
+  --bg-accent-wash-2: color-mix(in srgb, var(--accent-2) 9%, transparent);
+  --glass-shine: color-mix(in srgb, white 26%, transparent);
+  --glass-shine-2: color-mix(in srgb, white 10%, transparent);
+}
+
+/* Theme contract:
+   - data-theme: "light" | "dark" (set on <html>)
+   - data-accent: "earth" | "premium" | "ocean" | "forest" | "custom" (set on <html>)
+*/
+
+html[data-theme="light"] {
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --canvas: #0f1410;
+  --canvas-glow: #1a221a;
+  --surface: #151b15;
+  --surface-2: #101610;
+  --ink: #f2f4f0;
+  --muted: #a7b0a7;
+  --border: rgba(231, 236, 231, 0.14);
+  --shadow: rgba(0, 0, 0, 0.55);
+  --accent-ink: #0c0f0c;
+  --danger: #ff6b5e;
+  --success: #3fd3a5;
+
+  --glass: color-mix(in srgb, var(--surface) 66%, transparent);
+  --glass-2: color-mix(in srgb, var(--surface-2) 60%, transparent);
+  --glass-border: color-mix(in srgb, var(--border) 85%, transparent);
+  --ring-track: color-mix(in srgb, var(--border) 75%, transparent);
+  --ring-shadow: rgba(0, 0, 0, 0.65);
+
+  --bg-accent-wash: color-mix(in srgb, var(--accent) 14%, transparent);
+  --bg-accent-wash-2: color-mix(in srgb, var(--accent-2) 12%, transparent);
+  --glass-shine: color-mix(in srgb, white 10%, transparent);
+  --glass-shine-2: color-mix(in srgb, white 5%, transparent);
+}
+
+/* Accent palettes */
+html[data-accent="earth"] {
+  --accent: #b0712e;
+  --accent-2: #d59044;
+}
+
+html[data-accent="premium"] {
+  --accent: #9a7cff;
+  --accent-2: #d6b7ff;
+}
+
+html[data-accent="ocean"] {
+  --accent: #4bb0ff;
+  --accent-2: #27e3d0;
+}
+
+html[data-accent="forest"] {
+  --accent: #62d67d;
+  --accent-2: #b7f07a;
+}
+
+/* "custom" is user-defined; we just reserve the slot. */
+html[data-accent="custom"] {
+  --accent: #ff6b9a;
+  --accent-2: #ffb86b;
 }
 
 @theme inline {
@@ -37,10 +116,20 @@
   --color-success: var(--success);
   --font-sans: var(--font-body);
   --font-mono: var(--font-code);
+  --radius-card: var(--radius-card);
+  --radius-pill: var(--radius-pill);
+  --blur-glass: var(--blur-glass);
+  --color-glass: var(--glass);
+  --color-glass2: var(--glass-2);
+  --color-glassBorder: var(--glass-border);
+  --color-ringTrack: var(--ring-track);
+  --color-ringShadow: var(--ring-shadow);
 }
 
 body {
   background:
+    radial-gradient(circle at 16% -12%, var(--bg-accent-wash) 0, transparent 48%),
+    radial-gradient(circle at 86% 8%, var(--bg-accent-wash-2) 0, transparent 52%),
     radial-gradient(circle at 8% -4%, color-mix(in srgb, var(--color-canvasGlow) 80%, transparent) 0, transparent 52%),
     radial-gradient(circle at 92% 0, color-mix(in srgb, var(--color-accent2) 18%, transparent) 0, transparent 48%),
     var(--canvas);
@@ -91,6 +180,45 @@ h3 {
 
 .page-fade {
   animation: rise-fade 420ms ease-out both;
+}
+
+.glass {
+  position: relative;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--blur-glass)) saturate(1.15);
+  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(1.15);
+  box-shadow:
+    0 24px 70px -56px var(--shadow),
+    inset 0 1px 0 color-mix(in srgb, var(--glass-shine) 60%, transparent);
+  overflow: hidden;
+}
+
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(1200px 360px at 18% -12%, var(--glass-shine), transparent 55%),
+    radial-gradient(900px 260px at 92% 10%, var(--glass-shine-2), transparent 60%);
+  opacity: 0.95;
+}
+
+.glass::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  pointer-events: none;
+  background:
+    conic-gradient(
+      from 210deg,
+      transparent 0deg,
+      color-mix(in srgb, var(--accent-2) 10%, transparent) 50deg,
+      transparent 120deg
+    );
+  opacity: 0.35;
+  transform: rotate(-10deg);
 }
 
 @keyframes rise-fade {
