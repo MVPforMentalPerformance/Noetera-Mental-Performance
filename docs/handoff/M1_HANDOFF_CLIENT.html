@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Milestone 1 Handoff Package</title>
+    <style>
+      :root {
+        --bg: #0b0c0f;
+        --card: #12141b;
+        --text: #e8eaf0;
+        --muted: #a7afc0;
+        --border: rgba(255, 255, 255, 0.12);
+        --accent: #9aa6ff;
+        --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial;
+      }
+
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f6f7fb;
+          --card: #ffffff;
+          --text: #0b0c0f;
+          --muted: #46506a;
+          --border: rgba(10, 12, 15, 0.14);
+          --accent: #3a46ff;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--sans);
+        line-height: 1.5;
+      }
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .wrap {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 48px 20px;
+      }
+      .top {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 18px;
+      }
+      .brand {
+        font-size: 12px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-weight: 650;
+      }
+      h1 {
+        margin: 6px 0 0;
+        font-size: 28px;
+        letter-spacing: -0.02em;
+      }
+      .meta {
+        color: var(--muted);
+        font-size: 13px;
+        margin-top: 6px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 20px;
+      }
+      @media (min-width: 860px) {
+        .grid {
+          grid-template-columns: 1.2fr 0.8fr;
+        }
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 22px;
+      }
+      .card h2 {
+        margin: 0 0 10px;
+        font-size: 16px;
+        letter-spacing: -0.01em;
+      }
+      ul {
+        margin: 10px 0 0;
+        padding-left: 18px;
+        color: var(--text);
+      }
+      li {
+        margin: 6px 0;
+      }
+      code,
+      .pill {
+        font-family: var(--mono);
+      }
+      .pill {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 12px;
+        margin-right: 8px;
+      }
+      .small {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .kvs {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .kv {
+        padding: 12px 14px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .k {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+      .v {
+        font-size: 14px;
+        color: var(--text);
+        word-break: break-word;
+      }
+      .hr {
+        height: 1px;
+        background: var(--border);
+        margin: 14px 0;
+      }
+
+      @media print {
+        :root {
+          --bg: #ffffff;
+          --card: #f7f8fc;
+          --text: #0b0c0f;
+          --muted: #46506a;
+          --border: rgba(10, 12, 15, 0.28);
+          --accent: #2430ff;
+        }
+        body {
+          background: #ffffff;
+        }
+        .wrap {
+          padding: 24px 18px;
+        }
+        a {
+          color: #2430ff;
+          text-decoration: underline;
+        }
+        .kv {
+          background: #ffffff;
+          border-color: rgba(10, 12, 15, 0.22);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="top">
+        <div>
+          <div class="brand">Milestone 1</div>
+          <h1>Handoff Package</h1>
+          <div class="meta">Status: <strong>Complete</strong></div>
+        </div>
+        <div class="meta">
+          <span class="pill">Scope</span>
+          <span class="pill">Flow</span>
+          <span class="pill">Wireframes</span>
+          <span class="pill">Database</span>
+          <span class="pill">Setup</span>
+        </div>
+      </div>
+
+      <div class="grid">
+        <section class="card">
+          <h2>1) What was completed</h2>
+          <ul>
+            <li>
+              We finalized the MVP plan: what is included, how users move through
+              the app, and what the key screens look like (wireframes).
+            </li>
+            <li>
+              We set up the foundation to build the next milestone quickly: a
+              working app project structure and a ready connection to the
+              database + login system.
+            </li>
+            <li>
+              We prepared the database structure to support program progress,
+              saved reflections, and assessment history.
+            </li>
+          </ul>
+
+          <div class="hr"></div>
+
+          <h2>2) Milestone 1 documents</h2>
+          <ul>
+            <li>Scope: <code>docs/SCOPE.md</code></li>
+            <li>User flow: <code>docs/USER_FLOW.md</code></li>
+            <li>Wireframes: <code>docs/wireframes.md</code></li>
+            <li>Database overview: <code>docs/DATABASE.md</code></li>
+            <li>Milestones + setup notes: <code>docs/MASTER_PLAN.md</code></li>
+          </ul>
+
+          <p class="small">
+            Note: The full technical SQL script is included in the repository at
+            <code>supabase/migrations/001_initial_schema.sql</code>.
+          </p>
+
+          <div class="hr"></div>
+
+          <h2>3) Database (simple explanation)</h2>
+          <ul>
+            <li>
+              User profile stores which program day is available (days 1–5).
+            </li>
+            <li>
+              Program progress stores completion and saves reflection answers.
+            </li>
+            <li>
+              Assessment results are saved as history; retakes create new records.
+            </li>
+          </ul>
+          <p class="small">
+            Access rules: each user can only access their own data.
+          </p>
+        </section>
+
+        <aside class="card">
+          <h2>4) Setup confirmation</h2>
+          <div class="kvs">
+            <div class="kv">
+              <div class="k">Live app</div>
+              <div class="v">
+                <a href="https://mvp-for-mental-performance-app.vercel.app"
+                  >https://mvp-for-mental-performance-app.vercel.app</a
+                >
+              </div>
+            </div>
+            <div class="kv">
+              <div class="k">Setup is documented</div>
+              <div class="v"><code>README.md</code> and <code>docs/MASTER_PLAN.md</code></div>
+            </div>
+          </div>
+
+          <div class="hr"></div>
+
+          <h2>5) Things that may change later</h2>
+          <ul>
+            <li>
+              The exact profile rules will be refined after reviewing results
+              screens.
+            </li>
+            <li>
+              Audio files will be attached when client assets are delivered.
+            </li>
+            <li>
+              UI polish will evolve later (no Figma yet).
+            </li>
+          </ul>
+
+          <div class="hr"></div>
+
+          <h2>6) Ready for Milestone 2</h2>
+          <ul>
+            <li>Sign up / sign in / forgot password.</li>
+            <li>Navigation + logged-in areas.</li>
+            <li>5-day program experience (locked/current/completed states).</li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </body>
+</html>
+

@@ -21,23 +21,25 @@ export function ScreenShell({
   return (
     <div
       className={cx(
-        "flex min-h-full flex-1 flex-col bg-zinc-50 px-6 py-16",
+        "relative flex min-h-full flex-1 flex-col overflow-hidden bg-canvas px-2.5 py-10 sm:px-6 sm:py-14",
         className,
       )}
     >
+      <div className="pointer-events-none absolute -left-24 top-8 h-56 w-56 rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--color-accent2)_30%,transparent)_0%,transparent_72%)]" />
+      <div className="pointer-events-none absolute -right-28 bottom-8 h-64 w-64 rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--color-canvasGlow)_85%,transparent)_0%,transparent_72%)]" />
       {showHeader ? (
-        <header className="mx-auto mb-8 flex w-full max-w-md items-center gap-3">
+        <header className="page-fade relative mx-auto mb-6 flex w-full max-w-lg items-center gap-3 sm:mb-8">
           {headerStart ? (
-            <span className="shrink-0 text-sm text-zinc-600">{headerStart}</span>
+            <span className="shrink-0 text-sm text-muted">{headerStart}</span>
           ) : null}
           {title ? (
-            <h1 className="text-lg font-semibold tracking-tight text-zinc-900">
+            <h1 className="text-xl font-semibold tracking-tight text-ink">
               {title}
             </h1>
           ) : null}
         </header>
       ) : null}
-      <div className="flex flex-1 flex-col items-center justify-center">
+      <div className="relative flex flex-1 flex-col items-center justify-center">
         {children}
       </div>
     </div>

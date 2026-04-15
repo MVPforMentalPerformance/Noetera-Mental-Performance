@@ -37,7 +37,8 @@ SQL migrations: `supabase/migrations/` (apply in your Supabase project).
 2. **Audio:** assets from the client; in code use a day → URL layer, not hard-coded local files in components.
 3. **NPP retakes:** each completion is a new row with a timestamp; history is not overwritten.
 4. **Design:** no Figma at this planning stage — clean, minimal, premium, mobile-first, calm, card-based, one primary CTA per screen.
-5. **Reflections:** store answers in the database (JSONB), not only “day completed”.
+5. **Reflections:** store answers in the database (JSONB), not only “day completed”. **MVP:** tap-based choices only — lightweight; no journaling or long-form text (keeps friction low).
+6. **Dashboard (M2+):** for **new users**, the **5-day program** is the **main primary CTA** (“Start Day 1” first time, “Continue” when returning); other actions (e.g. profile card, retake NPP) stay clearly secondary so the next step is obvious.
 
 ## Target code layout
 

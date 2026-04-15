@@ -10,7 +10,7 @@ export function AppCard({ children, className }: AppCardProps) {
   return (
     <div
       className={cx(
-        "w-full max-w-md rounded-2xl border border-zinc-200/80 bg-white p-8 shadow-sm",
+        "page-fade w-full rounded-3xl border border-border/90 bg-surface/95 px-[18px] py-6 shadow-[0_24px_64px_-48px_var(--color-shadow)] backdrop-blur-[1.5px] sm:p-8",
         className,
       )}
     >

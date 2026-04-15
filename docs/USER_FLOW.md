@@ -17,6 +17,10 @@
 1. Sign in.
 2. Dashboard: welcome, profile card (latest result), continue program from current day, option to **retake NPP** (adds another history row; older rows kept).
 
+## Dashboard emphasis (aligned with client)
+
+- The **5-day program** is the **main primary action** on the home screen — **“Start Day 1”** when the user has not started, **“Continue”** (or equivalent) when they have. Profile and retake NPP remain available but must not compete with that primary CTA.
+
 ## UX rules
 
 - Each screen makes the **next step** obvious (one primary CTA).

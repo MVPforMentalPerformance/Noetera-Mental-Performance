@@ -1,0 +1,55 @@
+Milestone 1 — Handoff Package
+
+Status: Milestone 1 is complete (repo + setup: GitHub, Supabase, Vercel).
+Live URL: https://mvp-for-mental-performance-app.vercel.app
+
+1) Short summary (what was completed in Milestone 1)
+- We finalized the MVP plan: what is in scope, how users move through the product, and what the key screens look like (wireframes).
+- We set up the technical foundation so the app can move fast in Milestone 2: a working Next.js project structure and the connection layer to the database/auth provider.
+- We prepared the database structure to support the MVP features (program progress, reflections, and assessment history).
+
+2) M1 docs (organized)
+All Milestone 1 documents are here:
+- Scope (what is included / excluded): docs/SCOPE.md
+- User flow (first visit + returning visit): docs/USER_FLOW.md
+- Wireframes (screen sketches): docs/wireframes.md
+- Database schema (how data is stored): docs/DATABASE.md
+- Milestones + setup notes: docs/MASTER_PLAN.md (see “After M1”)
+
+Database script (the exact schema applied):
+- supabase/migrations/001_initial_schema.sql
+
+3) Database schema (simple explanation + access rules)
+We created 3 main data areas:
+
+A) User profile & program unlock
+- Stores which program day the user is allowed to access (days 1–5).
+
+B) Program progress (days 1–5)
+- Stores whether each day is unlocked/completed and saves the user’s reflection answers for that day.
+
+C) Assessment results (NPP Lite)
+- Stores results as history: every retake creates a new saved result with a timestamp (nothing is overwritten).
+
+Access rules
+- The database is configured so each user can only see and change their own data.
+
+4) Setup confirmation (GitHub, Supabase, Vercel)
+- GitHub repo is set up as the source of truth.
+- Supabase is set up (auth + database) and connected via environment variables.
+- Vercel deployment is set up and live.
+
+5) Open assumptions / flexible decisions (may change later)
+- The exact “profile” assignment rules will be refined later after we review the results screens; we’re keeping it simple and easy to adjust.
+- Audio files will be provided by the client; we built it so we can attach hosted URLs when assets are ready.
+- No Figma yet; the UI direction is defined by the wireframes and will be polished later.
+
+6) What is ready for Milestone 2
+Milestone 2 can start immediately:
+- Sign up / sign in / forgot password
+- Navigation + “logged-in” areas
+- The 5-day program experience (locked/current/completed states)
+
+Note
+The current homepage is intentionally simple: the main “Continue” button will be enabled once the login/entry flow is built in Milestone 2.
+

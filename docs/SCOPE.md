@@ -14,7 +14,7 @@ Source: Developer Handoff + client agreements.
 ### 5-day Mental Clarity program (free entry)
 
 - Days 1–5 with fixed themes (Stabilise → … → Calm performance)
-- Each day: short copy (2–4 lines), 3–5 min audio, tap reflection, “Mark complete”
+- Each day: short copy (2–4 lines), 3–5 min audio, **tap-only reflection** (lightweight options — no journaling or long-form text in MVP), “Mark complete”
 - Days unlock strictly in order
 - Clear states: completed / current / locked
 - After day 5 — CTA to the NOETERA Performance Profile (NPP Lite)
@@ -41,10 +41,10 @@ Source: Developer Handoff + client agreements.
 ### Dashboard (home after sign-in)
 
 - Welcome
-- Profile card (from latest NPP)
-- Enter / continue program
+- **Primary CTA:** 5-day program — **Start Day 1** (new) or **Continue** (in progress); this is the main entry point for new users
+- Profile card (from latest NPP) — secondary to the program CTA
 - Day 1–5 progress
-- Option to retake NPP (new history row)
+- Option to retake NPP (new history row) — secondary (e.g. text link)
 
 ## Explicitly out of MVP
 

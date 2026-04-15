@@ -11,7 +11,7 @@ type TextLinkProps = {
 };
 
 const baseClass =
-  "text-sm font-medium text-zinc-600 underline-offset-4 hover:text-zinc-900 hover:underline";
+  "cursor-pointer text-sm font-semibold text-accent underline-offset-4 transition hover:text-accent2 hover:underline";
 
 export function TextLink({
   href,
