@@ -107,6 +107,26 @@ Goal: lock hierarchy, one primary CTA, card structure. Visual design comes later
 
 ---
 
+## Program — completion transition (after Day 5)
+
+```
+┌─────────────────────────┐
+│  Program complete       │
+│                         │
+│  You finished the 5-day │
+│  sequence.              │
+│                         │
+│  Next step: NPP Lite    │
+│  (10 items)             │
+│                         │
+│  [ Continue to NPP  ]   │  ← primary
+│                         │
+│  Back to home           │  secondary / text
+└─────────────────────────┘
+```
+
+---
+
 ## NPP Lite (single question screen)
 
 ```

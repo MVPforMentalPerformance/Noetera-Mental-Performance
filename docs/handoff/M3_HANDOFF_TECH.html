@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Milestone 3 Handoff Package (Tech)</title>
+    <style>
+      :root {
+        --bg: #0b0c0f;
+        --card: #12141b;
+        --text: #e8eaf0;
+        --muted: #a7afc0;
+        --border: rgba(255, 255, 255, 0.12);
+        --accent: #9aa6ff;
+        --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      }
+
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f6f7fb;
+          --card: #ffffff;
+          --text: #0b0c0f;
+          --muted: #46506a;
+          --border: rgba(10, 12, 15, 0.14);
+          --accent: #3a46ff;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--sans);
+        line-height: 1.5;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .wrap {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 48px 20px;
+      }
+
+      .top {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 18px;
+      }
+
+      .brand {
+        font-size: 12px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-weight: 650;
+      }
+
+      h1 {
+        margin: 6px 0 0;
+        font-size: 28px;
+        letter-spacing: -0.02em;
+      }
+
+      .meta {
+        color: var(--muted);
+        font-size: 13px;
+        margin-top: 6px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 20px;
+      }
+
+      @media (min-width: 860px) {
+        .grid {
+          grid-template-columns: 1.2fr 0.8fr;
+        }
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 22px;
+      }
+
+      .card h2 {
+        margin: 0 0 10px;
+        font-size: 16px;
+        letter-spacing: -0.01em;
+      }
+
+      .card p {
+        margin: 10px 0;
+        color: var(--text);
+      }
+
+      ul {
+        margin: 10px 0 0;
+        padding-left: 18px;
+        color: var(--text);
+      }
+
+      li {
+        margin: 6px 0;
+      }
+
+      code,
+      .pill {
+        font-family: var(--mono);
+      }
+
+      .pill {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 12px;
+        margin-right: 8px;
+      }
+
+      .kvs {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .kv {
+        padding: 12px 14px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .k {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+      .v {
+        font-size: 14px;
+        color: var(--text);
+        word-break: break-word;
+      }
+
+      .small {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .hr {
+        height: 1px;
+        background: var(--border);
+        margin: 14px 0;
+      }
+
+      .appendix {
+        margin-top: 16px;
+      }
+
+      .appendix h2 {
+        margin: 0 0 10px;
+        font-size: 16px;
+        letter-spacing: -0.01em;
+      }
+
+      .appendix h3 {
+        margin: 18px 0 8px;
+        font-size: 13px;
+        letter-spacing: -0.01em;
+        color: var(--muted);
+        font-weight: 650;
+      }
+
+      pre.doc {
+        margin: 0;
+        padding: 14px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.03);
+        overflow: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
+        font-family: var(--mono);
+        font-size: 12px;
+        line-height: 1.45;
+        color: var(--text);
+      }
+
+      @media print {
+        :root {
+          --bg: #ffffff;
+          --card: #f7f8fc;
+          --text: #0b0c0f;
+          --muted: #46506a;
+          --border: rgba(10, 12, 15, 0.28);
+          --accent: #2430ff;
+        }
+        body {
+          background: #ffffff;
+        }
+        .wrap {
+          padding: 24px 18px;
+        }
+        .card {
+          border-color: rgba(10, 12, 15, 0.28);
+        }
+        .pill {
+          border-color: rgba(10, 12, 15, 0.22);
+          color: #46506a;
+        }
+        .kv {
+          background: #ffffff;
+          border-color: rgba(10, 12, 15, 0.22);
+        }
+        a {
+          color: #2430ff;
+          text-decoration: underline;
+        }
+        pre.doc {
+          background: #ffffff;
+          border-color: rgba(10, 12, 15, 0.22);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="top">
+        <div>
+          <div class="brand">Milestone 3</div>
+          <h1>Handoff Package (Tech)</h1>
+          <div class="meta">Status: <strong>Complete</strong> (NPP Lite + scoring + persistence + transition)</div>
+        </div>
+        <div class="meta">
+          <span class="pill">Next.js</span>
+          <span class="pill">Supabase</span>
+          <span class="pill">RLS</span>
+          <span class="pill">Server Actions</span>
+        </div>
+      </div>
+
+      <div class="grid">
+        <section class="card">
+          <h2>1) What was completed in Milestone 3</h2>
+          <ul>
+            <li>
+              <strong>NPP Lite assessment UI</strong>: client flow at
+              <code>src/app/(app)/assessment/assessment-flow.tsx</code> — 10 steps,
+              1–5 Likert, Back / Next / Finish, success state after save.
+            </li>
+            <li>
+              <strong>Server-side submit</strong>:
+              <code>src/app/(app)/assessment/_actions.ts</code> —
+              <code>submitNppLiteAction</code> authenticates user, runs
+              <code>scoreNppLite</code>, inserts into
+              <code>public.npp_assessment_results</code>.
+            </li>
+            <li>
+              <strong>Scoring module</strong>:
+              <code>src/lib/scoring/npp-lite.ts</code> — reverse items Q2/Q4/Q6/Q8;
+              five domain snapshots (value + band); four derived composites;
+              <code>profile_key</code> (v1 weakest-domain heuristic, documented in code);
+              <code>scoring_version: "1"</code>.
+            </li>
+            <li>
+              <strong>Post-program transition</strong>:
+              <code>src/app/(app)/program/complete/page.tsx</code> — gated on all five
+              days completed; primary CTA to <code>/assessment</code>.
+            </li>
+            <li>
+              <strong>Program completion redirect</strong>:
+              <code>src/app/(app)/program/_actions.ts</code> — after Day 5,
+              <code>redirect("/program/complete")</code>.
+            </li>
+            <li>
+              <strong>Dashboard CTA</strong>:
+              <code>src/app/(app)/dashboard/page.tsx</code> — when no incomplete day,
+              primary label <code>Continue your training</code> →
+              <code>/program/complete</code>; Retake NPP → <code>/assessment</code>.
+            </li>
+            <li>
+              <strong>SecondaryButton</strong>:
+              <code>src/components/secondary-button.tsx</code> — used for tap-friendly
+              secondary actions on several app screens.
+            </li>
+          </ul>
+
+          <div class="hr"></div>
+
+          <h2>2) Key routes (M3)</h2>
+          <ul>
+            <li><strong>NPP Lite</strong>: <code>/assessment</code> (live flow; not a placeholder)</li>
+            <li><strong>Post-program</strong>: <code>/program/complete</code> (requires 5/5 days complete)</li>
+            <li><strong>Program</strong>: unchanged list/day routes; Day 5 completion triggers transition URL</li>
+            <li><strong>Still placeholder</strong>: <code>/insights</code> (M4 results UX)</li>
+          </ul>
+
+          <div class="hr"></div>
+
+          <h2>3) Data model (M3-relevant)</h2>
+          <p class="small">Source of truth: <code>supabase/migrations/001_initial_schema.sql</code></p>
+          <ul>
+            <li>
+              <strong><code>public.npp_assessment_results</code></strong>: one row per completed
+              assessment. Columns include <code>responses</code> (jsonb),
+              <code>domain_scores</code>, <code>derived_map</code>, <code>profile_key</code>,
+              <code>scoring_version</code>. Index
+              <code>(user_id, created_at DESC)</code> supports “latest” and history lists (M4).
+            </li>
+            <li>
+              <strong>Append-only</strong>: no UPDATE/DELETE policies for end users on this table
+              in the shipped migration set — inserts only for history preservation.
+            </li>
+            <li>
+              <strong>RLS</strong>: <code>npp_select_own</code>, <code>npp_insert_own</code> use
+              initplan-friendly <code>(select auth.uid())</code> (see
+              <code>20260415152600_fix_rls_initplan_auth_uid.sql</code>).
+            </li>
+          </ul>
+        </section>
+
+        <aside class="card">
+          <h2>4) Setup / deployment</h2>
+          <div class="kvs">
+            <div class="kv">
+              <div class="k">Live app</div>
+              <div class="v">
+                <a href="https://mvp-for-mental-performance-app.vercel.app"
+                  >https://mvp-for-mental-performance-app.vercel.app</a
+                >
+              </div>
+            </div>
+            <div class="kv">
+              <div class="k">Supabase</div>
+              <div class="v">
+                Ensure migrations are applied so <code>npp_assessment_results</code> exists
+                and RLS policies match repo. Local: <code>.env.local</code> from
+                <code>.env.example</code>.
+              </div>
+            </div>
+            <div class="kv">
+              <div class="k">No new migration in M3</div>
+              <div class="v">
+                M3 uses the existing schema from M1/M2. If the table is missing in a
+                project, apply <code>001_initial_schema.sql</code> (and the RLS fix
+                migration) first.
+              </div>
+            </div>
+          </div>
+
+          <div class="hr"></div>
+
+          <h2>5) Implementation pointers</h2>
+          <ul>
+            <li><strong>Submit action</strong>: <code>src/app/(app)/assessment/_actions.ts</code></li>
+            <li><strong>Scoring</strong>: <code>src/lib/scoring/npp-lite.ts</code></li>
+            <li><strong>Assessment UI</strong>: <code>src/app/(app)/assessment/assessment-flow.tsx</code></li>
+            <li><strong>Assessment shell</strong>: <code>src/app/(app)/assessment/page.tsx</code></li>
+            <li><strong>Program day complete</strong>: <code>src/app/(app)/program/_actions.ts</code></li>
+            <li><strong>Transition page</strong>: <code>src/app/(app)/program/complete/page.tsx</code></li>
+            <li><strong>Dashboard</strong>: <code>src/app/(app)/dashboard/page.tsx</code></li>
+          </ul>
+        </aside>
+      </div>
+
+      <section class="card appendix">
+        <h2>Appendix — Key technical snippets (M3)</h2>
+        <p class="small">
+          Embedded for handoff review. Authoritative source is always the files under
+          <code>src/</code> and <code>supabase/migrations/</code>.
+        </p>
+
+        <h3>NPP submit + insert (src/app/(app)/assessment/_actions.ts)</h3>
+        <pre class="doc">"use server";
+
+import { scoreNppLite } from "@/lib/scoring/npp-lite";
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
+
+export async function submitNppLiteAction(input: { responses: number[] }) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) redirect("/sign-in");
+
+  const { responses, domain_scores, derived_map, profile_key, scoring_version } = scoreNppLite({
+    responses: input.responses,
+  });
+
+  const { error } = await supabase.from("npp_assessment_results").insert({
+    user_id: user.id,
+    responses,
+    domain_scores,
+    derived_map,
+    profile_key,
+    scoring_version,
+  });
+
+  if (error) {
+    return { ok: false as const, message: error.message };
+  }
+
+  return { ok: true as const };
+}</pre>
+
+        <h3>Program: Day 5 redirect (src/app/(app)/program/_actions.ts)</h3>
+        <pre class="doc">  if (day &lt; 5) redirect(`/program/day/${day + 1}`);
+  redirect("/program/complete");</pre>
+
+        <h3>Scoring core (src/lib/scoring/npp-lite.ts — excerpt)</h3>
+        <pre class="doc">const REVERSE_SCORED = new Set([2, 4, 6, 8]);
+
+export function scoreNppLite(input: { responses: Array&lt;number&gt; | NppLiteResponseMap }): NppLiteScoringResult {
+  const arr = Array.isArray(input.responses)
+    ? input.responses
+    : Array.from({ length: 10 }, (_, i) =&gt; input.responses[String(i + 1)]);
+
+  if (arr.length !== 10) throw new Error("NPP Lite requires 10 responses.");
+
+  const normalized: number[] = arr.map((v, i) =&gt; {
+    const q = i + 1;
+    if (!Number.isFinite(v) || v &lt; 1 || v &gt; 5) throw new Error(`Invalid response for Q${q}.`);
+    return REVERSE_SCORED.has(q) ? 6 - v : v;
+  });
+
+  // ... domain_scores, derived_map, profile_key, scoring_version: "1"
+}</pre>
+      </section>
+    </div>
+  </body>
+</html>

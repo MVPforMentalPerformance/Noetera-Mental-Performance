@@ -1,0 +1,69 @@
+Milestone 3 — Handoff Package
+
+Status: Milestone 3 is complete (NPP Lite assessment flow, scoring engine, result persistence, post-program transition, and UX refinements for primary actions and mobile-friendly secondary controls).
+Live URL: https://mvp-for-mental-performance-app.vercel.app
+
+1) Short summary (what was completed in Milestone 3)
+
+- NPP Lite (NOETERA Performance Profile — Lite): a 10-question, mobile-first assessment on /assessment. One question per screen, scale 1–5 (Almost never → Almost always), with progress (e.g. 3 / 10) and Back / Next (Finish on the last question).
+- Centralized scoring in code (reverse-scored items Q2, Q4, Q6, Q8; five domain averages; four derived composites; band labels; internal profile_key for the four MVP profile types). Results are stored per completion as a new row in npp_assessment_results (append-only history; no overwriting past runs).
+- Post-program transition: after completing Day 5 of the 5-day program, the user is taken to /program/complete with a short “next step” message and a primary call-to-action toward NPP Lite.
+- Dashboard primary CTA: when all five program days are complete, the main button is no longer a passive “Program complete” label; it reads “Continue your training” and leads to /program/complete (aligned with client feedback).
+- Retake NPP: dashboard link “Retake NPP” goes to /assessment; each full completion inserts another history row.
+- UI: key secondary actions on dashboard, program overview, program completion, and assessment pages use SecondaryButton (tap-friendly) instead of text-only links where appropriate.
+
+2) What to review (client-facing)
+
+Recommended walkthrough:
+
+- Sign in → Dashboard → confirm primary program CTA while days remain incomplete (“Begin day 1” / “Continue your practice”).
+- Complete or simulate full program → after Day 5, land on /program/complete → “Continue to NPP Lite” → complete all 10 NPP Lite questions → see “Assessment saved” confirmation.
+- From Dashboard → “Retake NPP” → complete assessment again → confirm two rows in history (via technical verification or future M4 UI).
+- Dashboard → when 5/5 days complete, primary CTA “Continue your training” → /program/complete.
+- Bottom nav → Assess → NPP Lite flow.
+
+3) What is included in this milestone (high level)
+
+Routes (app)
+
+- /assessment — NPP Lite intro + interactive 10-step flow (client component).
+- /program/complete — Shown only when all five program days are completed; otherwise redirects to /program. Primary CTA to /assessment; secondary actions (e.g. home, program list) as buttons.
+
+Behavior
+
+- Program: completing Day 5 redirects to /program/complete (not only /program).
+- NPP Lite: submit via server action; scores computed server-side; insert into npp_assessment_results.
+
+Out of scope for M3 (unchanged)
+
+- Full results UX (Profile → Domains → Strengths screens): planned for M4.
+- Program audio and final content polish: M5.
+
+4) Data + access rules (simple explanation)
+
+- Row Level Security: users only read/insert their own npp_assessment_results rows (same pattern as M2 for program data).
+- History: each assessment completion is a new row (user_id, created_at, responses, domain_scores, derived_map, profile_key, scoring_version). Retakes add rows; older rows are not replaced.
+
+5) Product copy notes (client-aligned)
+
+- Primary action clarity: directional CTA after program completion (“Continue your training”) instead of a passive completion label.
+- Post-program: intentional transition at /program/complete before NPP Lite.
+- Assessment framing: NPP Lite positioned as the natural next step to understand current mental performance profile after the 5-day sequence (English UI copy per repo convention).
+
+6) Source of truth (where things live in the repo)
+
+- NPP Lite UI flow: src/app/(app)/assessment/assessment-flow.tsx
+- Assessment page shell + secondary nav buttons: src/app/(app)/assessment/page.tsx
+- Submit + persist: src/app/(app)/assessment/_actions.ts
+- Scoring: src/lib/scoring/npp-lite.ts
+- Program completion redirect: src/app/(app)/program/_actions.ts
+- Post-program transition page: src/app/(app)/program/complete/page.tsx
+- Dashboard CTA + Retake NPP: src/app/(app)/dashboard/page.tsx
+- Secondary button primitive: src/components/secondary-button.tsx
+- DB schema (npp_assessment_results): supabase/migrations/001_initial_schema.sql
+- RLS policies (includes npp_*): supabase/migrations/20260415152600_fix_rls_initplan_auth_uid.sql
+
+7) What’s next (M4+)
+
+- M4: Results screens (profile name + copy, domain breakdown, strengths/focus) wired to latest npp_assessment_results and/or history.
+- M5: Program audio URLs, content polish, tests, documentation hardening.

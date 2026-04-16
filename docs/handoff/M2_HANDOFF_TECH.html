@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Milestone 2 Handoff Package (Tech)</title>
+    <style>
+      :root {
+        --bg: #0b0c0f;
+        --card: #12141b;
+        --text: #e8eaf0;
+        --muted: #a7afc0;
+        --border: rgba(255, 255, 255, 0.12);
+        --accent: #9aa6ff;
+        --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      }
+
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f6f7fb;
+          --card: #ffffff;
+          --text: #0b0c0f;
+          --muted: #46506a;
+          --border: rgba(10, 12, 15, 0.14);
+          --accent: #3a46ff;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--sans);
+        line-height: 1.5;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .wrap {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 48px 20px;
+      }
+
+      .top {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 18px;
+      }
+
+      .brand {
+        font-size: 12px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-weight: 650;
+      }
+
+      h1 {
+        margin: 6px 0 0;
+        font-size: 28px;
+        letter-spacing: -0.02em;
+      }
+
+      .meta {
+        color: var(--muted);
+        font-size: 13px;
+        margin-top: 6px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 20px;
+      }
+
+      @media (min-width: 860px) {
+        .grid {
+          grid-template-columns: 1.2fr 0.8fr;
+        }
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 22px;
+      }
+
+      .card h2 {
+        margin: 0 0 10px;
+        font-size: 16px;
+        letter-spacing: -0.01em;
+      }
+
+      .card p {
+        margin: 10px 0;
+        color: var(--text);
+      }
+
+      ul {
+        margin: 10px 0 0;
+        padding-left: 18px;
+        color: var(--text);
+      }
+
+      li {
+        margin: 6px 0;
+      }
+
+      code,
+      .pill {
+        font-family: var(--mono);
+      }
+
+      .pill {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 12px;
+        margin-right: 8px;
+      }
+
+      .kvs {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .kv {
+        padding: 12px 14px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .k {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+      .v {
+        font-size: 14px;
+        color: var(--text);
+        word-break: break-word;
+      }
+
+      .small {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .hr {
+        height: 1px;
+        background: var(--border);
+        margin: 14px 0;
+      }
+
+      .appendix {
+        margin-top: 16px;
+      }
+
+      .appendix h2 {
+        margin: 0 0 10px;
+        font-size: 16px;
+        letter-spacing: -0.01em;
+      }
+
+      .appendix h3 {
+        margin: 18px 0 8px;
+        font-size: 13px;
+        letter-spacing: -0.01em;
+        color: var(--muted);
+        font-weight: 650;
+      }
+
+      pre.doc {
+        margin: 0;
+        padding: 14px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.03);
+        overflow: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
+        font-family: var(--mono);
+        font-size: 12px;
+        line-height: 1.45;
+        color: var(--text);
+      }
+
+      @media print {
+        :root {
+          --bg: #ffffff;
+          --card: #f7f8fc;
+          --text: #0b0c0f;
+          --muted: #46506a;
+          --border: rgba(10, 12, 15, 0.28);
+          --accent: #2430ff;
+        }
+        body {
+          background: #ffffff;
+        }
+        .wrap {
+          padding: 24px 18px;
+        }
+        .card {
+          border-color: rgba(10, 12, 15, 0.28);
+        }
+        .pill {
+          border-color: rgba(10, 12, 15, 0.22);
+          color: #46506a;
+        }
+        .kv {
+          background: #ffffff;
+          border-color: rgba(10, 12, 15, 0.22);
+        }
+        a {
+          color: #2430ff;
+          text-decoration: underline;
+        }
+        pre.doc {
+          background: #ffffff;
+          border-color: rgba(10, 12, 15, 0.22);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="top">
+        <div>
+          <div class="brand">Milestone 2</div>
+          <h1>Handoff Package</h1>
+          <div class="meta">Status: <strong>Complete</strong> (Auth + program flow)</div>
+        </div>
+        <div class="meta">
+          <span class="pill">Next.js</span>
+          <span class="pill">Supabase Auth</span>
+          <span class="pill">RLS</span>
+          <span class="pill">Program</span>
+        </div>
+      </div>
+
+      <div class="grid">
+        <section class="card">
+          <h2>1) What was completed in Milestone 2</h2>
+          <ul>
+            <li>
+              Supabase Auth flows are implemented: sign up (email confirmation),
+              sign in, forgot password, and password update via reset link.
+            </li>
+            <li>
+              Protected app shell: logged-in routes, session handling, sign out,
+              and bottom navigation.
+            </li>
+            <li>
+              5-day program: day list, day screens, reflection required on completion,
+              locked/current/completed states, and saved progress per user.
+            </li>
+          </ul>
+
+          <div class="hr"></div>
+
+          <h2>2) Key routes</h2>
+          <ul>
+            <li><strong>Auth</strong>: <code>/sign-up</code>, <code>/sign-in</code>, <code>/forgot-password</code>, <code>/update-password</code>, <code>/check-email</code></li>
+            <li><strong>App</strong>: <code>/dashboard</code>, <code>/program</code>, <code>/program/day/[day]</code></li>
+            <li><strong>Placeholders</strong>: <code>/assessment</code> (M3), <code>/insights</code> (M4), <code>/profile</code> (settings shell)</li>
+          </ul>
+
+          <div class="hr"></div>
+
+          <h2>3) Data model (M2-relevant)</h2>
+          <p class="small">Source of truth: <code>supabase/migrations/001_initial_schema.sql</code> and <code>supabase/migrations/20260415152600_fix_rls_initplan_auth_uid.sql</code></p>
+          <ul>
+            <li>
+              <strong>Program unlock</strong>: <code>public.user_profiles.program_max_unlocked_day</code>
+              is the fast “what day is available” source of truth (1–5).
+            </li>
+            <li>
+              <strong>Program progress</strong>: <code>public.program_day_progress</code> stores one row per day
+              (1–5) with <code>completed_at</code> and <code>reflection_payload</code>.
+            </li>
+            <li>
+              <strong>RLS</strong>: each user can only access their own data. Policies use initplan-friendly
+              <code>(select auth.uid())</code> calls.
+            </li>
+          </ul>
+        </section>
+
+        <aside class="card">
+          <h2>4) Setup confirmation</h2>
+          <div class="kvs">
+            <div class="kv">
+              <div class="k">Live app</div>
+              <div class="v">
+                <a href="https://mvp-for-mental-performance-app.vercel.app"
+                  >https://mvp-for-mental-performance-app.vercel.app</a
+                >
+              </div>
+            </div>
+            <div class="kv">
+              <div class="k">Supabase Auth redirect URLs</div>
+              <div class="v">
+                Configure in Supabase (Auth → URL Configuration):
+                <code>http://localhost:3000/**</code> and
+                <code>https://mvp-for-mental-performance-app.vercel.app/**</code>
+              </div>
+            </div>
+            <div class="kv">
+              <div class="k">Where the auth redirects are set in code</div>
+              <div class="v">
+                <code>src/app/(auth)/_actions.ts</code>:
+                <code>emailRedirectTo = &lt;origin&gt;/dashboard</code>,
+                <code>redirectTo = &lt;origin&gt;/update-password</code>
+              </div>
+            </div>
+          </div>
+
+          <div class="hr"></div>
+
+          <h2>5) Implementation pointers</h2>
+          <ul>
+            <li><strong>Auth server actions</strong>: <code>src/app/(auth)/_actions.ts</code></li>
+            <li><strong>Password reset client flow</strong>: <code>src/app/(auth)/update-password/update-password-form.tsx</code></li>
+            <li><strong>App protection</strong>: <code>src/app/(app)/layout.tsx</code> redirects unauthenticated users to <code>/sign-in</code></li>
+            <li><strong>Bottom navigation</strong>: <code>src/components/bottom-nav.tsx</code></li>
+            <li><strong>Program completion action</strong>: <code>src/app/(app)/program/_actions.ts</code></li>
+            <li><strong>Program data helpers</strong>: <code>src/lib/program/server.ts</code></li>
+          </ul>
+        </aside>
+      </div>
+
+      <section class="card appendix">
+        <h2>Appendix — Key technical snippets</h2>
+        <p class="small">
+          The sections below embed the most important milestone-specific snippets
+          for handoff review (auth actions, program completion, and the RLS policy fix).
+        </p>
+
+        <h3>Auth server actions (src/app/(auth)/_actions.ts)</h3>
+        <pre class="doc">"use server";
+
+import { createClient } from "@/lib/supabase/server";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
+
+async function getOrigin() {
+  const h = await headers();
+  const origin = h.get("origin");
+  if (origin) return origin;
+  const host = h.get("host");
+  if (!host) return "http://localhost:3000";
+  const proto = h.get("x-forwarded-proto") ?? "http";
+  return `${proto}://${host}`;
+}
+
+export async function signUpAction(formData: FormData) {
+  const email = String(formData.get("email") ?? "").trim();
+  const password = String(formData.get("password") ?? "");
+  const confirmPassword = String(formData.get("confirmPassword") ?? "");
+
+  if (!email || !password || password !== confirmPassword) {
+    redirect("/sign-up?error=invalid");
+  }
+
+  const supabase = await createClient();
+  const origin = await getOrigin();
+
+  const { error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      emailRedirectTo: `${origin}/dashboard`,
+    },
+  });
+
+  if (error) {
+    redirect(`/sign-up?error=${encodeURIComponent(error.message)}`);
+  }
+
+  redirect("/check-email");
+}
+
+export async function signInAction(formData: FormData) {
+  const email = String(formData.get("email") ?? "").trim();
+  const password = String(formData.get("password") ?? "");
+
+  if (!email || !password) redirect("/sign-in?error=invalid");
+
+  const supabase = await createClient();
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+  if (error) redirect(`/sign-in?error=${encodeURIComponent(error.message)}`);
+
+  redirect("/dashboard");
+}
+
+export async function sendPasswordResetAction(formData: FormData) {
+  const email = String(formData.get("email") ?? "").trim();
+  if (!email) redirect("/forgot-password?error=invalid");
+
+  const supabase = await createClient();
+  const origin = await getOrigin();
+
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${origin}/update-password`,
+  });
+
+  if (error) {
+    redirect(`/forgot-password?error=${encodeURIComponent(error.message)}`);
+  }
+
+  redirect("/check-email");
+}</pre>
+
+        <h3>Program completion (src/app/(app)/program/_actions.ts)</h3>
+        <pre class="doc">"use server";
+
+import { createClient } from "@/lib/supabase/server";
+import { clampDayIndex, getUserProfile } from "@/lib/program/server";
+import { redirect } from "next/navigation";
+
+export async function completeDayAction(formData: FormData) {
+  const day = clampDayIndex(Number(formData.get("day")));
+  const reflectionChoice = String(formData.get("reflectionChoice") ?? "").trim();
+
+  if (!reflectionChoice) redirect(`/program/day/${day}?error=reflection`);
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) redirect("/sign-in");
+
+  const profile = await getUserProfile(user.id);
+  if (day > profile.program_max_unlocked_day) redirect("/program");
+
+  const now = new Date().toISOString();
+
+  const { error: progressError } = await supabase
+    .from("program_day_progress")
+    .update({
+      completed_at: now,
+      reflection_payload: { choice: reflectionChoice },
+    })
+    .eq("user_id", user.id)
+    .eq("day_index", day);
+
+  if (progressError) redirect(`/program/day/${day}?error=${progressError.message}`);
+
+  const nextMax = Math.min(5, day + 1);
+  if (profile.program_max_unlocked_day < nextMax) {
+    const { error: profileError } = await supabase
+      .from("user_profiles")
+      .update({ program_max_unlocked_day: nextMax })
+      .eq("id", user.id);
+
+    if (profileError) redirect(`/program/day/${day}?error=${profileError.message}`);
+  }
+
+  if (day < 5) redirect(`/program/day/${day + 1}`);
+  redirect("/program");
+}</pre>
+
+        <h3>RLS initplan policy fix (supabase/migrations/20260415152600_fix_rls_initplan_auth_uid.sql)</h3>
+        <pre class="doc">-- Fix Supabase linter WARN: auth_rls_initplan
+-- Use initplan-friendly auth function calls in RLS policies:
+-- https://supabase.com/docs/guides/database/postgres/row-level-security#call-functions-with-select
+
+drop policy if exists "user_profiles_select_own" on public.user_profiles;
+create policy "user_profiles_select_own"
+  on public.user_profiles for select
+  using ((select auth.uid()) = id);
+
+drop policy if exists "user_profiles_update_own" on public.user_profiles;
+create policy "user_profiles_update_own"
+  on public.user_profiles for update
+  using ((select auth.uid()) = id);
+
+drop policy if exists "npp_select_own" on public.npp_assessment_results;
+create policy "npp_select_own"
+  on public.npp_assessment_results for select
+  using ((select auth.uid()) = user_id);
+
+drop policy if exists "npp_insert_own" on public.npp_assessment_results;
+create policy "npp_insert_own"
+  on public.npp_assessment_results for insert
+  with check ((select auth.uid()) = user_id);
+
+drop policy if exists "program_select_own" on public.program_day_progress;
+create policy "program_select_own"
+  on public.program_day_progress for select
+  using ((select auth.uid()) = user_id);
+
+drop policy if exists "program_insert_own" on public.program_day_progress;
+create policy "program_insert_own"
+  on public.program_day_progress for insert
+  with check ((select auth.uid()) = user_id);
+
+drop policy if exists "program_update_own" on public.program_day_progress;
+create policy "program_update_own"
+  on public.program_day_progress for update
+  using ((select auth.uid()) = user_id);</pre>
+      </section>
+    </div>
+  </body>
+</html>
+

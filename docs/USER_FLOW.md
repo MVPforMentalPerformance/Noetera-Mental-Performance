@@ -6,7 +6,7 @@
 2. Sign up or sign in.
 3. Dashboard (home).
 4. Start the 5-day program; complete days **in order** (next day opens after the previous is done).
-5. After day 5 — prompt to take **NPP Lite**.
+5. After day 5 — a short transition moment, then prompt to take **NPP Lite**.
 6. Complete the assessment (10 questions, fast mobile-friendly flow).
 7. Scores and profile computed (client/server) and saved as a **new** row in results history.
 8. Results sequence: **Profile** → **Domains** → **Strengths & focus**.

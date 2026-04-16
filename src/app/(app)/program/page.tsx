@@ -1,5 +1,5 @@
 import { AppCard } from "@/components/app-card";
-import { TextLink } from "@/components/text-link";
+import { SecondaryButton } from "@/components/secondary-button";
 import { ensureProgramProgressRows, getUserProfile, getUserOrNull } from "@/lib/program/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -143,10 +143,10 @@ export default async function ProgramPage() {
           })}
         </div>
 
-        <div className="mt-6 text-center">
-          <TextLink href="/dashboard" className="text-sm">
-            Return to dashboard
-          </TextLink>
+        <div className="mt-6">
+          <Link href="/dashboard" className="block cursor-pointer">
+            <SecondaryButton type="button">Return to dashboard</SecondaryButton>
+          </Link>
         </div>
       </AppCard>
     </main>

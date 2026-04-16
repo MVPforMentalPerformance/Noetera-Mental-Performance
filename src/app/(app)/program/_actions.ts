@@ -44,6 +44,6 @@ export async function completeDayAction(formData: FormData) {
   }
 
   if (day < 5) redirect(`/program/day/${day + 1}`);
-  redirect("/program");
+  redirect("/program/complete");
 }
 

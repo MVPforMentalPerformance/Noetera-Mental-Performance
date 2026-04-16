@@ -1,6 +1,6 @@
-import { AppCard } from "@/components/app-card";
-import { PrimaryButton } from "@/components/primary-button";
-import { TextLink } from "@/components/text-link";
+import { SecondaryButton } from "@/components/secondary-button";
+import { AssessmentFlow } from "./assessment-flow";
+import Link from "next/link";
 
 export default function AssessmentPage() {
   return (
@@ -11,30 +11,22 @@ export default function AssessmentPage() {
           <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">Assessment</p>
           <h1 className="mt-2 text-4xl leading-[1.05] text-ink">NPP Lite</h1>
           <p className="mt-4 text-sm leading-relaxed text-muted">
-            A short 10-item check-in across five mental performance domains. Your score history is never overwritten.
+            A fast 10-item performance profile across five mental training domains. Take it after the 5-day sequence (or
+            anytime) to see what is strongest right now and where to focus next. Your score history is never overwritten.
           </p>
         </div>
       </header>
 
-      <AppCard className="p-6">
-        <p className="text-sm font-semibold text-ink">Coming in M3</p>
-        <p className="mt-2 text-sm text-muted">
-          This screen is a placeholder until the question flow and scoring engine ship.
-        </p>
-        <div className="mt-5">
-          <PrimaryButton type="button" disabled>
-            Start assessment
-          </PrimaryButton>
-        </div>
-        <div className="mt-4 flex items-center justify-between">
-          <TextLink href="/dashboard" className="text-xs">
-            Back to home
-          </TextLink>
-          <TextLink href="/program" className="text-xs">
-            Continue program instead
-          </TextLink>
-        </div>
-      </AppCard>
+      <AssessmentFlow />
+
+      <div className="grid grid-cols-2 gap-3">
+        <Link href="/dashboard" className="block cursor-pointer">
+          <SecondaryButton type="button">Back to home</SecondaryButton>
+        </Link>
+        <Link href="/program" className="block cursor-pointer">
+          <SecondaryButton type="button">Continue program</SecondaryButton>
+        </Link>
+      </div>
     </main>
   );
 }

@@ -2,7 +2,7 @@ import { AppCard } from "@/components/app-card";
 import { IconButton } from "@/components/icon-button";
 import { PrimaryButton } from "@/components/primary-button";
 import { RingProgress } from "@/components/ring-progress";
-import { TextLink } from "@/components/text-link";
+import { SecondaryButton } from "@/components/secondary-button";
 import { ensureProgramProgressRows, getUserOrNull } from "@/lib/program/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -14,7 +14,7 @@ function clamp(n: number, min: number, max: number) {
 
 function getPrimaryProgramCta(progress: Awaited<ReturnType<typeof ensureProgramProgressRows>>) {
   const nextIncomplete = progress.find((d) => d.completed_at == null);
-  if (!nextIncomplete) return { label: "Program complete", href: "/program" };
+  if (!nextIncomplete) return { label: "Continue your training", href: "/program/complete" };
   const started = progress.some((d) => d.completed_at != null);
   return {
     label: started ? "Continue your practice" : "Begin day 1",
@@ -172,12 +172,18 @@ async function DashboardContent() {
           </span>
         </div>
         <div className="mt-6 flex items-center justify-between gap-3">
-          <TextLink href="/program" className="text-sm">
-            Browse program days
-          </TextLink>
-          <TextLink href="/program" className="text-sm">
-            Retake NPP
-          </TextLink>
+          <div className="grid w-full grid-cols-2 gap-3">
+            <Link href="/program" className="block cursor-pointer">
+              <SecondaryButton type="button" className="py-3">
+                Browse program days
+              </SecondaryButton>
+            </Link>
+            <Link href="/assessment" className="block cursor-pointer">
+              <SecondaryButton type="button" className="py-3">
+                Retake NPP
+              </SecondaryButton>
+            </Link>
+          </div>
         </div>
       </AppCard>
     </main>

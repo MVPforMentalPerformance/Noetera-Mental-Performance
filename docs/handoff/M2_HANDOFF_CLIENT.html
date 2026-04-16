@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Milestone 2 Handoff Package</title>
+    <style>
+      :root {
+        --bg: #0b0c0f;
+        --card: #12141b;
+        --text: #e8eaf0;
+        --muted: #a7afc0;
+        --border: rgba(255, 255, 255, 0.12);
+        --accent: #9aa6ff;
+        --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial;
+      }
+
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f6f7fb;
+          --card: #ffffff;
+          --text: #0b0c0f;
+          --muted: #46506a;
+          --border: rgba(10, 12, 15, 0.14);
+          --accent: #3a46ff;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--sans);
+        line-height: 1.5;
+      }
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .wrap {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 48px 20px;
+      }
+      .top {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 18px;
+      }
+      .brand {
+        font-size: 12px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-weight: 650;
+      }
+      h1 {
+        margin: 6px 0 0;
+        font-size: 28px;
+        letter-spacing: -0.02em;
+      }
+      .meta {
+        color: var(--muted);
+        font-size: 13px;
+        margin-top: 6px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 20px;
+      }
+      @media (min-width: 860px) {
+        .grid {
+          grid-template-columns: 1.2fr 0.8fr;
+        }
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 22px;
+      }
+      .card h2 {
+        margin: 0 0 10px;
+        font-size: 16px;
+        letter-spacing: -0.01em;
+      }
+      ul {
+        margin: 10px 0 0;
+        padding-left: 18px;
+        color: var(--text);
+      }
+      li {
+        margin: 6px 0;
+      }
+      code,
+      .pill {
+        font-family: var(--mono);
+      }
+      .pill {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 12px;
+        margin-right: 8px;
+      }
+      .small {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .kvs {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .kv {
+        padding: 12px 14px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .k {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+      .v {
+        font-size: 14px;
+        color: var(--text);
+        word-break: break-word;
+      }
+      .hr {
+        height: 1px;
+        background: var(--border);
+        margin: 14px 0;
+      }
+
+      @media print {
+        :root {
+          --bg: #ffffff;
+          --card: #f7f8fc;
+          --text: #0b0c0f;
+          --muted: #46506a;
+          --border: rgba(10, 12, 15, 0.28);
+          --accent: #2430ff;
+        }
+        body {
+          background: #ffffff;
+        }
+        .wrap {
+          padding: 24px 18px;
+        }
+        a {
+          color: #2430ff;
+          text-decoration: underline;
+        }
+        .kv {
+          background: #ffffff;
+          border-color: rgba(10, 12, 15, 0.22);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="top">
+        <div>
+          <div class="brand">Milestone 2</div>
+          <h1>Handoff Package</h1>
+          <div class="meta">Status: <strong>Complete</strong></div>
+        </div>
+        <div class="meta">
+          <span class="pill">Auth</span>
+          <span class="pill">Program</span>
+          <span class="pill">Progress</span>
+          <span class="pill">Navigation</span>
+          <span class="pill">RLS</span>
+        </div>
+      </div>
+
+      <div class="grid">
+        <section class="card">
+          <h2>1) What was completed</h2>
+          <ul>
+            <li>
+              Authentication is implemented end-to-end (sign up, sign in, forgot
+              password, update password).
+            </li>
+            <li>
+              The logged-in app shell is in place: protected pages, session
+              handling, sign out, and bottom navigation.
+            </li>
+            <li>
+              The 5-day Mental Clarity program flow is implemented with
+              locked/current/completed states and saved progress per user.
+            </li>
+          </ul>
+
+          <div class="hr"></div>
+
+          <h2>2) What to review (recommended client walkthrough)</h2>
+          <ul>
+            <li>Create account → confirm email → dashboard</li>
+            <li>Sign in → dashboard → start/continue the program</li>
+            <li>
+              Program day: choose a reflection option → complete day → next day
+              unlocks
+            </li>
+            <li>Forgot password → reset link → set new password → dashboard</li>
+          </ul>
+
+          <p class="small">
+            Note: Assessment (NPP Lite), insights screens, and program audio are
+            intentionally marked as “coming soon” in later milestones.
+          </p>
+        </section>
+
+        <aside class="card">
+          <h2>3) Access</h2>
+          <div class="kvs">
+            <div class="kv">
+              <div class="k">Live app</div>
+              <div class="v">
+                <a href="https://mvp-for-mental-performance-app.vercel.app"
+                  >https://mvp-for-mental-performance-app.vercel.app</a
+                >
+              </div>
+            </div>
+            <div class="kv">
+              <div class="k">Main areas</div>
+              <div class="v">
+                <code>/sign-up</code>, <code>/sign-in</code>,
+                <code>/forgot-password</code>, <code>/dashboard</code>,
+                <code>/program</code>
+              </div>
+            </div>
+            <div class="kv">
+              <div class="k">Progress behavior</div>
+              <div class="v">
+                Completing a day saves progress and unlocks the next day (up to
+                Day 5).
+              </div>
+            </div>
+          </div>
+
+          <div class="hr"></div>
+
+          <h2>4) What’s next</h2>
+          <ul>
+            <li>M3: NPP Lite assessment flow + scoring + history</li>
+            <li>M4: Results screens (profile, domains, strengths)</li>
+            <li>M5: Audio library hookup + program content polish</li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </body>
+</html>
+

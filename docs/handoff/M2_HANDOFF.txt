@@ -1,0 +1,54 @@
+Milestone 2 — Handoff Package
+
+Status: Milestone 2 is complete (Auth + protected app shell + 5-day program flow).
+Live URL: https://mvp-for-mental-performance-app.vercel.app
+
+1) Short summary (what was completed in Milestone 2)
+- Authentication is implemented end-to-end with Supabase Auth (sign up, sign in, forgot password, update password).
+- The “logged-in” experience is now real: protected routes, session handling, sign out, and app navigation.
+- The 5-day Mental Clarity program flow is implemented (days 1–5), including locked/current/completed states, progress persistence, and a reflection step on completion.
+
+2) What to review (client-facing)
+Primary journey to review:
+- Create account → confirm email → land on dashboard
+- Sign in → dashboard → start/continue the program
+- Program: open the current day → select a reflection option → complete day → next day unlocks
+- Forgot password → reset link → set new password → back to dashboard
+
+3) What is included in this milestone (high level)
+Auth (M2)
+- Sign up: /sign-up (with email confirmation step)
+- Sign in: /sign-in
+- Forgot password: /forgot-password
+- Update password (reset link landing): /update-password
+- “Check your email” confirmation screen: /check-email
+
+App shell (M2)
+- Protected app area requires login (redirects to /sign-in if not authenticated)
+- Bottom navigation: Today / Assess / Plan / Insights / Profile
+
+Program flow (M2)
+- Program overview list: /program (shows Day 1–5 with statuses)
+- Day screen: /program/day/[day] (reflection required before completion)
+- Progress is stored per user (program_day_progress) and unlock state is stored (user_profiles.program_max_unlocked_day)
+
+4) Data + access rules (simple explanation)
+- Each user only sees and updates their own rows (Row Level Security).
+- Program progress is persisted:
+  - Completing a day writes completed_at + reflection_payload for that day.
+  - Unlocking advances program_max_unlocked_day (up to day 5).
+
+5) Notes / known “coming soon”
+- Assessment (NPP Lite) flow + scoring is intentionally marked “Coming in M3”.
+- Insights (results screens) are planned for M4.
+- Audio library hookup is planned for M5 (the program day screen already mirrors the final guided structure).
+
+6) Source of truth (where things live in the repo)
+- Auth actions: src/app/(auth)/_actions.ts
+- App protection + navigation: src/app/(app)/layout.tsx and src/components/bottom-nav.tsx
+- Program day completion action: src/app/(app)/program/_actions.ts
+- Program server helpers (progress + profile): src/lib/program/server.ts
+- DB migrations:
+  - supabase/migrations/001_initial_schema.sql
+  - supabase/migrations/20260415152600_fix_rls_initplan_auth_uid.sql
+
