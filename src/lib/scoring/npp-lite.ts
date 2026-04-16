@@ -66,9 +66,10 @@ function pickProfileKey(domains: Record<NppLiteDomainKey, NppLiteScoreSnapshot>)
 }
 
 export function scoreNppLite(input: { responses: Array<number> | NppLiteResponseMap }): NppLiteScoringResult {
-  const arr = Array.isArray(input.responses)
-    ? input.responses
-    : Array.from({ length: 10 }, (_, i) => input.responses[String(i + 1)]);
+  const raw = input.responses;
+  const arr = Array.isArray(raw)
+    ? raw
+    : Array.from({ length: 10 }, (_, i) => (raw as NppLiteResponseMap)[String(i + 1)]);
 
   if (arr.length !== 10) throw new Error("NPP Lite requires 10 responses.");
 
