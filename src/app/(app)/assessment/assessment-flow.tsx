@@ -2,8 +2,9 @@
 
 import { AppCard } from "@/components/app-card";
 import { PrimaryButton } from "@/components/primary-button";
-import { TextLink } from "@/components/text-link";
+import { SecondaryButton } from "@/components/secondary-button";
 import { submitNppLiteAction } from "./_actions";
+import Link from "next/link";
 import { useMemo, useState, useTransition } from "react";
 
 type NppQuestion = {
@@ -106,14 +107,18 @@ export function AssessmentFlow() {
   if (isDone) {
     return (
       <AppCard className="p-6">
-        <p className="text-sm font-semibold text-ink">Assessment saved</p>
+        <p className="text-sm font-semibold text-ink">Snapshot captured</p>
         <p className="mt-2 text-sm text-muted">
-          Your NPP Lite result has been added to your history. Results screens are coming in the next milestone.
+          Your NPP Lite results are ready. Take a minute to review your profile, domains, and strengths — then choose what
+          to train next.
         </p>
-        <div className="mt-5">
-          <TextLink href="/dashboard" className="text-sm">
-            Back to home
-          </TextLink>
+        <div className="mt-6 grid grid-cols-2 gap-3">
+          <Link href="/dashboard" className="block cursor-pointer">
+            <SecondaryButton type="button">Back to home</SecondaryButton>
+          </Link>
+          <Link href="/insights" className="block cursor-pointer">
+            <PrimaryButton type="button">View results</PrimaryButton>
+          </Link>
         </div>
       </AppCard>
     );
@@ -131,6 +136,7 @@ export function AssessmentFlow() {
         <ProgressBar value={pct} />
       </div>
 
+      <p className="mt-5 text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">Quick check-in</p>
       <h2 className="mt-5 text-2xl leading-tight text-ink">{q.text}</h2>
 
       <div className="mt-6" role="radiogroup" aria-label={`Question ${q.id}`}>
@@ -166,14 +172,13 @@ export function AssessmentFlow() {
       {submitError ? <p className="mt-4 text-sm font-semibold text-danger">{submitError}</p> : null}
 
       <div className="mt-6 grid grid-cols-2 gap-3">
-        <PrimaryButton
+        <SecondaryButton
           type="button"
           onClick={goBack}
           disabled={idx === 0 || isPending}
-          className="bg-surface2/70 text-white shadow-none ring-1 ring-border/90 hover:bg-surface2 hover:text-white hover:brightness-100"
         >
           Back
-        </PrimaryButton>
+        </SecondaryButton>
 
         {isLast ? (
           <PrimaryButton type="button" onClick={submit} disabled={!canGoNext || isPending}>

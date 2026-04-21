@@ -1,6 +1,8 @@
 import { AppCard } from "@/components/app-card";
-import { ListRow } from "@/components/list-row";
-import { TextLink } from "@/components/text-link";
+import { PrimaryButton } from "@/components/primary-button";
+import { getLatestNppAssessmentResult } from "@/lib/npp/server";
+import Link from "next/link";
+import { ResultsWizard } from "./results-wizard";
 
 export default function InsightsPage() {
   return (
@@ -16,20 +18,44 @@ export default function InsightsPage() {
         </div>
       </header>
 
-      <AppCard className="p-6">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">Screens</p>
-        <div className="mt-4 flex flex-col gap-3">
-          <ListRow title="Performance profile" subtitle="Your dominant pattern + short guidance (M4)" />
-          <ListRow title="Domain breakdown" subtitle="Five domains with banding + one-line insight (M4)" />
-          <ListRow title="Strengths & focus" subtitle="Top strengths + growth areas (M4)" />
-        </div>
-        <div className="mt-6 text-center">
-          <TextLink href="/assessment" className="text-sm">
-            Take NPP Lite first
-          </TextLink>
-        </div>
-      </AppCard>
+      <InsightsBody />
     </main>
   );
+}
+
+async function InsightsBody() {
+  const { user, result } = await getLatestNppAssessmentResult();
+
+  if (!user) {
+    return (
+      <AppCard className="p-6">
+        <p className="text-sm font-semibold text-ink">Sign in required</p>
+        <p className="mt-2 text-sm text-muted">Please sign in to view results.</p>
+        <div className="mt-5">
+          <Link href="/sign-in" className="block cursor-pointer">
+            <PrimaryButton type="button">Sign in</PrimaryButton>
+          </Link>
+        </div>
+      </AppCard>
+    );
+  }
+
+  if (!result) {
+    return (
+      <AppCard className="p-6">
+        <p className="text-sm font-semibold text-ink">No results yet</p>
+        <p className="mt-2 text-sm text-muted">
+          Take NPP Lite to generate your profile, domain breakdown, and strengths snapshot.
+        </p>
+        <div className="mt-5">
+          <Link href="/assessment" className="block cursor-pointer">
+            <PrimaryButton type="button">Take NPP Lite</PrimaryButton>
+          </Link>
+        </div>
+      </AppCard>
+    );
+  }
+
+  return <ResultsWizard result={result} />;
 }
 

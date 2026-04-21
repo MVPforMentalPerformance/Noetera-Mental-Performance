@@ -3,6 +3,9 @@ import { IconButton } from "@/components/icon-button";
 import { PrimaryButton } from "@/components/primary-button";
 import { RingProgress } from "@/components/ring-progress";
 import { SecondaryButton } from "@/components/secondary-button";
+import { TextLink } from "@/components/text-link";
+import { PROFILE_COPY } from "@/lib/npp/copy";
+import { getLatestNppAssessmentResultForUser } from "@/lib/npp/server";
 import { ensureProgramProgressRows, getUserOrNull } from "@/lib/program/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -86,6 +89,7 @@ async function DashboardContent() {
   if (!user) redirect("/sign-in");
 
   const progress = await ensureProgramProgressRows(user.id, supabase);
+  const latestNpp = await getLatestNppAssessmentResultForUser(user.id, supabase);
 
   const cta = getPrimaryProgramCta(progress);
   const completedCount = progress.filter((d) => d.completed_at != null).length;
@@ -163,27 +167,52 @@ async function DashboardContent() {
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
             <h2 className="text-3xl leading-tight text-ink">Personal profile</h2>
-            <p className="mt-3 text-sm text-muted">
-              Your NPP Lite profile and trend snapshots will appear here after assessments ship.
-            </p>
+            {latestNpp ? (
+              <>
+                <p className="mt-3 text-sm font-semibold text-ink">{PROFILE_COPY[latestNpp.profile_key].title}</p>
+                <p className="mt-2 text-sm text-muted">
+                  Your latest NPP Lite snapshot is ready. View the full results sequence when you’re ready.
+                </p>
+              </>
+            ) : (
+              <p className="mt-3 text-sm text-muted">
+                Take NPP Lite to generate your profile, domain breakdown, and strengths snapshot.
+              </p>
+            )}
           </div>
-          <span className="shrink-0 rounded-full border border-border bg-surface px-3 py-1 text-[11px] font-semibold text-muted">
-            Coming soon
-          </span>
+          {latestNpp ? (
+            <span className="shrink-0 rounded-full border border-border bg-surface px-3 py-1 text-[11px] font-semibold text-muted">
+              Updated
+            </span>
+          ) : null}
         </div>
         <div className="mt-6 flex items-center justify-between gap-3">
           <div className="grid w-full grid-cols-2 gap-3">
+            {latestNpp ? (
+              <Link href="/insights" className="block cursor-pointer">
+                <SecondaryButton type="button" className="py-3">
+                  View results
+                </SecondaryButton>
+              </Link>
+            ) : (
+              <Link href="/assessment" className="block cursor-pointer">
+                <SecondaryButton type="button" className="py-3">
+                  Take NPP Lite
+                </SecondaryButton>
+              </Link>
+            )}
+
             <Link href="/program" className="block cursor-pointer">
               <SecondaryButton type="button" className="py-3">
                 Browse program days
               </SecondaryButton>
             </Link>
-            <Link href="/assessment" className="block cursor-pointer">
-              <SecondaryButton type="button" className="py-3">
-                Retake NPP
-              </SecondaryButton>
-            </Link>
           </div>
+        </div>
+        <div className="mt-4 text-center">
+          <TextLink href="/assessment" className="text-sm">
+            Retake NPP
+          </TextLink>
         </div>
       </AppCard>
     </main>

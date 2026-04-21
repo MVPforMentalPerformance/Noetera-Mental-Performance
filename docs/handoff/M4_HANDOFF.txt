@@ -1,0 +1,76 @@
+Milestone 4 — Handoff Package
+
+Status: Milestone 4 is complete (results screens on /insights, dashboard integration, and requested assessment polish).
+Live URL: https://mvp-for-mental-performance-app.vercel.app
+
+1) Short summary (what was completed in Milestone 4)
+
+- Results experience (3 screens) is now live on /insights:
+  - Performance profile (profile name + short guidance paragraph)
+  - Domain breakdown (five domains with score + band + visual bar)
+  - Strengths & focus (top strengths + focus areas + brief “next step” guidance)
+- Results data is wired to the latest saved NPP Lite completion from public.npp_assessment_results (latest-only UI; history remains append-only in the database).
+- Dashboard integration:
+  - “Personal profile” card now shows the latest profile name and a secondary CTA to view the full results sequence (/insights).
+  - When there is no saved assessment yet, the card guides users to take NPP Lite (/assessment).
+  - The program remains the primary dashboard CTA (unchanged hierarchy).
+- Assessment polish (client requests carried forward from M3 feedback):
+  - Added a soft “Quick check-in” line above each question so the assessment feels more guided.
+  - Back is visually secondary, while Next / Finish remain the clear primary action.
+  - Post-assessment completion state is more engaging (“Snapshot captured”) and points users directly to view results (/insights).
+  - Copy was centralized for consistency across results and dashboard.
+
+2) What to review (client-facing)
+
+Recommended walkthrough:
+
+- Sign in → Dashboard:
+  - Verify primary CTA remains the 5-day program (“Begin day 1” / “Continue your practice” / “Continue your training”).
+  - Verify “Personal profile” card:
+    - If the user has results, it shows a profile name + “View results” → /insights.
+    - If not, it shows “Take NPP Lite” → /assessment.
+- Take NPP Lite:
+  - Go to /assessment, answer 10 questions.
+  - Confirm the completion state reads “Snapshot captured” with a primary “View results”.
+- Results flow:
+  - Open /insights and go through the 3-step wizard:
+    1) Profile → Next
+    2) Domains → Next
+    3) Strengths & focus → Back to home
+- Retake behavior:
+  - From Dashboard: “Retake NPP” starts a new run; completion adds another row to history (UI still shows latest only).
+
+3) What is included in this milestone (high level)
+
+Routes (app)
+
+- /insights — results wizard (Profile → Domains → Strengths) from the latest NPP Lite result.
+- /dashboard — updated “Personal profile” card with live data and a link to /insights.
+- /assessment — small UX polish (guided line, button hierarchy, post-assessment CTA to results).
+
+Out of scope for M4 (unchanged)
+
+- History picker UI for older NPP runs (data already exists; UI can be added later).
+- Rule-based recommendations / conditional content using domain scores (planned for M5+).
+- Monetisation / entitlements / payments (Phase 2).
+
+4) Data + behavior notes (simple explanation)
+
+- Source table: public.npp_assessment_results (append-only).
+- M4 UI shows the latest record per user (ORDER BY created_at DESC, LIMIT 1).
+- Domain scores and derived composites are persisted and easy to access for future rule-based logic.
+
+5) Source of truth (where things live in the repo)
+
+- Results route (server component + states): src/app/(app)/insights/page.tsx
+- Results wizard UI (3 steps): src/app/(app)/insights/results-wizard.tsx
+- Latest result data access: src/lib/npp/server.ts
+- Copy mapping (profile/domain/strength labels): src/lib/npp/copy.ts
+- Dashboard integration: src/app/(app)/dashboard/page.tsx
+- Assessment polish: src/app/(app)/assessment/assessment-flow.tsx
+
+6) What’s next (M5+)
+
+- M5: program audio URLs and content polish; tests; documentation hardening.
+- M5 foundation item (recommended): provider-agnostic entitlements/access-state layer to support future IAP (Stripe remains one payment source).
+

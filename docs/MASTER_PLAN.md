@@ -17,7 +17,7 @@ This document ties together milestones, the locked scope from the Developer Hand
 | **M1** | Scope refinement, user flow, DB schema, wireframes, repo bootstrap (Next + Supabase stubs), **`src/` layout** | Done |
 | **M2** | Auth (email/password, session, forgot password), layout, navigation, program shell (days 1–5, states) | Done |
 | **M3** | NPP Lite (10 items), scoring engine, persistence (history) | Done |
-| **M4** | Results screens (profile, domains, strengths/focus) + dashboard | Planned |
+| **M4** | Results screens (profile, domains, strengths/focus) + dashboard + assessment polish | Done |
 | **M5** | Full 5-day program (content, audio via URL), UI polish, tests, deploy, documentation | Planned |
 
 ## Planning artifacts (M1)
@@ -39,6 +39,25 @@ SQL migrations: `supabase/migrations/` (apply in your Supabase project).
 4. **Design:** no Figma at this planning stage — clean, minimal, premium, mobile-first, calm, card-based, one primary CTA per screen.
 5. **Reflections:** store answers in the database (JSONB), not only “day completed”. **MVP:** tap-based choices only — lightweight; no journaling or long-form text (keeps friction low).
 6. **Dashboard (M2+):** for **new users**, the **5-day program** is the **main primary CTA** (“Start Day 1” first time, “Continue” when returning); other actions (e.g. profile card, retake NPP) stay clearly secondary so the next step is obvious.
+
+## Milestone 4 — execution notes (client polish)
+
+M4 is a product-facing milestone: the app should feel less like a form and more like guided training.
+
+- **Assessment guidance**: add a short softening line above each question (e.g. “Quick check‑in”) so the experience feels coached.
+- **Button hierarchy**: keep **Next / Finish** as the clear primary action; **Back** should read as secondary.
+- **Post-assessment**: the completion state should feel like momentum (progress/insight) rather than a technical “saved” confirmation.
+- **Copy pass**: make small wording refinements where needed to keep tone natural and calm.
+
+### M4 defaults (chosen to keep scope tight)
+
+- **Results navigation**: a single `/insights` route with a **3-step wizard** (Profile → Domains → Strengths).
+- **History UI**: **latest-only** in M4. History is already stored append-only; a picker can be added later without changing persistence.
+
+### Future-proofing (do not implement in M4)
+
+- **Conditional content**: keep domain scores easy to access so a separate, rule-based recommendation layer can be added in M5+ without changing scoring/persistence.
+- **Payments / IAP flexibility**: keep business logic provider-agnostic. A lightweight entitlements/access-state abstraction is a good **M5 foundation** item so Stripe can be one provider among future IAP sources.
 
 ## Target code layout
 

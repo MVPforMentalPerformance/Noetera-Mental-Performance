@@ -38,6 +38,11 @@ Source: Developer Handoff + client agreements.
 2. Domain breakdown (bars + short insight per domain)
 3. Top 2 strengths, top 2 growth areas, brief guidance
 
+Notes:
+
+- Results are presented as a **3-step sequence** under `/insights` (Profile → Domains → Strengths & focus).
+- MVP UI shows the **latest** saved NPP result; history is persisted append-only and can be exposed later.
+
 ### Dashboard (home after sign-in)
 
 - Welcome

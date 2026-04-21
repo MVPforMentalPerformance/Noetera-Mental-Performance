@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Milestone 4 Handoff Package (Tech)</title>
+    <style>
+      :root {
+        --bg: #0b0c0f;
+        --card: #12141b;
+        --text: #e8eaf0;
+        --muted: #a7afc0;
+        --border: rgba(255, 255, 255, 0.12);
+        --accent: #9aa6ff;
+        --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      }
+
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f6f7fb;
+          --card: #ffffff;
+          --text: #0b0c0f;
+          --muted: #46506a;
+          --border: rgba(10, 12, 15, 0.14);
+          --accent: #3a46ff;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--sans);
+        line-height: 1.5;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .wrap {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 48px 20px;
+      }
+
+      .top {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 18px;
+      }
+
+      .brand {
+        font-size: 12px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-weight: 650;
+      }
+
+      h1 {
+        margin: 6px 0 0;
+        font-size: 28px;
+        letter-spacing: -0.02em;
+      }
+
+      .meta {
+        color: var(--muted);
+        font-size: 13px;
+        margin-top: 6px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 20px;
+      }
+
+      @media (min-width: 860px) {
+        .grid {
+          grid-template-columns: 1.2fr 0.8fr;
+        }
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 22px;
+      }
+
+      .card h2 {
+        margin: 0 0 10px;
+        font-size: 16px;
+        letter-spacing: -0.01em;
+      }
+
+      .card p {
+        margin: 10px 0;
+        color: var(--text);
+      }
+
+      ul {
+        margin: 10px 0 0;
+        padding-left: 18px;
+        color: var(--text);
+      }
+
+      li {
+        margin: 6px 0;
+      }
+
+      code,
+      .pill {
+        font-family: var(--mono);
+      }
+
+      .pill {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 12px;
+        margin-right: 8px;
+      }
+
+      .kvs {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .kv {
+        padding: 12px 14px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .k {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+      .v {
+        font-size: 14px;
+        color: var(--text);
+        word-break: break-word;
+      }
+
+      .small {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .hr {
+        height: 1px;
+        background: var(--border);
+        margin: 14px 0;
+      }
+
+      .appendix {
+        margin-top: 16px;
+      }
+
+      .appendix h2 {
+        margin: 0 0 10px;
+        font-size: 16px;
+        letter-spacing: -0.01em;
+      }
+
+      .appendix h3 {
+        margin: 18px 0 8px;
+        font-size: 13px;
+        letter-spacing: -0.01em;
+        color: var(--muted);
+        font-weight: 650;
+      }
+
+      pre.doc {
+        margin: 0;
+        padding: 14px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.03);
+        overflow: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
+        font-family: var(--mono);
+        font-size: 12px;
+        line-height: 1.45;
+        color: var(--text);
+      }
+
+      @media print {
+        :root {
+          --bg: #ffffff;
+          --card: #f7f8fc;
+          --text: #0b0c0f;
+          --muted: #46506a;
+          --border: rgba(10, 12, 15, 0.28);
+          --accent: #2430ff;
+        }
+        body {
+          background: #ffffff;
+        }
+        .wrap {
+          padding: 24px 18px;
+        }
+        .card {
+          border-color: rgba(10, 12, 15, 0.28);
+        }
+        .pill {
+          border-color: rgba(10, 12, 15, 0.22);
+          color: #46506a;
+        }
+        .kv {
+          background: #ffffff;
+          border-color: rgba(10, 12, 15, 0.22);
+        }
+        a {
+          color: #2430ff;
+          text-decoration: underline;
+        }
+        pre.doc {
+          background: #ffffff;
+          border-color: rgba(10, 12, 15, 0.22);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="top">
+        <div>
+          <div class="brand">Milestone 4</div>
+          <h1>Handoff Package (Tech)</h1>
+          <div class="meta">Status: <strong>Complete</strong> (results wizard + dashboard + assessment polish)</div>
+        </div>
+        <div class="meta">
+          <span class="pill">Next.js</span>
+          <span class="pill">Supabase</span>
+          <span class="pill">Server Components</span>
+          <span class="pill">Client Wizard</span>
+        </div>
+      </div>
+
+      <div class="grid">
+        <section class="card">
+          <h2>1) What was completed in Milestone 4</h2>
+          <ul>
+            <li>
+              <strong>Results route</strong>: <code>/insights</code> now loads the latest
+              <code>npp_assessment_results</code> row for the signed-in user and renders a 3-step wizard.
+            </li>
+            <li>
+              <strong>3-step wizard UI</strong>: client component at
+              <code>src/app/(app)/insights/results-wizard.tsx</code> (Profile → Domains → Strengths).
+            </li>
+            <li>
+              <strong>Data access layer</strong>: <code>src/lib/npp/server.ts</code> provides
+              helper functions for “latest result” queries (latest-only UI, history preserved).
+            </li>
+            <li>
+              <strong>Copy mapping</strong>: centralized in <code>src/lib/npp/copy.ts</code> so results and dashboard stay consistent.
+            </li>
+            <li>
+              <strong>Dashboard integration</strong>: <code>src/app/(app)/dashboard/page.tsx</code> now fetches the latest result
+              and shows a secondary CTA to <code>/insights</code>.
+            </li>
+            <li>
+              <strong>Assessment polish</strong>: <code>src/app/(app)/assessment/assessment-flow.tsx</code> adds a guided line,
+              demotes Back to secondary, and updates the completion state to point to results.
+            </li>
+          </ul>
+
+          <div class="hr"></div>
+
+          <h2>2) Key routes (M4)</h2>
+          <ul>
+            <li><strong>Results</strong>: <code>/insights</code> (3-step wizard, latest-only)</li>
+            <li><strong>Assessment</strong>: <code>/assessment</code> (guided copy + completion CTA to results)</li>
+            <li><strong>Dashboard</strong>: <code>/dashboard</code> (profile card wired to latest result)</li>
+          </ul>
+
+          <div class="hr"></div>
+
+          <h2>3) Data model (M4-relevant)</h2>
+          <p class="small">Source of truth: <code>supabase/migrations/001_initial_schema.sql</code></p>
+          <ul>
+            <li>
+              <strong><code>public.npp_assessment_results</code></strong> remains append-only.
+              M4 queries latest via <code>ORDER BY created_at DESC LIMIT 1</code>.
+            </li>
+            <li>
+              Domain scores (<code>domain_scores</code>) and derived composites (<code>derived_map</code>) are persisted,
+              making it straightforward to add rule-based recommendations later without changing persistence.
+            </li>
+          </ul>
+
+          <div class="hr"></div>
+
+          <h2>4) Implementation pointers</h2>
+          <ul>
+            <li><strong>Results page (server)</strong>: <code>src/app/(app)/insights/page.tsx</code></li>
+            <li><strong>Results wizard (client)</strong>: <code>src/app/(app)/insights/results-wizard.tsx</code></li>
+            <li><strong>Latest result fetch</strong>: <code>src/lib/npp/server.ts</code></li>
+            <li><strong>Copy mapping</strong>: <code>src/lib/npp/copy.ts</code></li>
+            <li><strong>Dashboard</strong>: <code>src/app/(app)/dashboard/page.tsx</code></li>
+            <li><strong>Assessment flow</strong>: <code>src/app/(app)/assessment/assessment-flow.tsx</code></li>
+          </ul>
+        </section>
+
+        <aside class="card">
+          <h2>5) Setup / deployment</h2>
+          <div class="kvs">
+            <div class="kv">
+              <div class="k">Live app</div>
+              <div class="v">
+                <a href="https://mvp-for-mental-performance-app.vercel.app"
+                  >https://mvp-for-mental-performance-app.vercel.app</a
+                >
+              </div>
+            </div>
+            <div class="kv">
+              <div class="k">Latest-only UI</div>
+              <div class="v">
+                History is persisted, but M4 intentionally shows only the latest result in UI.
+              </div>
+            </div>
+            <div class="kv">
+              <div class="k">No migrations</div>
+              <div class="v">
+                No new database migrations are required for M4 (it uses the existing schema).
+              </div>
+            </div>
+          </div>
+
+          <div class="hr"></div>
+
+          <h2>6) What’s next</h2>
+          <ul>
+            <li>M5: Program audio + content polish</li>
+            <li>M5+: Optional history picker + rule-based recommendations</li>
+            <li>Phase 2: Monetisation layer (entitlements, paywall, payments)</li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </body>
+</html>
+
