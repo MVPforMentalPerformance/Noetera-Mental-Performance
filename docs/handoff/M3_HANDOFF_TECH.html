@@ -266,7 +266,8 @@
             <li>
               <strong>NPP Lite assessment UI</strong>: client flow at
               <code>src/app/(app)/assessment/assessment-flow.tsx</code> — 10 steps,
-              1–5 Likert, Back / Next / Finish, success state after save.
+              1–5 Likert, Back / Next / Finish, success state after save (question copy from
+              <code>src/lib/npp/npp-lite-questions.ts</code>).
             </li>
             <li>
               <strong>Server-side submit</strong>:
@@ -277,7 +278,8 @@
             </li>
             <li>
               <strong>Scoring module</strong>:
-              <code>src/lib/scoring/npp-lite.ts</code> — reverse items Q2/Q4/Q6/Q8;
+              <code>src/lib/npp/npp-lite-questions.ts</code> (item text + <code>reverseScored</code>) and
+              <code>src/lib/scoring/npp-lite.ts</code> — reverse keyed off that list (Q2/Q4/Q6/Q8/Q10);
               five domain snapshots (value + band); four derived composites;
               <code>profile_key</code> (v1 weakest-domain heuristic, documented in code);
               <code>scoring_version: "1"</code>.
@@ -374,6 +376,7 @@
           <ul>
             <li><strong>Submit action</strong>: <code>src/app/(app)/assessment/_actions.ts</code></li>
             <li><strong>Scoring</strong>: <code>src/lib/scoring/npp-lite.ts</code></li>
+            <li><strong>NPP item copy + reverse flags</strong>: <code>src/lib/npp/npp-lite-questions.ts</code></li>
             <li><strong>Assessment UI</strong>: <code>src/app/(app)/assessment/assessment-flow.tsx</code></li>
             <li><strong>Assessment shell</strong>: <code>src/app/(app)/assessment/page.tsx</code></li>
             <li><strong>Program day complete</strong>: <code>src/app/(app)/program/_actions.ts</code></li>
@@ -430,7 +433,7 @@ export async function submitNppLiteAction(input: { responses: number[] }) {
   redirect("/program/complete");</pre>
 
         <h3>Scoring core (src/lib/scoring/npp-lite.ts — excerpt)</h3>
-        <pre class="doc">const REVERSE_SCORED = new Set([2, 4, 6, 8]);
+        <pre class="doc">import { NPP_LITE_REVERSE_SCORED_IDS } from "@/lib/npp/npp-lite-questions";
 
 export function scoreNppLite(input: { responses: Array&lt;number&gt; | NppLiteResponseMap }): NppLiteScoringResult {
   const arr = Array.isArray(input.responses)
@@ -442,7 +445,7 @@ export function scoreNppLite(input: { responses: Array&lt;number&gt; | NppLiteRe
   const normalized: number[] = arr.map((v, i) =&gt; {
     const q = i + 1;
     if (!Number.isFinite(v) || v &lt; 1 || v &gt; 5) throw new Error(`Invalid response for Q${q}.`);
-    return REVERSE_SCORED.has(q) ? 6 - v : v;
+    return NPP_LITE_REVERSE_SCORED_IDS.has(q) ? 6 - v : v;
   });
 
   // ... domain_scores, derived_map, profile_key, scoring_version: "1"

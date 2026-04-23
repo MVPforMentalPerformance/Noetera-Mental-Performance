@@ -6,7 +6,7 @@ Live URL: https://mvp-for-mental-performance-app.vercel.app
 1) Short summary (what was completed in Milestone 3)
 
 - NPP Lite (NOETERA Performance Profile — Lite): a 10-question, mobile-first assessment on /assessment. One question per screen, scale 1–5 (Almost never → Almost always), with progress (e.g. 3 / 10) and Back / Next (Finish on the last question).
-- Centralized scoring in code (reverse-scored items Q2, Q4, Q6, Q8; five domain averages; four derived composites; band labels; internal profile_key for the four MVP profile types). Results are stored per completion as a new row in npp_assessment_results (append-only history; no overwriting past runs).
+- Centralized scoring in code (reverse-scored items Q2, Q4, Q6, Q8, Q10 — defined next to item text in `src/lib/npp/npp-lite-questions.ts`; five domain averages; four derived composites; band labels; internal profile_key for the four MVP profile types). Results are stored per completion as a new row in npp_assessment_results (append-only history; no overwriting past runs).
 - Post-program transition: after completing Day 5 of the 5-day program, the user is taken to /program/complete with a short “next step” message and a primary call-to-action toward NPP Lite.
 - Dashboard primary CTA: when all five program days are complete, the main button is no longer a passive “Program complete” label; it reads “Continue your training” and leads to /program/complete (aligned with client feedback).
 - Retake NPP: dashboard link “Retake NPP” goes to /assessment; each full completion inserts another history row.

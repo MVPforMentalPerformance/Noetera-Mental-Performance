@@ -23,7 +23,7 @@ Source: Developer Handoff + client agreements.
 
 - 5 domains × 2 questions: Focus & Attention, Thought Control, Emotional Regulation, Action & Consistency, Performance State
 - Scale 1–5 (Almost never → Almost always)
-- Reverse-scored items: **Q2, Q4, Q6, Q8**
+- Reverse-scored items: **Q2, Q4, Q6, Q8, Q10** (negatively worded; see `src/lib/npp/npp-lite-questions.ts`)
 
 ### Scoring
 

@@ -1,3 +1,5 @@
+import { NPP_LITE_REVERSE_SCORED_IDS } from "@/lib/npp/npp-lite-questions";
+
 export type NppLiteResponseMap = Record<string, number>;
 
 export type NppLiteDomainKey =
@@ -27,8 +29,6 @@ export type NppLiteScoringResult = {
     | "underconfident_performer";
   scoring_version: "1";
 };
-
-const REVERSE_SCORED = new Set([2, 4, 6, 8]);
 
 function round1(n: number) {
   return Math.round(n * 10) / 10;
@@ -76,7 +76,7 @@ export function scoreNppLite(input: { responses: Array<number> | NppLiteResponse
   const normalized: number[] = arr.map((v, i) => {
     const q = i + 1;
     if (!Number.isFinite(v) || v < 1 || v > 5) throw new Error(`Invalid response for Q${q}.`);
-    return REVERSE_SCORED.has(q) ? reverseScore(v) : v;
+    return NPP_LITE_REVERSE_SCORED_IDS.has(q) ? reverseScore(v) : v;
   });
 
   const responses: NppLiteResponseMap = Object.fromEntries(arr.map((v, i) => [String(i + 1), v]));

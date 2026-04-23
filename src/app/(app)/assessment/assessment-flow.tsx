@@ -5,31 +5,10 @@ import { PrimaryButton } from "@/components/primary-button";
 import { SecondaryButton } from "@/components/secondary-button";
 import { submitNppLiteAction } from "./_actions";
 import Link from "next/link";
+import { NPP_LITE_QUESTIONS } from "@/lib/npp/npp-lite-questions";
 import { useMemo, useState, useTransition } from "react";
 
-type NppQuestion = {
-  id: number;
-  domain:
-    | "Focus & Attention"
-    | "Thought Control"
-    | "Emotional Regulation"
-    | "Action & Consistency"
-    | "Performance State";
-  text: string;
-};
-
-const QUESTIONS: NppQuestion[] = [
-  { id: 1, domain: "Focus & Attention", text: "I can keep my attention on what matters, even when things feel noisy." },
-  { id: 2, domain: "Focus & Attention", text: "My focus is easily pulled away by distractions." },
-  { id: 3, domain: "Thought Control", text: "I can notice unhelpful thoughts and return to the task." },
-  { id: 4, domain: "Thought Control", text: "My thoughts tend to spiral and take over my performance." },
-  { id: 5, domain: "Emotional Regulation", text: "I can stay steady when pressure rises." },
-  { id: 6, domain: "Emotional Regulation", text: "My emotions make it hard to respond the way I want." },
-  { id: 7, domain: "Action & Consistency", text: "I follow through on the habits I set for myself." },
-  { id: 8, domain: "Action & Consistency", text: "I struggle to stay consistent once my routine is disrupted." },
-  { id: 9, domain: "Performance State", text: "I can access a calm, confident performance state when it counts." },
-  { id: 10, domain: "Performance State", text: "I doubt myself in key moments." },
-];
+const QUESTIONS = NPP_LITE_QUESTIONS;
 
 const SCALE = [
   { value: 1, label: "Almost never" },
