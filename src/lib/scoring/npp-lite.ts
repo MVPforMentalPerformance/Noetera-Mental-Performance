@@ -27,7 +27,15 @@ export type NppLiteScoringResult = {
     | "driven_but_overloaded"
     | "capable_but_distracted"
     | "underconfident_performer";
-  scoring_version: "1";
+  scoring_version: "2";
+};
+
+const DOMAIN_TIEBREAK_ORDER: Record<NppLiteDomainKey, number> = {
+  performance_state: 0,
+  focus_attention: 1,
+  action_consistency: 2,
+  thought_control: 3,
+  emotional_regulation: 4,
 };
 
 function round1(n: number) {
@@ -55,7 +63,7 @@ function pickProfileKey(domains: Record<NppLiteDomainKey, NppLiteScoreSnapshot>)
     s.value,
   ]);
 
-  values.sort((a, b) => a[1] - b[1]);
+  values.sort((a, b) => a[1] - b[1] || DOMAIN_TIEBREAK_ORDER[a[0]] - DOMAIN_TIEBREAK_ORDER[b[0]]);
   const weakest = values[0]?.[0];
 
   // Intentional: simple, auditable v1 mapping. Easy to adjust once results UX is finalized (M4).
@@ -107,7 +115,7 @@ export function scoreNppLite(input: { responses: Array<number> | NppLiteResponse
     domain_scores,
     derived_map,
     profile_key: pickProfileKey(domain_scores),
-    scoring_version: "1",
+    scoring_version: "2",
   };
 }
 
