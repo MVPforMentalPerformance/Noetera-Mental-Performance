@@ -1,28 +1,33 @@
-import type { NppLiteDerivedKey, NppLiteDomainKey, NppLiteScoringResult } from "@/lib/scoring/npp-lite";
+import type { NppLiteDerivedKey, NppLiteDomainKey, NppLiteProfileKey, NppLiteScoringResult } from "@/lib/scoring/npp-lite";
 
 export const PROFILE_COPY: Record<
-  NppLiteScoringResult["profile_key"],
+  NppLiteProfileKey,
   { title: string; paragraph: string }
 > = {
-  aware_but_inconsistent: {
-    title: "Aware but Inconsistent",
+  under_pressure: {
+    title: "Under Pressure",
     paragraph:
-      "You know what helps you perform — but follow-through breaks when routines get disrupted. Your next edge is building simple consistency under real life pressure.",
+      "Stabilising Foundation — pressure is currently disrupting your baseline. Your next edge is creating steadier routines and recovery so performance feels more controllable.",
   },
-  driven_but_overloaded: {
-    title: "Driven but Overloaded",
+  grounded_performer: {
+    title: "Grounded Performer",
     paragraph:
-      "You can push hard, but mental noise and emotional load can spill into performance. Your next edge is reducing internal friction so effort feels lighter and more controlled.",
+      "Building Consistency — you have a workable base, but it’s not fully reliable yet. Your next edge is tightening the small habits that keep you steady when the week gets messy.",
   },
-  capable_but_distracted: {
-    title: "Capable but Distracted",
+  capable_performer: {
+    title: "Capable Performer",
     paragraph:
-      "The skill is there, but attention gets pulled away when things get busy. Your next edge is training steady focus so you can stay with what matters when it counts.",
+      "Refining Performance — your fundamentals are strong and you can deliver. Your next edge is sharpening what’s inconsistent so your best state shows up more often.",
   },
-  underconfident_performer: {
-    title: "Underconfident Performer",
+  high_performance_state: {
+    title: "High-Performance State",
     paragraph:
-      "You may prepare well, yet self-doubt shows up in key moments. Your next edge is building a calmer performance state you can access on demand.",
+      "Sharpening Edge — you can access a strong state under pressure. Your next edge is making it repeatable: less friction, faster resets, and cleaner execution when it counts.",
+  },
+  elite_performance_state: {
+    title: "Elite Performance State",
+    paragraph:
+      "Sustaining Mastery — you’re operating at a high level with consistency. Your next edge is protecting this standard: recovery, precision, and calm confidence under load.",
   },
 };
 

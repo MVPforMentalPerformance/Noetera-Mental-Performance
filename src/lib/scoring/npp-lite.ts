@@ -18,16 +18,19 @@ export type NppLiteScoreSnapshot = {
   band: NppLiteBand;
 };
 
+export type NppLiteProfileKey =
+  | "under_pressure"
+  | "grounded_performer"
+  | "capable_performer"
+  | "high_performance_state"
+  | "elite_performance_state";
+
 export type NppLiteScoringResult = {
   responses: NppLiteResponseMap;
   domain_scores: Record<NppLiteDomainKey, NppLiteScoreSnapshot>;
   derived_map: Record<NppLiteDerivedKey, NppLiteScoreSnapshot>;
-  profile_key:
-    | "aware_but_inconsistent"
-    | "driven_but_overloaded"
-    | "capable_but_distracted"
-    | "underconfident_performer";
-  scoring_version: "2";
+  profile_key: NppLiteProfileKey;
+  scoring_version: "3";
 };
 
 const DOMAIN_TIEBREAK_ORDER: Record<NppLiteDomainKey, number> = {
@@ -57,20 +60,30 @@ function reverseScore(v: number) {
   return 6 - v;
 }
 
-function pickProfileKey(domains: Record<NppLiteDomainKey, NppLiteScoreSnapshot>): NppLiteScoringResult["profile_key"] {
-  const values: Array<[NppLiteDomainKey, number]> = Object.entries(domains).map(([k, s]) => [
+export function pickWeakestDomainKey(
+  domains: Record<NppLiteDomainKey, { value: number }>,
+): NppLiteDomainKey {
+  const entries: Array<[NppLiteDomainKey, number]> = Object.entries(domains).map(([k, s]) => [
     k as NppLiteDomainKey,
     s.value,
   ]);
 
-  values.sort((a, b) => a[1] - b[1] || DOMAIN_TIEBREAK_ORDER[a[0]] - DOMAIN_TIEBREAK_ORDER[b[0]]);
-  const weakest = values[0]?.[0];
+  entries.sort((a, b) => a[1] - b[1] || DOMAIN_TIEBREAK_ORDER[a[0]] - DOMAIN_TIEBREAK_ORDER[b[0]]);
+  return entries[0]![0];
+}
 
-  // Intentional: simple, auditable v1 mapping. Easy to adjust once results UX is finalized (M4).
-  if (weakest === "performance_state") return "underconfident_performer";
-  if (weakest === "focus_attention") return "capable_but_distracted";
-  if (weakest === "action_consistency") return "aware_but_inconsistent";
-  return "driven_but_overloaded";
+export function computeGlobalAverage(domains: Record<NppLiteDomainKey, { value: number }>) {
+  const sum = Object.values(domains).reduce((acc, s) => acc + s.value, 0);
+  return sum / 5;
+}
+
+export function pickGlobalProfileKey(globalAverage: number): NppLiteProfileKey {
+  // Range-based “global state” tiers (coaching-oriented).
+  if (globalAverage <= 2.7) return "under_pressure";
+  if (globalAverage <= 3.6) return "grounded_performer";
+  if (globalAverage <= 4.3) return "capable_performer";
+  if (globalAverage <= 4.7) return "high_performance_state";
+  return "elite_performance_state";
 }
 
 export function scoreNppLite(input: { responses: Array<number> | NppLiteResponseMap }): NppLiteScoringResult {
@@ -110,12 +123,14 @@ export function scoreNppLite(input: { responses: Array<number> | NppLiteResponse
     life_effectiveness: snapshot((action + emotion) / 2),
   };
 
+  const globalAverage = (focus + thought + emotion + action + performance) / 5;
+
   return {
     responses,
     domain_scores,
     derived_map,
-    profile_key: pickProfileKey(domain_scores),
-    scoring_version: "2",
+    profile_key: pickGlobalProfileKey(globalAverage),
+    scoring_version: "3",
   };
 }
 

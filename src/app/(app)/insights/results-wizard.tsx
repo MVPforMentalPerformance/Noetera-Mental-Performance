@@ -63,7 +63,8 @@ export function ResultsWizard({ result }: { result: NppAssessmentResultRow }) {
   const steps = 3;
   const [step, setStep] = useState(0);
 
-  const profile = PROFILE_COPY[result.profile_key];
+  const profile = PROFILE_COPY[result.display_profile_key];
+  const weakestDomain = DOMAIN_COPY[result.weakest_domain_key];
 
   const sortedDomains = useMemo(() => {
     const entries = Object.entries(result.domain_scores).map(([k, s]) => ({
@@ -73,7 +74,7 @@ export function ResultsWizard({ result }: { result: NppAssessmentResultRow }) {
     }));
     entries.sort((a, b) => b.value - a.value);
     return entries;
-  }, [result.domain_scores]);
+  }, [result]);
 
   const derivedSorted = useMemo(() => {
     const entries = Object.entries(result.derived_map).map(([k, s]) => ({
@@ -83,7 +84,7 @@ export function ResultsWizard({ result }: { result: NppAssessmentResultRow }) {
     }));
     entries.sort((a, b) => b.value - a.value);
     return entries;
-  }, [result.derived_map]);
+  }, [result]);
 
   const topStrengths = derivedSorted.slice(0, 2);
   const topGrowth = derivedSorted.slice(-2).reverse();
@@ -109,9 +110,16 @@ export function ResultsWizard({ result }: { result: NppAssessmentResultRow }) {
           <p className="mt-4 text-sm leading-relaxed text-muted">{profile.paragraph}</p>
 
           <div className="mt-6 rounded-2xl border border-border/80 bg-(--color-glass2) px-4 py-4">
-            <p className="text-xs font-semibold text-ink">Based on your latest NPP Lite</p>
+            <p className="text-xs font-semibold text-ink">Based on your global average</p>
             <p className="mt-1 text-xs text-muted">
-              Completed {new Date(result.created_at).toLocaleDateString()} · Scores stay in your history.
+              Global average {result.global_average.toFixed(1)} · Completed {new Date(result.created_at).toLocaleDateString()}
+            </p>
+          </div>
+
+          <div className="mt-3 rounded-2xl border border-border/80 bg-(--color-glass2) px-4 py-4">
+            <p className="text-xs font-semibold text-ink">Next step focus</p>
+            <p className="mt-1 text-xs text-muted">
+              Priority domain: {weakestDomain.label} · {weakestDomain.insight}
             </p>
           </div>
         </div>
@@ -180,6 +188,9 @@ export function ResultsWizard({ result }: { result: NppAssessmentResultRow }) {
 
             <div className="rounded-2xl border border-border/80 bg-(--color-glass2) px-4 py-4">
               <p className="text-xs font-semibold text-ink">Next step</p>
+              <p className="mt-2 text-sm text-muted">
+                Start by lifting your lowest domain first: <span className="font-semibold text-ink">{weakestDomain.label}</span>.
+              </p>
               <p className="mt-2 text-sm text-muted">
                 If you want a fresh snapshot after a few sessions, you can retake NPP Lite at any time.
               </p>

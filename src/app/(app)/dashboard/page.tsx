@@ -169,7 +169,7 @@ async function DashboardContent() {
             <h2 className="text-3xl leading-tight text-ink">Personal profile</h2>
             {latestNpp ? (
               <>
-                <p className="mt-3 text-sm font-semibold text-ink">{PROFILE_COPY[latestNpp.profile_key].title}</p>
+                <p className="mt-3 text-sm font-semibold text-ink">{PROFILE_COPY[latestNpp.display_profile_key].title}</p>
                 <p className="mt-2 text-sm text-muted">
                   Your latest NPP Lite snapshot is ready. View the full results sequence when you’re ready.
                 </p>
