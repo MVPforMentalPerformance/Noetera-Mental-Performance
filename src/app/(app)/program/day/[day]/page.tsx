@@ -1,6 +1,7 @@
 import { AppCard } from "@/components/app-card";
 import { PrimaryButton } from "@/components/primary-button";
 import { TextLink } from "@/components/text-link";
+import { PROGRAM_AUDIO_URLS } from "@/config/audio";
 import {
   ensureProgramProgressRows,
   getUserOrNull,
@@ -70,6 +71,7 @@ export default async function ProgramDayPage({
   const isCompleted = row.completed_at != null;
   const completedCount = progress.filter((d) => d.completed_at != null).length;
   const progressPct = clamp(Math.round((completedCount / 5) * 100), 0, 100);
+  const audioUrl = PROGRAM_AUDIO_URLS[day as 1 | 2 | 3 | 4 | 5] ?? null;
 
   return (
     <main className="flex flex-col gap-6">
@@ -106,19 +108,44 @@ export default async function ProgramDayPage({
           <div className="min-w-0">
             <h2 className="text-3xl leading-tight text-ink">Session audio</h2>
             <p className="mt-3 text-sm text-muted">
-              Audio links will be attached in M5. This screen already mirrors the final guided flow.
+              Press play when you're ready. This session matches the guided flow for Day {day}.
             </p>
           </div>
-          <span className="shrink-0 rounded-full border border-border bg-surface px-3 py-1 text-[11px] font-semibold text-muted">
-            Coming soon
-          </span>
+          {!audioUrl ? (
+            <span className="shrink-0 rounded-full border border-border bg-surface px-3 py-1 text-[11px] font-semibold text-muted">
+              Coming soon
+            </span>
+          ) : null}
         </div>
-        <div className="mt-4 rounded-2xl border border-border bg-surface2/70 px-4 py-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">Preview player</p>
-          <p className="mt-2 text-sm text-muted">
-            Playback controls will appear here as soon as the content library is connected.
-          </p>
-        </div>
+        {audioUrl ? (
+          <div className="mt-4 rounded-2xl border border-border bg-surface2/70 px-4 py-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+              Session player
+            </p>
+            <div className="mt-3">
+              <audio
+                className="w-full"
+                controls
+                preload="metadata"
+                controlsList="nodownload"
+              >
+                <source src={audioUrl} type="audio/mpeg" />
+              </audio>
+            </div>
+            <p className="mt-3 text-xs text-muted">
+              If playback doesn't start, try refreshing the page.
+            </p>
+          </div>
+        ) : (
+          <div className="mt-4 rounded-2xl border border-border bg-surface2/70 px-4 py-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">
+              Preview player
+            </p>
+            <p className="mt-2 text-sm text-muted">
+              Playback controls will appear here as soon as the content library is connected.
+            </p>
+          </div>
+        )}
       </AppCard>
 
       <AppCard className="p-6">
