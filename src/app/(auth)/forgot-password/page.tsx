@@ -1,5 +1,4 @@
 import { AppCard } from "@/components/app-card";
-import { TextLink } from "@/components/text-link";
 import { ForgotPasswordForm } from "./forgot-password-form";
 
 export default function ForgotPasswordPage() {
@@ -12,12 +11,6 @@ export default function ForgotPasswordPage() {
         </p>
 
         <ForgotPasswordForm />
-
-        <div className="mt-5 text-center">
-          <TextLink href="/sign-in" className="text-center text-sm">
-            Back to sign in
-          </TextLink>
-        </div>
       </AppCard>
     </main>
   );

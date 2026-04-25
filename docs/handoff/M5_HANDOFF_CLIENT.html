@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Milestone 5 Handoff Package</title>
+    <style>
+      :root {
+        --bg: #0b0c0f;
+        --card: #12141b;
+        --text: #e8eaf0;
+        --muted: #a7afc0;
+        --border: rgba(255, 255, 255, 0.12);
+        --accent: #9aa6ff;
+        --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial;
+      }
+
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f6f7fb;
+          --card: #ffffff;
+          --text: #0b0c0f;
+          --muted: #46506a;
+          --border: rgba(10, 12, 15, 0.14);
+          --accent: #3a46ff;
+        }
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--sans);
+        line-height: 1.5;
+      }
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      .wrap { max-width: 920px; margin: 0 auto; padding: 48px 20px; }
+      .top {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 18px;
+      }
+      .brand {
+        font-size: 12px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-weight: 650;
+      }
+      h1 { margin: 6px 0 0; font-size: 28px; letter-spacing: -0.02em; }
+      .meta { color: var(--muted); font-size: 13px; margin-top: 6px; }
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 20px;
+      }
+      @media (min-width: 860px) {
+        .grid { grid-template-columns: 1.2fr 0.8fr; }
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 22px;
+      }
+      .card h2 { margin: 0 0 10px; font-size: 16px; letter-spacing: -0.01em; }
+      ul { margin: 10px 0 0; padding-left: 18px; color: var(--text); }
+      li { margin: 6px 0; }
+      code, .pill { font-family: var(--mono); }
+      .pill {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 12px;
+        margin-right: 8px;
+      }
+      .small { font-size: 13px; color: var(--muted); }
+      .kvs { display: grid; grid-template-columns: 1fr; gap: 10px; }
+      .kv {
+        padding: 12px 14px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .k { font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+      .v { font-size: 14px; color: var(--text); word-break: break-word; }
+      .hr { height: 1px; background: var(--border); margin: 14px 0; }
+      .complete-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 999px;
+        background: rgba(80, 200, 120, 0.15);
+        border: 1px solid rgba(80, 200, 120, 0.3);
+        color: #6bda94;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+      }
+
+      @media print {
+        :root {
+          --bg: #ffffff; --card: #f7f8fc; --text: #0b0c0f;
+          --muted: #46506a; --border: rgba(10, 12, 15, 0.28); --accent: #2430ff;
+        }
+        body { background: #ffffff; }
+        .wrap { padding: 24px 18px; }
+        a { color: #2430ff; text-decoration: underline; }
+        .kv { background: #ffffff; border-color: rgba(10, 12, 15, 0.22); }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="top">
+        <div>
+          <div class="brand">Milestone 5 — Final</div>
+          <h1>Handoff Package</h1>
+          <div class="meta">
+            Status: <strong>Complete</strong> &nbsp;
+            <span class="complete-badge">MVP Done</span>
+          </div>
+        </div>
+        <div class="meta">
+          <span class="pill">5-day program</span>
+          <span class="pill">Audio</span>
+          <span class="pill">Tests</span>
+          <span class="pill">Polish</span>
+        </div>
+      </div>
+
+      <div class="grid">
+        <section class="card">
+          <h2>1) What was completed</h2>
+          <ul>
+            <li>
+              <strong>Full 5-day program</strong> — all five sessions are live with audio,
+              guided blurbs, tap-based reflection choices, and sequential unlock
+              (Day 5 → program complete screen → NPP Lite CTA).
+            </li>
+            <li>
+              <strong>Session audio</strong> — all five day sessions are in place and play
+              directly on each day page. To swap to externally hosted files, only the
+              URL config needs updating — no component changes.
+            </li>
+            <li>
+              <strong>Profile page</strong> — now shows your actual account name and
+              initials derived from your login email. The hardcoded placeholder is gone.
+            </li>
+            <li>
+              <strong>Program overview</strong> — each day row now shows both the day
+              number and the session title (Stabilize, Thought detachment, etc.) so
+              users know what to expect before opening.
+            </li>
+            <li>
+              <strong>Automated tests</strong> — 11 unit tests covering the NPP Lite
+              scoring engine (profile thresholds, tie-breaking, reverse scoring).
+              All pass.
+            </li>
+          </ul>
+
+          <div class="hr"></div>
+
+          <h2>2) Recommended walkthrough</h2>
+          <ul>
+            <li>
+              Sign up (new account) → Dashboard → <strong>Begin Day 1</strong>.
+            </li>
+            <li>
+              On the day page: read the blurb, press play on the session audio,
+              choose a reflection, tap <strong>Complete day</strong>.
+            </li>
+            <li>
+              Verify the app opens Day 2 automatically.
+            </li>
+            <li>
+              Repeat through Day 5 → confirm you land on
+              <strong>/program/complete</strong> with the NPP Lite CTA.
+            </li>
+            <li>
+              Take NPP Lite → view your profile, domain breakdown, and strengths
+              on <code>/insights</code>.
+            </li>
+            <li>
+              Open <code>/profile</code> → confirm your name / initials are
+              correct for the account you're signed in with.
+            </li>
+          </ul>
+        </section>
+
+        <aside class="card">
+          <h2>3) Access</h2>
+          <div class="kvs">
+            <div class="kv">
+              <div class="k">Live app</div>
+              <div class="v">
+                <a href="https://mvp-for-mental-performance-app.vercel.app">
+                  mvp-for-mental-performance-app.vercel.app
+                </a>
+              </div>
+            </div>
+            <div class="kv">
+              <div class="k">Updated areas</div>
+              <div class="v">
+                <code>/program</code> — day titles visible<br />
+                <code>/program/day/1–5</code> — audio + reflection<br />
+                <code>/program/complete</code> — end of program screen<br />
+                <code>/profile</code> — real user data
+              </div>
+            </div>
+            <div class="kv">
+              <div class="k">Complete user journey</div>
+              <div class="v">
+                Assessment → Results → 5-day program → Re-assessment
+              </div>
+            </div>
+          </div>
+
+          <div class="hr"></div>
+
+          <h2>4) MVP is complete</h2>
+          <p class="small">
+            All five milestones are delivered. The core loop —
+            <strong>Assessment → Insight → Action</strong> — is live and
+            fully functional. Future phases can add history picker UI,
+            rule-based recommendations, payments, and extended programs
+            without changes to the existing foundation.
+          </p>
+        </aside>
+      </div>
+    </div>
+  </body>
+</html>

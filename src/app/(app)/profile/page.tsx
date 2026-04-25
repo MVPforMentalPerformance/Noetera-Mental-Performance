@@ -1,6 +1,10 @@
 import { AppCard } from "@/components/app-card";
 import { ListRow } from "@/components/list-row";
+import { PrimaryButton } from "@/components/primary-button";
 import { ThemeControls } from "@/components/theme-controls";
+import { getUserOrNull, getUserProfile } from "@/lib/program/server";
+import { redirect } from "next/navigation";
+import { updateDisplayNameAction } from "./_actions";
 
 function BrainIcon() {
   return (
@@ -69,7 +73,28 @@ function InsightsIcon() {
   );
 }
 
-export default function ProfilePage() {
+function getInitials(name: string): string {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length >= 2) {
+    return (parts[0]![0]! + parts[parts.length - 1]![0]!).toUpperCase();
+  }
+  return name.slice(0, 2).toUpperCase();
+}
+
+export default async function ProfilePage({
+  searchParams,
+}: {
+  searchParams?: Promise<{ error?: string; saved?: string }>;
+}) {
+  const { user } = await getUserOrNull();
+  if (!user) redirect("/sign-in");
+
+  const profile = await getUserProfile(user.id);
+  const { error, saved } = (await searchParams) ?? {};
+
+  const displayName = profile.display_name ?? "";
+  const initials = displayName ? getInitials(displayName) : (user.email?.slice(0, 2).toUpperCase() ?? "??");
+
   return (
     <main className="flex flex-col gap-6">
       <header className="relative overflow-hidden rounded-card border border-border/80 bg-(--color-glass) px-5 py-5 backdrop-blur-md">
@@ -78,33 +103,59 @@ export default function ProfilePage() {
           <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">Settings</p>
           <h1 className="mt-2 text-4xl leading-[1.05] text-ink">Profile</h1>
           <p className="mt-4 text-sm leading-relaxed text-muted">
-            Appearance controls and coach modules live here. Account settings remain lightweight in the MVP.
+            Appearance controls and coach modules live here.
           </p>
         </div>
       </header>
 
       <AppCard className="p-6">
         <div className="flex items-center gap-4">
-          <div className="grid h-14 w-14 place-items-center rounded-full bg-(--color-glass2) text-xl font-semibold text-ink">
-            A
+          <div className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-(--color-glass2) text-xl font-semibold text-ink">
+            {initials}
           </div>
           <div className="min-w-0 flex-1">
-            <p className="truncate text-lg font-semibold text-ink">Andres</p>
-            <p className="mt-1 text-xs text-muted">Level 1 · 0 XP</p>
+            <p className="truncate text-lg font-semibold text-ink">
+              {displayName || "—"}
+            </p>
+            <p className="mt-1 text-xs text-muted truncate">{user.email}</p>
           </div>
-          <span className="rounded-full border border-border bg-(--color-glass2) px-3 py-1 text-xs font-semibold text-muted">
-            Edit
-          </span>
         </div>
-        <div className="mt-4 grid grid-cols-2 gap-2">
-          <div className="rounded-2xl bg-(--color-glass2) px-3 py-3">
-            <p className="text-xs font-semibold text-ink">0 Day Streak</p>
-            <p className="mt-1 text-[11px] text-muted">Consistency</p>
-          </div>
-          <div className="rounded-2xl bg-(--color-glass2) px-3 py-3">
-            <p className="text-xs font-semibold text-ink">Achievements</p>
-            <p className="mt-1 text-[11px] text-muted">Coming soon</p>
-          </div>
+
+        <div className="mt-5">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">
+            Display name
+          </p>
+
+          {saved ? (
+            <p className="mt-3 rounded-2xl border border-success/30 bg-success/10 px-4 py-3 text-sm text-success">
+              Name saved.
+            </p>
+          ) : null}
+
+          {error && !saved ? (
+            <p className="mt-3 rounded-2xl border border-danger/25 bg-danger/10 px-4 py-3 text-sm text-danger">
+              {error === "required"
+                ? "Please enter a name."
+                : error === "toolong"
+                  ? "Name must be 60 characters or fewer."
+                  : error}
+            </p>
+          ) : null}
+
+          <form action={updateDisplayNameAction} className="mt-3 flex gap-3">
+            <input
+              name="displayName"
+              type="text"
+              defaultValue={displayName}
+              placeholder="Your name"
+              maxLength={60}
+              autoComplete="given-name"
+              className="field-input min-w-0 flex-1"
+            />
+            <PrimaryButton type="submit" className="shrink-0 px-5">
+              Save
+            </PrimaryButton>
+          </form>
         </div>
       </AppCard>
 
@@ -123,4 +174,3 @@ export default function ProfilePage() {
     </main>
   );
 }
-

@@ -1,10 +1,16 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ThemeInitScript } from "@/components/theme-init-script";
 
 export const metadata: Metadata = {
   title: "Mental Clarity | NOETERA",
   description: "Warm, focused mental performance workspace",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({

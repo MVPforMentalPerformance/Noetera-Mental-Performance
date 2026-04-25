@@ -4,6 +4,7 @@ import { cache } from "react";
 export type UserProfile = {
   id: string;
   program_max_unlocked_day: number;
+  display_name: string | null;
 };
 
 export type ProgramDayProgressRow = {
@@ -49,7 +50,7 @@ export async function getUserProfile(userId: string, supabase?: SupabaseServerCl
   const client = supabase ?? (await createClient());
   const { data, error } = await client
     .from("user_profiles")
-    .select("id, program_max_unlocked_day")
+    .select("id, program_max_unlocked_day, display_name")
     .eq("id", userId)
     .single();
 

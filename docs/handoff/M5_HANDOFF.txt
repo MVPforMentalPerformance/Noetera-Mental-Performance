@@ -1,0 +1,91 @@
+Milestone 5 — Handoff Package
+
+Status: Milestone 5 is complete. The MVP is feature-complete and deployed.
+Live URL: https://mvp-for-mental-performance-app.vercel.app
+
+1) Short summary (what was completed in Milestone 5)
+
+- Full 5-day program is live end-to-end:
+  - All 5 audio sessions converted (WAV → 160 kbps MP3) and served from /public/audio/program/.
+  - Audio player (native HTML5) integrated on each day page via a day → URL config layer (src/config/audio.ts).
+  - Tap-based reflection choices (3 per day) stored as JSONB in program_day_progress.reflection_payload.
+  - Sequential unlock: each completed day opens the next. Day 5 completion routes to /program/complete.
+- Profile page updated to show real user data from Supabase Auth (email-derived initials and display name).
+- Program overview (/program) now shows day titles (Stabilize, Thought detachment, etc.) alongside day numbers.
+- Day metadata (titles, blurbs, reflection options) extracted to a shared module (src/lib/program/meta.ts).
+- Unit test suite added (Vitest, 11 tests covering scoring engine: profile key thresholds, tie-breaking, reverse scoring, full scoreNppLite pipeline).
+- `npm test` wired to `vitest run`.
+
+2) What to review (client-facing)
+
+Recommended walkthrough (new user):
+
+- Sign up → lands on /dashboard.
+- Start Day 1 → /program/day/1: read blurb, play audio, choose reflection, tap "Complete day".
+- App unlocks Day 2 and navigates to /program/day/2 automatically.
+- Repeat through Day 5 → lands on /program/complete with NPP Lite CTA.
+- Take NPP Lite (/assessment) → view results (/insights, 3-step wizard).
+
+Secondary:
+- /program: verify all 5 day rows show titles and correct status (completed / current / locked).
+- /profile: verify initials and display name match the logged-in account.
+
+3) What is included in this milestone (high level)
+
+New / changed files
+
+- src/lib/program/meta.ts            — shared DayMeta type + DAY_META constant (extracted from day page)
+- src/config/audio.ts                — day → /audio/program/day-N.mp3 mapping (created in M5 prep)
+- src/lib/scoring/__tests__/npp-lite.test.ts — 11 unit tests for scoring engine
+- vitest.config.ts                   — Vitest config with @/ alias
+- public/audio/program/              — 5 × MP3 audio files (day-1 through day-5)
+- scripts/convert-program-audio.mjs  — FFmpeg conversion script (created in M5 prep)
+
+Changed files
+
+- src/app/(app)/program/day/[day]/page.tsx   — imports DAY_META from shared module
+- src/app/(app)/program/page.tsx             — imports DAY_META, shows title next to day number
+- src/app/(app)/profile/page.tsx             — async server component; shows real user initials/name
+- package.json                               — added "test": "vitest run" script
+
+Out of scope (unchanged from M1–M4 decisions)
+
+- History picker UI for NPP runs (data stored append-only; UI can be added later)
+- Streak tracking, achievements, XP
+- Payments / entitlements / IAP
+- CI/CD pipeline (app is already deployed on Vercel)
+
+4) Data + behavior notes
+
+- Audio: files are served as static Next.js public assets; no CDN or signed URL required in MVP.
+  To swap to hosted URLs: update src/config/audio.ts values — no component changes needed.
+- Program unlock: user_profiles.program_max_unlocked_day is the single source of truth (1–5).
+  completeDayAction in src/app/(app)/program/_actions.ts advances it after each completion.
+- Reflections: stored in program_day_progress.reflection_payload as { choice: string }.
+- Tests: run with `npm test`; covers pure-function scoring logic (no Supabase mocking needed).
+
+5) Source of truth (where things live)
+
+- Shared day metadata:          src/lib/program/meta.ts
+- Audio URL config:             src/config/audio.ts
+- Day page (audio + reflection): src/app/(app)/program/day/[day]/page.tsx
+- Program completion action:    src/app/(app)/program/_actions.ts
+- Program overview:             src/app/(app)/program/page.tsx
+- Program complete screen:      src/app/(app)/program/complete/page.tsx
+- Profile page:                 src/app/(app)/profile/page.tsx
+- Scoring unit tests:           src/lib/scoring/__tests__/npp-lite.test.ts
+- DB schema + migrations:       supabase/migrations/
+
+6) Deployment
+
+- Platform: Vercel (auto-deploy on push to main branch).
+- Environment variables required (set in Vercel dashboard):
+    NEXT_PUBLIC_SUPABASE_URL        — Supabase project URL
+    NEXT_PUBLIC_SUPABASE_ANON_KEY   — Supabase anon key
+- No vercel.json required — Next.js is detected automatically.
+- .env.local for local development (excluded from git via .gitignore).
+
+7) MVP is complete
+
+All five milestones are done. The core user journey is fully functional:
+  Assessment (NPP Lite) → Results (Insights) → Action (5-day program) → Re-assessment

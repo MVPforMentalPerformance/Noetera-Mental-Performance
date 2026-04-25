@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Milestone 5 Handoff Package (Tech)</title>
+    <style>
+      :root {
+        --bg: #0b0c0f;
+        --card: #12141b;
+        --text: #e8eaf0;
+        --muted: #a7afc0;
+        --border: rgba(255, 255, 255, 0.12);
+        --accent: #9aa6ff;
+        --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+          Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      }
+
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f6f7fb; --card: #ffffff; --text: #0b0c0f;
+          --muted: #46506a; --border: rgba(10, 12, 15, 0.14); --accent: #3a46ff;
+        }
+      }
+
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.5; }
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      .wrap { max-width: 960px; margin: 0 auto; padding: 48px 20px; }
+      .top {
+        display: flex; flex-wrap: wrap; gap: 16px;
+        justify-content: space-between; align-items: baseline; margin-bottom: 20px;
+      }
+      .brand { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); font-weight: 650; }
+      h1 { margin: 6px 0 0; font-size: 28px; letter-spacing: -0.02em; }
+      .meta { color: var(--muted); font-size: 13px; margin-top: 6px; }
+      .pill {
+        display: inline-block; padding: 4px 10px; border-radius: 999px;
+        border: 1px solid var(--border); color: var(--muted); font-size: 12px;
+        font-family: var(--mono); margin-right: 8px;
+      }
+      .section { margin-top: 32px; }
+      .section h2 { font-size: 18px; margin: 0 0 12px; letter-spacing: -0.01em; }
+      .card {
+        background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px;
+        margin-bottom: 12px;
+      }
+      .card h3 { margin: 0 0 8px; font-size: 14px; color: var(--accent); }
+      .card p { margin: 0; font-size: 14px; color: var(--muted); }
+      pre {
+        margin: 10px 0 0; padding: 12px 14px; border-radius: 12px;
+        background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+        font-family: var(--mono); font-size: 13px; overflow-x: auto;
+        color: var(--text);
+      }
+      table { width: 100%; border-collapse: collapse; font-size: 13px; }
+      th { text-align: left; color: var(--muted); font-weight: 600; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+      td { padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); vertical-align: top; }
+      code { font-family: var(--mono); font-size: 12px; }
+      .hr { height: 1px; background: var(--border); margin: 24px 0; }
+      .complete-badge {
+        display: inline-block; padding: 4px 12px; border-radius: 999px;
+        background: rgba(80, 200, 120, 0.15); border: 1px solid rgba(80, 200, 120, 0.3);
+        color: #6bda94; font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
+      }
+
+      @media print {
+        :root { --bg: #fff; --card: #f7f8fc; --text: #0b0c0f; --muted: #46506a; --border: rgba(10,12,15,0.28); --accent: #2430ff; }
+        body { background: #fff; }
+        a { color: #2430ff; text-decoration: underline; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="top">
+        <div>
+          <div class="brand">Milestone 5 — Tech Handoff</div>
+          <h1>M5 Technical Reference</h1>
+          <div class="meta">
+            Status: <strong>Complete</strong> &nbsp;
+            <span class="complete-badge">MVP Done</span>
+          </div>
+        </div>
+        <div class="meta">
+          <span class="pill">Next.js 16</span>
+          <span class="pill">Supabase</span>
+          <span class="pill">Vitest</span>
+          <span class="pill">Vercel</span>
+        </div>
+      </div>
+
+      <!-- New files -->
+      <div class="section">
+        <h2>1. New / changed files</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Path</th>
+              <th>Change</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>src/lib/program/meta.ts</code></td>
+              <td>New — shared <code>DayMeta</code> type + <code>DAY_META</code> constant (titles, blurbs, reflection options for days 1–5). Extracted from the day page so both the overview and the detail page consume the same source.</td>
+            </tr>
+            <tr>
+              <td><code>src/config/audio.ts</code></td>
+              <td>New (M5 prep) — <code>PROGRAM_AUDIO_URLS</code> maps day index 1–5 to <code>/audio/program/day-N.mp3</code>. Swap values here to point to CDN URLs without touching components.</td>
+            </tr>
+            <tr>
+              <td><code>public/audio/program/</code></td>
+              <td>New (M5 prep) — 5 × MP3 at 160 kbps (day-1 through day-5). Served as Next.js static assets.</td>
+            </tr>
+            <tr>
+              <td><code>scripts/convert-program-audio.mjs</code></td>
+              <td>New (M5 prep) — FFmpeg wrapper (ffmpeg-static) to batch-convert WAV → MP3. Run once; output already committed.</td>
+            </tr>
+            <tr>
+              <td><code>src/lib/scoring/__tests__/npp-lite.test.ts</code></td>
+              <td>New — 11 Vitest unit tests covering <code>computeGlobalAverage</code>, <code>pickGlobalProfileKey</code>, <code>pickWeakestDomainKey</code>, and <code>scoreNppLite</code> (array and map input formats, reverse scoring, error paths).</td>
+            </tr>
+            <tr>
+              <td><code>vitest.config.ts</code></td>
+              <td>New — Vitest config; node environment; <code>@/</code> alias resolved to <code>./src/</code>.</td>
+            </tr>
+            <tr>
+              <td><code>src/app/(app)/program/day/[day]/page.tsx</code></td>
+              <td>Changed — imports <code>DAY_META</code> from shared module instead of inline constant.</td>
+            </tr>
+            <tr>
+              <td><code>src/app/(app)/program/page.tsx</code></td>
+              <td>Changed — imports <code>DAY_META</code>; renders session title alongside day number in each row.</td>
+            </tr>
+            <tr>
+              <td><code>src/app/(app)/profile/page.tsx</code></td>
+              <td>Changed — converted to async Server Component; fetches user via <code>getUserOrNull</code>; derives initials and display name from <code>user.email</code> at render time.</td>
+            </tr>
+            <tr>
+              <td><code>package.json</code></td>
+              <td>Changed — added <code>"test": "vitest run"</code> script.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="hr"></div>
+
+      <!-- Tests -->
+      <div class="section">
+        <h2>2. Running tests</h2>
+        <div class="card">
+          <h3>Unit tests (Vitest)</h3>
+          <pre>npm test</pre>
+          <p style="margin-top:10px;">
+            11 tests, pure TypeScript, no Supabase dependency. Test file:
+            <code>src/lib/scoring/__tests__/npp-lite.test.ts</code>.
+            Covers scoring thresholds, tie-breaking order, reverse-score application,
+            full pipeline with both array and object input formats, and error paths.
+          </p>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <!-- Audio -->
+      <div class="section">
+        <h2>3. Audio architecture</h2>
+        <div class="card">
+          <h3>Current setup (static files)</h3>
+          <p>
+            Files live in <code>public/audio/program/</code> and are served by Next.js
+            as <code>/audio/program/day-N.mp3</code>. The URL layer
+            (<code>src/config/audio.ts</code>) maps day index → URL string.
+          </p>
+        </div>
+        <div class="card" style="margin-top:10px;">
+          <h3>Migrating to hosted / CDN URLs</h3>
+          <p>
+            Update the values in <code>src/config/audio.ts</code> to absolute URLs.
+            No component changes needed — the day page reads the URL directly from
+            <code>PROGRAM_AUDIO_URLS[day]</code>.
+          </p>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <!-- Program flow -->
+      <div class="section">
+        <h2>4. Program unlock logic</h2>
+        <table>
+          <thead>
+            <tr><th>Source of truth</th><th>Column</th><th>Semantics</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>user_profiles</code></td>
+              <td><code>program_max_unlocked_day</code></td>
+              <td>Integer 1–5. Day N is accessible iff <code>day_index ≤ program_max_unlocked_day</code>.</td>
+            </tr>
+            <tr>
+              <td><code>program_day_progress</code></td>
+              <td><code>completed_at</code>, <code>reflection_payload</code></td>
+              <td>Set by <code>completeDayAction</code> in <code>src/app/(app)/program/_actions.ts</code>. Advances <code>program_max_unlocked_day</code> to <code>min(5, day + 1)</code>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="hr"></div>
+
+      <!-- Deployment -->
+      <div class="section">
+        <h2>5. Deployment</h2>
+        <div class="card">
+          <h3>Vercel (production)</h3>
+          <p>Auto-deploys on push to <code>main</code>. No <code>vercel.json</code> required.</p>
+          <p style="margin-top:8px;">Required env vars (set in Vercel dashboard):</p>
+          <pre>NEXT_PUBLIC_SUPABASE_URL
+NEXT_PUBLIC_SUPABASE_ANON_KEY</pre>
+        </div>
+        <div class="card" style="margin-top:10px;">
+          <h3>Local development</h3>
+          <pre>cp .env.example .env.local   # fill in Supabase URL + anon key
+npm install
+npm run dev                  # http://localhost:3000
+npm test                     # run unit tests</pre>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <!-- Milestone summary -->
+      <div class="section">
+        <h2>6. Milestone summary</h2>
+        <table>
+          <thead>
+            <tr><th>Milestone</th><th>Scope</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>M1</td><td>Scope, wireframes, DB schema, repo bootstrap</td><td>Done</td></tr>
+            <tr><td>M2</td><td>Auth, layout, navigation, program shell</td><td>Done</td></tr>
+            <tr><td>M3</td><td>NPP Lite (10 items), scoring engine, persistence</td><td>Done</td></tr>
+            <tr><td>M4</td><td>Results screens, dashboard integration, assessment polish</td><td>Done</td></tr>
+            <tr><td><strong>M5</strong></td><td>Full 5-day program, audio, UI polish, tests, documentation</td><td><strong>Done</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

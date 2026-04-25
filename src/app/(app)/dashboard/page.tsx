@@ -6,7 +6,7 @@ import { SecondaryButton } from "@/components/secondary-button";
 import { TextLink } from "@/components/text-link";
 import { PROFILE_COPY } from "@/lib/npp/copy";
 import { getLatestNppAssessmentResultForUser } from "@/lib/npp/server";
-import { ensureProgramProgressRows, getUserOrNull } from "@/lib/program/server";
+import { ensureProgramProgressRows, getUserOrNull, getUserProfile } from "@/lib/program/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
@@ -88,8 +88,13 @@ async function DashboardContent() {
   const { user, supabase } = await getUserOrNull();
   if (!user) redirect("/sign-in");
 
-  const progress = await ensureProgramProgressRows(user.id, supabase);
-  const latestNpp = await getLatestNppAssessmentResultForUser(user.id, supabase);
+  const [profile, progress, latestNpp] = await Promise.all([
+    getUserProfile(user.id, supabase),
+    ensureProgramProgressRows(user.id, supabase),
+    getLatestNppAssessmentResultForUser(user.id, supabase),
+  ]);
+
+  if (!profile.display_name) redirect("/onboarding");
 
   const cta = getPrimaryProgramCta(progress);
   const completedCount = progress.filter((d) => d.completed_at != null).length;

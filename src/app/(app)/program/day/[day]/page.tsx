@@ -2,6 +2,7 @@ import { AppCard } from "@/components/app-card";
 import { PrimaryButton } from "@/components/primary-button";
 import { TextLink } from "@/components/text-link";
 import { PROGRAM_AUDIO_URLS } from "@/config/audio";
+import { DAY_META } from "@/lib/program/meta";
 import {
   ensureProgramProgressRows,
   getUserOrNull,
@@ -13,34 +14,6 @@ import { completeDayAction } from "../../_actions";
 function clamp(n: number, min: number, max: number) {
   return Math.max(min, Math.min(max, n));
 }
-
-const dayMeta: Record<number, { title: string; blurb: string; reflection: string[] }> = {
-  1: {
-    title: "Stabilize",
-    blurb: "A short reset to settle attention and create a calmer baseline.",
-    reflection: ["I feel calmer", "I feel steady", "I need more practice"],
-  },
-  2: {
-    title: "Thought detachment",
-    blurb: "Notice thoughts without getting pulled into them.",
-    reflection: ["More space", "Less noise", "Still distracted"],
-  },
-  3: {
-    title: "Emotional steadiness",
-    blurb: "Reduce reactivity and return to center faster.",
-    reflection: ["More stable", "Some progress", "Not there yet"],
-  },
-  4: {
-    title: "Consistent action",
-    blurb: "Small steps with clarity, even when motivation dips.",
-    reflection: ["I took action", "I started", "I postponed"],
-  },
-  5: {
-    title: "Calm performance",
-    blurb: "Bring steadiness into pressure and execution.",
-    reflection: ["Confident", "Focused", "Overwhelmed"],
-  },
-};
 
 export default async function ProgramDayPage({
   params,
@@ -67,7 +40,7 @@ export default async function ProgramDayPage({
   const row = progress.find((d) => d.day_index === day);
   if (!row) redirect("/program");
 
-  const meta = dayMeta[day];
+  const meta = DAY_META[day as 1 | 2 | 3 | 4 | 5];
   const isCompleted = row.completed_at != null;
   const completedCount = progress.filter((d) => d.completed_at != null).length;
   const progressPct = clamp(Math.round((completedCount / 5) * 100), 0, 100);

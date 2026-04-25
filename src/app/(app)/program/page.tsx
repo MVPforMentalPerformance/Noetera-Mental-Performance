@@ -1,5 +1,6 @@
 import { AppCard } from "@/components/app-card";
 import { SecondaryButton } from "@/components/secondary-button";
+import { DAY_META } from "@/lib/program/meta";
 import { ensureProgramProgressRows, getUserProfile, getUserOrNull } from "@/lib/program/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -99,7 +100,12 @@ export default async function ProgramPage() {
                 <div className="flex min-w-0 items-center gap-3.5">
                   <DayAvatar dayIndex={day.day_index} status={status} />
                   <div className="min-w-0">
-                    <p className="text-sm font-semibold text-ink">Day {day.day_index}</p>
+                    <p className="text-sm font-semibold text-ink">
+                      Day {day.day_index}
+                      <span className="ml-2 font-normal text-muted">
+                        {DAY_META[day.day_index as 1 | 2 | 3 | 4 | 5].title}
+                      </span>
+                    </p>
                     <p className="mt-1 text-xs text-muted">
                       {status === "locked"
                         ? "Unlocks when you finish the day before"

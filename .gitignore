@@ -39,6 +39,9 @@ yarn-error.log*
 **/.cursor/**/agent-transcripts/
 .codex/
 
+# Claude local state
+.claude/
+
 # vercel
 .vercel
 

@@ -37,7 +37,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
         </div>
       </header>
 
-      <div className="flex flex-1 flex-col items-center px-2.5 pb-24 sm:px-6">
+      <div className="flex flex-1 flex-col items-center px-2.5 pb-[var(--app-bottom-nav-gutter)] sm:px-6">
         <div className="w-full max-w-lg pb-2">{children}</div>
       </div>
 

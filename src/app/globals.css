@@ -34,6 +34,13 @@
   --bg-accent-wash-2: color-mix(in srgb, var(--accent-2) 9%, transparent);
   --glass-shine: color-mix(in srgb, white 26%, transparent);
   --glass-shine-2: color-mix(in srgb, white 10%, transparent);
+
+  /* Space for fixed BottomNav + iOS home indicator; used by (app) layout */
+  --app-bottom-nav-gutter: calc(6rem + env(safe-area-inset-bottom, 0px) + 0.5rem);
+}
+
+html {
+  scroll-padding-bottom: var(--app-bottom-nav-gutter);
 }
 
 /* Theme contract:

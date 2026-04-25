@@ -18,7 +18,7 @@ This document ties together milestones, the locked scope from the Developer Hand
 | **M2** | Auth (email/password, session, forgot password), layout, navigation, program shell (days 1–5, states) | Done |
 | **M3** | NPP Lite (10 items), scoring engine, persistence (history) | Done |
 | **M4** | Results screens (profile, domains, strengths/focus) + dashboard + assessment polish | Done |
-| **M5** | Full 5-day program (content, audio via URL), UI polish, tests, deploy, documentation | Planned |
+| **M5** | Full 5-day program (content, audio via URL), UI polish, tests, deploy, documentation | Done |
 
 ## Planning artifacts (M1)
 
