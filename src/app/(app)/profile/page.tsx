@@ -142,7 +142,7 @@ export default async function ProfilePage({
             </p>
           ) : null}
 
-          <form action={updateDisplayNameAction} className="mt-3 flex gap-3">
+          <form action={updateDisplayNameAction} className="mt-3 flex flex-col gap-3">
             <input
               name="displayName"
               type="text"
@@ -150,11 +150,9 @@ export default async function ProfilePage({
               placeholder="Your name"
               maxLength={60}
               autoComplete="given-name"
-              className="field-input min-w-0 flex-1"
+              className="field-input w-full"
             />
-            <PrimaryButton type="submit" className="shrink-0 px-5">
-              Save
-            </PrimaryButton>
+            <PrimaryButton type="submit">Save</PrimaryButton>
           </form>
         </div>
       </AppCard>
