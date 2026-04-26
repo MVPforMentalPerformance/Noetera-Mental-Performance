@@ -65,3 +65,11 @@ Exact SQL: `supabase/migrations/001_initial_schema.sql`.
 ## Migrations
 
 Apply via Supabase CLI (`supabase db push`) or the Dashboard SQL Editor.
+
+## Backups & recovery (operational note)
+
+Backup availability depends on your Supabase plan and what the project’s Dashboard enables at the time. In this project’s current Free plan state, the Dashboard indicates **scheduled/project backups are not included**, so rely on regular off‑site exports (`supabase db dump`) until you upgrade.
+
+See:
+- `docs/OPERATIONS.md` (recommended process + limitations)
+- `https://supabase.com/docs/guides/platform/backups`

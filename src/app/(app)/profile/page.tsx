@@ -160,9 +160,36 @@ export default async function ProfilePage({
       <AppCard className="p-6">
         <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">Coach intelligence</p>
         <div className="mt-4 flex flex-col gap-3">
-          <ListRow icon={<BrainIcon />} title="Coach Intelligence" subtitle="Offline" />
-          <ListRow icon={<WaveIcon />} title="Voice Coach" subtitle="Tap-to-talk prompts (M2+)" />
-          <ListRow icon={<InsightsIcon />} title="Performance Insights" subtitle="Trends and snapshots (M2+)" />
+          <ListRow
+            icon={<BrainIcon />}
+            title="Coach Intelligence"
+            subtitle="Offline"
+            right={
+              <span className="shrink-0 rounded-full border border-border bg-surface px-3 py-1 text-[11px] font-semibold text-muted">
+                Coming soon
+              </span>
+            }
+          />
+          <ListRow
+            icon={<WaveIcon />}
+            title="Voice Coach"
+            subtitle="Tap-to-talk prompts (M2+)"
+            right={
+              <span className="shrink-0 rounded-full border border-border bg-surface px-3 py-1 text-[11px] font-semibold text-muted">
+                Coming soon
+              </span>
+            }
+          />
+          <ListRow
+            icon={<InsightsIcon />}
+            title="Performance Insights"
+            subtitle="Trends and snapshots (M2+)"
+            right={
+              <span className="shrink-0 rounded-full border border-border bg-surface px-3 py-1 text-[11px] font-semibold text-muted">
+                Coming soon
+              </span>
+            }
+          />
         </div>
       </AppCard>
 

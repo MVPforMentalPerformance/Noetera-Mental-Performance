@@ -4,6 +4,13 @@ Mobile-first web app (Next.js, TypeScript, Supabase, Vercel). Master plan and M1
 
 **Layout:** application source lives under **`src/`** (`app`, `components`, `lib`, `config`, and **`proxy.ts`** for Next.js 16+ session refresh). Repo root: `public/`, `supabase/`, `docs/`, and project config files.
 
+## Documentation (handover)
+
+- Handover index: **[docs/HANDOVER.md](./docs/HANDOVER.md)**
+- Operations (backups & recovery): **[docs/OPERATIONS.md](./docs/OPERATIONS.md)**
+- Program architecture (data-driven): **[docs/PROGRAM_STRUCTURE.md](./docs/PROGRAM_STRUCTURE.md)**
+- Database schema & RLS: **[docs/DATABASE.md](./docs/DATABASE.md)**
+
 ## Local development
 
 ```bash
