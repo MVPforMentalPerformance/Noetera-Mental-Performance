@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>NOETERA MVP — Client Guide (Operations & Maintenance)</title>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --fg: #111827;
+        --muted: #6b7280;
+        --card: #f9fafb;
+        --border: #e5e7eb;
+        --accent: #2563eb;
+        --accent2: #0ea5e9;
+        --ok: #16a34a;
+        --warn: #d97706;
+        --bad: #dc2626;
+        --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+          "Courier New", monospace;
+        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+          "Apple Color Emoji", "Segoe UI Emoji";
+      }
+
+      html,
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        font-family: var(--sans);
+        line-height: 1.55;
+        margin: 0;
+        padding: 0;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .page {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 40px 22px 80px;
+      }
+
+      .kicker {
+        color: var(--muted);
+        font-size: 14px;
+        margin: 0 0 10px;
+      }
+
+      h1 {
+        font-size: 34px;
+        letter-spacing: -0.02em;
+        margin: 0 0 10px;
+      }
+      .subtitle {
+        margin: 0 0 18px;
+        color: var(--muted);
+        font-size: 16px;
+      }
+
+      .badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 14px 0 28px;
+      }
+      .badge {
+        border: 1px solid var(--border);
+        background: #fff;
+        color: var(--fg);
+        border-radius: 999px;
+        padding: 6px 10px;
+        font-size: 12.5px;
+        white-space: nowrap;
+      }
+
+      .callout {
+        border: 1px solid var(--border);
+        background: var(--card);
+        border-radius: 14px;
+        padding: 14px 14px;
+        margin: 18px 0;
+      }
+      .callout strong {
+        color: #0f172a;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      @media (min-width: 920px) {
+        .grid {
+          grid-template-columns: 1.15fr 0.85fr;
+        }
+      }
+
+      .toc {
+        border: 1px solid var(--border);
+        background: #fff;
+        border-radius: 14px;
+        padding: 14px 14px;
+      }
+      .toc h2 {
+        font-size: 16px;
+        margin: 0 0 10px;
+      }
+      .toc ul {
+        margin: 0;
+        padding: 0 0 0 18px;
+      }
+      .toc li {
+        margin: 6px 0;
+      }
+      .toc a {
+        color: var(--fg);
+      }
+
+      h2 {
+        font-size: 22px;
+        margin: 26px 0 10px;
+        letter-spacing: -0.01em;
+      }
+      h3 {
+        font-size: 16px;
+        margin: 18px 0 8px;
+      }
+
+      p {
+        margin: 8px 0;
+      }
+
+      ul {
+        margin: 8px 0;
+        padding-left: 18px;
+      }
+      li {
+        margin: 6px 0;
+      }
+
+      code,
+      pre {
+        font-family: var(--mono);
+      }
+      code {
+        background: #f3f4f6;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 1px 6px;
+        font-size: 0.92em;
+      }
+      pre {
+        background: #0b1020;
+        color: #e5e7eb;
+        border-radius: 14px;
+        padding: 12px 12px;
+        overflow: auto;
+        margin: 10px 0;
+        border: 1px solid #111827;
+      }
+      pre code {
+        background: transparent;
+        border: 0;
+        padding: 0;
+        font-size: 13px;
+      }
+
+      .hr {
+        height: 1px;
+        background: var(--border);
+        margin: 24px 0;
+      }
+
+      .status {
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border-radius: 999px;
+        padding: 3px 9px;
+        border: 1px solid var(--border);
+        background: #fff;
+        font-size: 12.5px;
+      }
+      .status.ok {
+        border-color: rgba(22, 163, 74, 0.35);
+        color: #14532d;
+        background: rgba(22, 163, 74, 0.08);
+      }
+      .status.warn {
+        border-color: rgba(217, 119, 6, 0.35);
+        color: #78350f;
+        background: rgba(217, 119, 6, 0.08);
+      }
+      .status.bad {
+        border-color: rgba(220, 38, 38, 0.35);
+        color: #7f1d1d;
+        background: rgba(220, 38, 38, 0.08);
+      }
+
+      .checklist {
+        margin: 10px 0;
+        padding-left: 0;
+        list-style: none;
+      }
+      .checklist li {
+        display: grid;
+        grid-template-columns: 18px 1fr;
+        gap: 10px;
+        padding: 8px 10px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: #fff;
+        margin: 8px 0;
+      }
+      .checklist .box {
+        width: 14px;
+        height: 14px;
+        border: 2px solid #cbd5e1;
+        border-radius: 4px;
+        margin-top: 2px;
+      }
+
+      .footer {
+        margin-top: 34px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      /* Print / PDF */
+      @page {
+        margin: 16mm 14mm;
+      }
+      @media print {
+        :root {
+          --bg: #ffffff;
+          --fg: #000;
+          --muted: #444;
+          --border: #ddd;
+          --card: #fff;
+          --accent: #000;
+          --accent2: #000;
+        }
+        a {
+          text-decoration: none;
+          color: #000;
+        }
+        .page {
+          max-width: none;
+          padding: 0 6mm;
+        }
+        pre {
+          background: #fff;
+          color: #000;
+          border: 1px solid #ddd;
+          page-break-inside: avoid;
+        }
+        .toc,
+        .callout,
+        .checklist li {
+          box-shadow: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <p class="kicker">Client handover document / product owner guide</p>
+      <h1>NOETERA MVP — Client Guide</h1>
+      <p class="subtitle">
+        Operations, maintenance, deployment, and recovery. Delivered as HTML so you can export it to
+        PDF using your browser’s print dialog.
+      </p>
+
+      <div class="badges">
+        <span class="badge">Next.js 16.2.3</span>
+        <span class="badge">React 19.2.4</span>
+        <span class="badge">TypeScript</span>
+        <span class="badge">Supabase Auth + Postgres (RLS)</span>
+        <span class="badge">Vercel</span>
+      </div>
+
+      <div class="grid">
+        <div>
+          <div class="callout">
+            <p>
+              <strong>What this app is.</strong> A mobile‑first web app: the user completes a
+              <em>5‑day program</em> (Days 1–5 unlock strictly in order), then takes the
+              <em>NPP Lite</em> assessment (10 questions), receives results (a 3‑screen wizard), and
+              returns to the Dashboard.
+            </p>
+            <p>
+              <strong>Core UX rule.</strong> On the signed‑in home screen, the primary CTA is always
+              the 5‑day program (Start Day 1 / Continue). Results and NPP retakes are secondary.
+            </p>
+          </div>
+          <div class="callout">
+            <p>
+              <span class="status ok">Audience</span>
+              This guide is written for a <strong>non‑technical client</strong>. You do not need to
+              read code to operate the product. A short technical appendix is included at the end
+              for your developer/vendor.
+            </p>
+          </div>
+        </div>
+
+        <div class="toc">
+          <h2>Table of contents</h2>
+          <ul>
+            <li><a href="#who-is-this-for">Who this is for</a></li>
+            <li><a href="#what-you-own">What you own (assets & accounts)</a></li>
+            <li><a href="#day-to-day">Day‑to‑day checks (5 minutes)</a></li>
+            <li><a href="#common-requests">Common change requests</a></li>
+            <li><a href="#email-flows">Email flows (confirm & reset)</a></li>
+            <li><a href="#privacy">Data & privacy (plain English)</a></li>
+            <li><a href="#backups">Backups & recovery</a></li>
+            <li><a href="#support">When to contact a developer</a></li>
+            <li><a href="#appendix">Appendix (for developers)</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <h2 id="who-is-this-for">Who this is for</h2>
+      <p>
+        This guide is for a product owner / client who needs to <strong>manage the app</strong> without
+        touching code: understand the user journey, know what accounts you must keep, run quick health
+        checks, and handle common requests.
+      </p>
+      <div class="callout">
+        <p>
+          <span class="status ok">Key idea</span>
+          You can operate the product with <strong>two dashboards</strong>: Vercel (hosting) and Supabase (users & database).
+        </p>
+      </div>
+
+      <h2 id="what-you-own">What you own (assets & accounts)</h2>
+      <p>To avoid losing control of the product, ensure the client organization owns:</p>
+      <ul>
+        <li><strong>Vercel project</strong> (hosting) — who can deploy, see logs, set environment variables</li>
+        <li><strong>Supabase project</strong> (users + database) — where user accounts and app data live</li>
+        <li><strong>GitHub repository</strong> (source code) — where changes are stored and reviewed</li>
+        <li><strong>Production domain</strong> (optional) — if using a custom domain, ensure it’s registered under the client</li>
+      </ul>
+      <ul class="checklist">
+        <li>
+          <span class="box"></span>
+          <span>Confirm there are at least <strong>two admins</strong> on Vercel and Supabase (avoid single‑person risk).</span>
+        </li>
+        <li>
+          <span class="box"></span>
+          <span>Store critical credentials and recovery codes in the client’s password manager / vault.</span>
+        </li>
+      </ul>
+
+      <h2 id="day-to-day">Day‑to‑day checks (5 minutes)</h2>
+      <p>Recommended weekly (or after any release):</p>
+      <ul class="checklist">
+        <li><span class="box"></span><span><strong>Open the app</strong> on mobile and confirm it loads quickly.</span></li>
+        <li><span class="box"></span><span><strong>Sign up</strong> with a test email → confirm you receive the confirmation email.</span></li>
+        <li><span class="box"></span><span><strong>Sign in</strong> → see Dashboard with the program as the primary action.</span></li>
+        <li><span class="box"></span><span>Complete Day 1 → verify Day 2 unlocks.</span></li>
+        <li><span class="box"></span><span>Trigger <strong>Forgot password</strong> → verify the reset flow works end‑to‑end.</span></li>
+      </ul>
+      <div class="callout">
+        <p>
+          <span class="status warn">Tip</span>
+          Keep 1–2 dedicated test accounts. Avoid testing with real customer accounts.
+        </p>
+      </div>
+
+      <h2 id="common-requests">Common change requests</h2>
+      <h3>“Can we change the program text?”</h3>
+      <p>
+        Yes — but in the current MVP, program copy is packaged with the app. That means text changes
+        require a small developer change + deploy (usually quick).
+      </p>
+      <h3>“Can we change the audio files?”</h3>
+      <p>
+        Yes. Audio can be updated and redeployed. If you expect frequent content updates, consider a
+        future improvement: moving copy/audio mapping into a CMS or database so updates don’t require a
+        code release.
+      </p>
+      <h3>“Can we see results history?”</h3>
+      <p>
+        The app already stores results as history (append‑only). The MVP UI focuses on the latest
+        result. A history screen can be added later without changing the stored data model.
+      </p>
+
+      <h2 id="email-flows">Email flows (confirm & reset)</h2>
+      <p>
+        The product relies on two email-based flows:
+      </p>
+      <ul>
+        <li><strong>Email confirmation</strong> (after sign‑up)</li>
+        <li><strong>Password reset</strong> (“Forgot password”)</li>
+      </ul>
+      <div class="callout">
+        <p>
+          <span class="status warn">Common failure</span>
+          If users click an email link and it opens the wrong site (or shows an error), it’s almost
+          always a misconfiguration of “Redirect URLs” in Supabase for your production domain.
+        </p>
+      </div>
+      <p>
+        What you typically do (non‑technical):
+      </p>
+      <ul class="checklist">
+        <li><span class="box"></span><span>Keep a note of your <strong>production URL</strong> (Vercel domain or custom domain).</span></li>
+        <li><span class="box"></span><span>When changing domains, ask your developer to update Supabase Redirect URLs.</span></li>
+      </ul>
+
+      <h2 id="privacy">Data & privacy (plain English)</h2>
+      <ul>
+        <li><strong>User accounts</strong> are managed by Supabase Auth.</li>
+        <li><strong>App data</strong> is stored in Supabase Postgres and protected so users can only access their own records.</li>
+        <li><strong>Assessment results</strong> are saved as a new entry each time (history is preserved).</li>
+      </ul>
+
+      <h2 id="backups">Backups & recovery</h2>
+      <p>
+        Backup strategy depends on your Supabase plan. The source of truth is the Dashboard (Database → Backups).
+      </p>
+      <ul>
+        <li><span class="status warn">Free</span> — in this project’s current state, the Dashboard indicates that scheduled/project backups may not be available.</li>
+        <li><span class="status ok">Pro</span> — typically includes scheduled backups and retention (depends on plan/policy).</li>
+        <li><span class="status ok">PITR</span> — paid option for point‑in‑time recovery (requires appropriate plan/compute).</li>
+      </ul>
+      <h3>Minimum on Free</h3>
+      <ul>
+        <li>Assume there are no managed scheduled backups.</li>
+        <li>Create an “off‑site” logical export on a cadence and store it outside Supabase.</li>
+      </ul>
+      <pre><code>supabase db dump --db-url "&lt;your-connection-string&gt;" --file "backup.sql"</code></pre>
+      <p>
+        <strong>Important:</strong> database backups do not include Supabase Storage objects. If you start using Storage for files, you need a separate backup strategy.
+      </p>
+
+      <h2 id="support">When to contact a developer</h2>
+      <p>Contact your developer/vendor when any of the following happens:</p>
+      <ul>
+        <li><strong>Users cannot sign up</strong> or do not receive confirmation emails.</li>
+        <li><strong>Password reset emails</strong> fail or link opens the wrong domain.</li>
+        <li>The app is down, extremely slow, or shows unexpected errors.</li>
+        <li>You need changes to program copy/audio, scoring, or the user flow.</li>
+      </ul>
+      <div class="callout">
+        <p>
+          <span class="status ok">What to send</span>
+          When reporting an issue, send: your production URL, the exact steps to reproduce, and the time it happened.
+          If possible, include a screenshot of the error.
+        </p>
+      </div>
+
+      <h2 id="appendix">Appendix (for developers)</h2>
+      <div class="callout">
+        <p>
+          <span class="status warn">Technical</span>
+          The items below are for a developer. The product owner does not need to act on them directly.
+        </p>
+      </div>
+      <h3>Local run</h3>
+      <pre><code>npm install
+cp .env.example .env.local
+# set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY
+npm run dev</code></pre>
+      <h3>Critical configuration: Supabase Redirect URLs</h3>
+      <ul>
+        <li><code>http://localhost:3000/**</code></li>
+        <li><code>https://&lt;your-production-domain&gt;/**</code></li>
+      </ul>
+      <h3>Where things live (code pointers)</h3>
+      <ul>
+        <li><code>src/proxy.ts</code> — Next.js 16 Proxy session refresh</li>
+        <li><code>src/lib/supabase/server.ts</code> and <code>src/lib/supabase/client.ts</code> — Supabase clients</li>
+        <li><code>supabase/migrations/</code> — schema + RLS migrations</li>
+        <li><code>scripts/convert-program-audio.mjs</code> — audio conversion</li>
+      </ul>
+
+      <p class="footer">
+        Note: deeper engineering documentation remains in <code>docs/</code>
+        (e.g. <code>docs/HANDOVER.md</code>, <code>docs/OPERATIONS.md</code>,
+        <code>docs/DATABASE.md</code>, <code>docs/PROGRAM_STRUCTURE.md</code>).
+      </p>
+    </div>
+  </body>
+</html>
