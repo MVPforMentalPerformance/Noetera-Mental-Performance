@@ -81,7 +81,7 @@ export default async function ProgramDayPage({
           <div className="min-w-0">
             <h2 className="text-3xl leading-tight text-ink">Session audio</h2>
             <p className="mt-3 text-sm text-muted">
-              Press play when you're ready. This session matches the guided flow for Day {day}.
+              Press play when you&apos;re ready. This session matches the guided flow for Day {day}.
             </p>
           </div>
           {!audioUrl ? (
@@ -106,7 +106,7 @@ export default async function ProgramDayPage({
               </audio>
             </div>
             <p className="mt-3 text-xs text-muted">
-              If playback doesn't start, try refreshing the page.
+              If playback doesn&apos;t start, try refreshing the page.
             </p>
           </div>
         ) : (

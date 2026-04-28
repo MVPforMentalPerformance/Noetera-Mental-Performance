@@ -1,5 +1,4 @@
 import { AppCard } from "@/components/app-card";
-import { SecondaryButton } from "@/components/secondary-button";
 import { DAY_META } from "@/lib/program/meta";
 import { ensureProgramProgressRows, getUserProfile, getUserOrNull } from "@/lib/program/server";
 import Link from "next/link";
@@ -147,12 +146,6 @@ export default async function ProgramPage() {
               </Link>
             );
           })}
-        </div>
-
-        <div className="mt-6">
-          <Link href="/dashboard" className="block cursor-pointer">
-            <SecondaryButton type="button">Return to dashboard</SecondaryButton>
-          </Link>
         </div>
       </AppCard>
     </main>

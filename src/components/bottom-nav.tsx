@@ -15,7 +15,7 @@ type NavItem = {
 const items: NavItem[] = [
   {
     href: "/dashboard",
-    label: "Today",
+    label: "Home",
     activeWhenStartsWith: "/dashboard",
     icon: ({ active }) => (
       <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
@@ -156,7 +156,7 @@ export function BottomNav() {
                   className={cx(
                     "pointer-events-none absolute inset-0 rounded-[1.25rem] transition",
                     active
-                      ? "bg-linear-to-r from-accent to-accent2 shadow-[0_16px_44px_-34px_var(--color-shadow)]"
+                      ? "bg-linear-to-r from-accent to-accent2 shadow-[0_16px_44px_-34px_var(--color-shadow),0_0_28px_-16px_color-mix(in_srgb,var(--color-accent2)_55%,transparent)]"
                       : "bg-transparent",
                   )}
                 />

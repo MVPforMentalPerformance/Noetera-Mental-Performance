@@ -22,7 +22,7 @@ export function IconButton({
     <button
       type="button"
       className={cx(
-        "grid cursor-pointer place-items-center transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:pointer-events-none disabled:opacity-45",
+        "grid cursor-pointer place-items-center transition hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:pointer-events-none disabled:opacity-45",
         sizes,
         variant === "accent"
           ? "bg-linear-to-r from-accent to-accent2 text-accentInk shadow-[0_22px_55px_-40px_var(--color-shadow)]"

@@ -2,9 +2,7 @@ import { AppCard } from "@/components/app-card";
 import { IconButton } from "@/components/icon-button";
 import { PrimaryButton } from "@/components/primary-button";
 import { RingProgress } from "@/components/ring-progress";
-import { SecondaryButton } from "@/components/secondary-button";
 import { TextLink } from "@/components/text-link";
-import { PROFILE_COPY } from "@/lib/npp/copy";
 import { getLatestNppAssessmentResultForUser } from "@/lib/npp/server";
 import { ensureProgramProgressRows, getUserOrNull, getUserProfile } from "@/lib/program/server";
 import Link from "next/link";
@@ -20,7 +18,7 @@ function getPrimaryProgramCta(progress: Awaited<ReturnType<typeof ensureProgramP
   if (!nextIncomplete) return { label: "Continue your training", href: "/program/complete" };
   const started = progress.some((d) => d.completed_at != null);
   return {
-    label: started ? "Continue your practice" : "Begin day 1",
+    label: started ? `Continue Day ${nextIncomplete.day_index}` : "Begin Day 1",
     href: `/program/day/${nextIncomplete.day_index}`,
   };
 }
@@ -110,7 +108,7 @@ async function DashboardContent() {
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">
               Welcome back
             </p>
-            <h1 className="mt-2 text-4xl leading-[1.05] text-ink">Your next calm move</h1>
+            <h1 className="mt-2 text-4xl leading-[1.05] text-ink">Your next calm move starts now</h1>
             <p className="mt-4 max-w-md text-sm leading-relaxed text-muted">
               Start with the 5-day Mental Clarity sequence. One short session per day builds steady attention under pressure.
             </p>
@@ -172,18 +170,9 @@ async function DashboardContent() {
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
             <h2 className="text-3xl leading-tight text-ink">Personal profile</h2>
-            {latestNpp ? (
-              <>
-                <p className="mt-3 text-sm font-semibold text-ink">{PROFILE_COPY[latestNpp.display_profile_key].title}</p>
-                <p className="mt-2 text-sm text-muted">
-                  Your latest NPP Lite snapshot is ready. View the full results sequence when you’re ready.
-                </p>
-              </>
-            ) : (
-              <p className="mt-3 text-sm text-muted">
-                Take NPP Lite to generate your profile, domain breakdown, and strengths snapshot.
-              </p>
-            )}
+            <p className="mt-3 text-sm text-muted">
+              Your NPP Lite snapshot now lives in onboarding so your dashboard stays focused on the next step.
+            </p>
           </div>
           {latestNpp ? (
             <span className="shrink-0 rounded-full border border-border bg-surface px-3 py-1 text-[11px] font-semibold text-muted">
@@ -191,32 +180,9 @@ async function DashboardContent() {
             </span>
           ) : null}
         </div>
-        <div className="mt-6 flex items-center justify-between gap-3">
-          <div className="grid w-full grid-cols-2 gap-3">
-            {latestNpp ? (
-              <Link href="/insights" className="block cursor-pointer">
-                <SecondaryButton type="button" className="py-3">
-                  View results
-                </SecondaryButton>
-              </Link>
-            ) : (
-              <Link href="/assessment" className="block cursor-pointer">
-                <SecondaryButton type="button" className="py-3">
-                  Take NPP Lite
-                </SecondaryButton>
-              </Link>
-            )}
-
-            <Link href="/program" className="block cursor-pointer">
-              <SecondaryButton type="button" className="py-3">
-                Browse program days
-              </SecondaryButton>
-            </Link>
-          </div>
-        </div>
-        <div className="mt-4 text-center">
-          <TextLink href="/assessment" className="text-sm">
-            Retake NPP
+        <div className="mt-5">
+          <TextLink href="/onboarding" className="text-sm">
+            Review your profile
           </TextLink>
         </div>
       </AppCard>

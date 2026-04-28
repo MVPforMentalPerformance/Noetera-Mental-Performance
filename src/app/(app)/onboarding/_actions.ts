@@ -23,5 +23,5 @@ export async function saveDisplayNameAction(formData: FormData) {
 
   if (error) redirect(`/onboarding?error=${encodeURIComponent(error.message)}`);
 
-  redirect("/dashboard");
+  redirect("/onboarding");
 }

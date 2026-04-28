@@ -1,4 +1,5 @@
 import { AppCard } from "@/components/app-card";
+import { PasswordField } from "@/components/password-field";
 import { PrimaryButton } from "@/components/primary-button";
 import { TextLink } from "@/components/text-link";
 import { signInAction } from "../_actions";
@@ -40,16 +41,12 @@ export default async function SignInPage({
                 className="field-input"
               />
             </label>
-            <label className="flex cursor-pointer flex-col gap-1.5">
-              <span className="field-label">Password</span>
-              <input
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                className="field-input"
-              />
-            </label>
+            <PasswordField
+              name="password"
+              label="Password"
+              autoComplete="current-password"
+              required
+            />
             <div className="mt-2 flex flex-col gap-3">
               <PrimaryButton type="submit">Sign in</PrimaryButton>
               <div className="flex flex-col items-center gap-2 text-center">

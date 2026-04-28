@@ -1,4 +1,5 @@
 import { AppCard } from "@/components/app-card";
+import { PasswordField } from "@/components/password-field";
 import { PrimaryButton } from "@/components/primary-button";
 import { TextLink } from "@/components/text-link";
 import { signUpAction } from "../_actions";
@@ -42,26 +43,18 @@ export default async function SignUpPage({
                 className="field-input"
               />
             </label>
-            <label className="flex cursor-pointer flex-col gap-1.5">
-              <span className="field-label">Password</span>
-              <input
-                name="password"
-                type="password"
-                autoComplete="new-password"
-                required
-                className="field-input"
-              />
-            </label>
-            <label className="flex cursor-pointer flex-col gap-1.5">
-              <span className="field-label">Confirm password</span>
-              <input
-                name="confirmPassword"
-                type="password"
-                autoComplete="new-password"
-                required
-                className="field-input"
-              />
-            </label>
+            <PasswordField
+              name="password"
+              label="Password"
+              autoComplete="new-password"
+              required
+            />
+            <PasswordField
+              name="confirmPassword"
+              label="Confirm password"
+              autoComplete="new-password"
+              required
+            />
 
             <div className="mt-2 flex flex-col gap-3">
               <PrimaryButton type="submit">Sign up</PrimaryButton>
