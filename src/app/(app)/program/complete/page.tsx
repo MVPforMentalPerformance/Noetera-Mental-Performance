@@ -62,12 +62,9 @@ async function ProgramCompleteContent() {
             <PrimaryButton type="button">Continue to NPP Lite</PrimaryButton>
           </Link>
         </div>
-        <div className="mt-4 grid grid-cols-2 gap-3">
-          <Link href="/dashboard" className="block cursor-pointer">
-            <SecondaryButton type="button">Back to home</SecondaryButton>
-          </Link>
-          <Link href="/program" className="block cursor-pointer">
-            <SecondaryButton type="button">Browse program days</SecondaryButton>
+        <div className="mt-4 flex justify-center">
+          <Link href="/dashboard" className="text-sm font-semibold text-muted hover:text-ink transition-colors">
+            Home
           </Link>
         </div>
       </AppCard>

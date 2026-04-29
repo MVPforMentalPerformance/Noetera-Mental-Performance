@@ -19,12 +19,9 @@ export default function AssessmentPage() {
 
       <AssessmentFlow />
 
-      <div className="grid grid-cols-2 gap-3">
-        <Link href="/dashboard" className="block cursor-pointer">
-          <SecondaryButton type="button">Back to home</SecondaryButton>
-        </Link>
-        <Link href="/program" className="block cursor-pointer">
-          <SecondaryButton type="button">Continue program</SecondaryButton>
+      <div className="flex justify-center">
+        <Link href="/dashboard" className="text-sm font-semibold text-muted hover:text-ink transition-colors">
+          Home
         </Link>
       </div>
     </main>

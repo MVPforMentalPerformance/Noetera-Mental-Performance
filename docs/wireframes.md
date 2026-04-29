@@ -121,7 +121,7 @@ Goal: lock hierarchy, one primary CTA, card structure. Visual design comes later
 │                         │
 │  [ Continue to NPP  ]   │  ← primary
 │                         │
-│  Back to home           │  secondary / text
+│          Home           │  secondary / text
 └─────────────────────────┘
 ```
 
@@ -187,7 +187,7 @@ Goal: lock hierarchy, one primary CTA, card structure. Visual design comes later
 │  • …  • …               │
 │  (brief guidance)       │
 │                         │
-│  [ Back to home     ]   │  ← primary
+│        [ Home ]         │  ← primary
 └─────────────────────────┘
 ```
 

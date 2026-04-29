@@ -212,7 +212,7 @@ export function ResultsWizard({ result }: { result: NppAssessmentResultRow }) {
 
         {step === steps - 1 ? (
           <Link href="/dashboard" className={cx("block cursor-pointer")}>
-            <PrimaryButton type="button">Back to home</PrimaryButton>
+            <PrimaryButton type="button">Home</PrimaryButton>
           </Link>
         ) : (
           <PrimaryButton type="button" onClick={() => setStep((s) => clamp(s + 1, 0, steps - 1))}>

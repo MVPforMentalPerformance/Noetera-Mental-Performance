@@ -91,12 +91,12 @@ export function AssessmentFlow() {
           Your NPP Lite results are ready. Take a minute to review your profile, domains, and strengths — then choose what
           to train next.
         </p>
-        <div className="mt-6 grid grid-cols-2 gap-3">
-          <Link href="/dashboard" className="block cursor-pointer">
-            <SecondaryButton type="button">Back to home</SecondaryButton>
-          </Link>
+        <div className="mt-6 flex flex-col gap-3">
           <Link href="/insights" className="block cursor-pointer">
             <PrimaryButton type="button">View results</PrimaryButton>
+          </Link>
+          <Link href="/dashboard" className="block cursor-pointer text-center text-sm font-semibold text-muted hover:text-ink transition-colors">
+            Home
           </Link>
         </div>
       </AppCard>

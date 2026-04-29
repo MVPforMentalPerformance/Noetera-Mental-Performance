@@ -23,7 +23,7 @@ export const DAY_META: Record<1 | 2 | 3 | 4 | 5, DayMeta> = {
   4: {
     title: "Consistent action",
     blurb: "Small steps with clarity, even when motivation dips.",
-    reflection: ["I took action", "I started", "I postponed"],
+    reflection: ["I followed through", "I made a start", "I held back"],
   },
   5: {
     title: "Calm performance",

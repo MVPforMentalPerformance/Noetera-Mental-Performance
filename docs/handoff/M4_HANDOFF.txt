@@ -36,7 +36,7 @@ Recommended walkthrough:
   - Open /insights and go through the 3-step wizard:
     1) Profile → Next
     2) Domains → Next
-    3) Strengths & focus → Back to home
+    3) Strengths & focus → Home
 - Retake behavior:
   - From Dashboard: “Retake NPP” starts a new run; completion adds another row to history (UI still shows latest only).
 
