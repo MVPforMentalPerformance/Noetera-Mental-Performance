@@ -59,7 +59,7 @@ async function ProgramCompleteContent() {
         </p>
         <div className="mt-5">
           <Link href="/assessment" className="block cursor-pointer">
-            <PrimaryButton type="button">Continue to NPP Lite</PrimaryButton>
+            <PrimaryButton type="button">Take your NPP Check-In</PrimaryButton>
           </Link>
         </div>
         <div className="mt-4 flex justify-center">

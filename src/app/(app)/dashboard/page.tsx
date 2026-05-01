@@ -1,6 +1,7 @@
 import { AppCard } from "@/components/app-card";
 import { IconButton } from "@/components/icon-button";
 import { PrimaryButton } from "@/components/primary-button";
+import { SecondaryButton } from "@/components/secondary-button";
 import { RingProgress } from "@/components/ring-progress";
 import { TextLink } from "@/components/text-link";
 import { getLatestNppAssessmentResultForUser } from "@/lib/npp/server";
@@ -146,10 +147,18 @@ async function DashboardContent() {
           </IconButton>
         </div>
 
-        <div className="mt-5">
+        <div className="mt-5 flex flex-col gap-3">
           <Link href={cta.href} className="block cursor-pointer">
             <PrimaryButton type="button">{cta.label}</PrimaryButton>
           </Link>
+          <div className="flex flex-col items-center gap-1">
+            <Link href="/assessment" className="block w-full cursor-pointer">
+              <SecondaryButton type="button">Take NPP Lite</SecondaryButton>
+            </Link>
+            <p className="text-center text-[11px] text-muted">
+              Optional: Take a quick 2-minute snapshot of your current state
+            </p>
+          </div>
         </div>
       </AppCard>
 

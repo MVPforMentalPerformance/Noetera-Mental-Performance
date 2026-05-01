@@ -1,6 +1,4 @@
-import { SecondaryButton } from "@/components/secondary-button";
 import { AssessmentFlow } from "./assessment-flow";
-import Link from "next/link";
 
 export default function AssessmentPage() {
   return (
@@ -18,12 +16,6 @@ export default function AssessmentPage() {
       </header>
 
       <AssessmentFlow />
-
-      <div className="flex justify-center">
-        <Link href="/dashboard" className="text-sm font-semibold text-muted hover:text-ink transition-colors">
-          Home
-        </Link>
-      </div>
     </main>
   );
 }
