@@ -74,15 +74,16 @@ export default async function OnboardingPage({
             <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">
               Personal profile
             </p>
-            <h1 className="mt-2 text-4xl leading-[1.05] text-ink">
-              Understand your mental strengths before you begin
-            </h1>
-            <p className="mt-4 text-sm leading-relaxed text-muted">
-              NPP Lite takes about 2 minutes and gives you a snapshot across five domains. You can retake it any time.
-            </p>
 
             {latestNpp ? (
               <>
+                <h1 className="mt-2 text-4xl leading-[1.05] text-ink">
+                  Understand your mental strengths before you begin
+                </h1>
+                <p className="mt-4 text-sm leading-relaxed text-muted">
+                  NPP Lite takes about 2 minutes and gives you a snapshot across five domains. You can retake it any
+                  time.
+                </p>
                 <p className="mt-5 text-sm font-semibold text-ink">
                   {PROFILE_COPY[latestNpp.display_profile_key].title}
                 </p>
@@ -105,15 +106,28 @@ export default async function OnboardingPage({
               </>
             ) : (
               <>
-                <div className="mt-6">
-                  <Link href="/assessment" className="block cursor-pointer">
-                    <PrimaryButton type="button">Take NPP Lite</PrimaryButton>
-                  </Link>
-                </div>
-                <div className="mt-3">
+                <h1 className="mt-2 text-4xl leading-[1.05] text-ink">
+                  Start your mental clarity journey
+                </h1>
+                <p className="mt-3 max-w-prose text-lg leading-snug text-muted">
+                  Build awareness first. Measure your progress after.
+                </p>
+                <p className="mt-4 text-sm leading-relaxed text-muted">
+                  Start with the 5-day Mental Clarity sequence. One short session per day builds steady attention under
+                  pressure.
+                </p>
+                <div className="mt-6 flex flex-col gap-3">
                   <Link href="/program/day/1" className="block cursor-pointer">
-                    <SecondaryButton type="button">Begin Day 1</SecondaryButton>
+                    <PrimaryButton type="button">Begin Day 1</PrimaryButton>
                   </Link>
+                  <div className="flex flex-col items-center gap-1">
+                    <Link href="/assessment" className="block w-full cursor-pointer">
+                      <SecondaryButton type="button">Take NPP Lite (optional)</SecondaryButton>
+                    </Link>
+                    <p className="text-center text-[11px] text-muted">
+                      Optional: Take a quick 2-minute snapshot of your current state
+                    </p>
+                  </div>
                 </div>
               </>
             )}
