@@ -5,6 +5,7 @@ import { SecondaryButton } from "@/components/secondary-button";
 import { RingProgress } from "@/components/ring-progress";
 import { TextLink } from "@/components/text-link";
 import { getLatestNppAssessmentResultForUser } from "@/lib/npp/server";
+import { getPrimaryProgramCta } from "@/lib/program/cta";
 import { ensureProgramProgressRows, getUserOrNull, getUserProfile } from "@/lib/program/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -12,16 +13,6 @@ import { Suspense } from "react";
 
 function clamp(n: number, min: number, max: number) {
   return Math.max(min, Math.min(max, n));
-}
-
-function getPrimaryProgramCta(progress: Awaited<ReturnType<typeof ensureProgramProgressRows>>) {
-  const nextIncomplete = progress.find((d) => d.completed_at == null);
-  if (!nextIncomplete) return { label: "Continue your training", href: "/program/complete" };
-  const started = progress.some((d) => d.completed_at != null);
-  return {
-    label: started ? `Continue Day ${nextIncomplete.day_index}` : "Begin Day 1",
-    href: `/program/day/${nextIncomplete.day_index}`,
-  };
 }
 
 function BoltIcon() {

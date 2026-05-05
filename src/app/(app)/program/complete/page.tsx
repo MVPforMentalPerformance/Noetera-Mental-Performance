@@ -62,11 +62,6 @@ async function ProgramCompleteContent() {
             <PrimaryButton type="button">Take your NPP Check-In</PrimaryButton>
           </Link>
         </div>
-        <div className="mt-4 flex justify-center">
-          <Link href="/dashboard" className="text-sm font-semibold text-muted hover:text-ink transition-colors">
-            Home
-          </Link>
-        </div>
       </AppCard>
     </main>
   );

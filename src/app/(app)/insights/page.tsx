@@ -1,6 +1,8 @@
 import { AppCard } from "@/components/app-card";
 import { PrimaryButton } from "@/components/primary-button";
 import { getLatestNppAssessmentResult } from "@/lib/npp/server";
+import { getPrimaryProgramCta } from "@/lib/program/cta";
+import { ensureProgramProgressRows } from "@/lib/program/server";
 import Link from "next/link";
 import { ResultsWizard } from "./results-wizard";
 
@@ -56,6 +58,8 @@ async function InsightsBody() {
     );
   }
 
-  return <ResultsWizard result={result} />;
+  const progress = await ensureProgramProgressRows(user.id);
+  const primaryCta = getPrimaryProgramCta(progress);
+  return <ResultsWizard result={result} primaryCta={primaryCta} />;
 }
 

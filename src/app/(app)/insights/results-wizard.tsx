@@ -5,6 +5,7 @@ import { PrimaryButton } from "@/components/primary-button";
 import { SecondaryButton } from "@/components/secondary-button";
 import { cx } from "@/lib/cx";
 import { bandLabel, DERIVED_COPY, DOMAIN_COPY, PROFILE_COPY } from "@/lib/npp/copy";
+import type { ProgramCta } from "@/lib/program/cta";
 import type { NppAssessmentResultRow } from "@/lib/npp/server";
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -59,7 +60,7 @@ function DomainRow({
   );
 }
 
-export function ResultsWizard({ result }: { result: NppAssessmentResultRow }) {
+export function ResultsWizard({ result, primaryCta }: { result: NppAssessmentResultRow; primaryCta: ProgramCta }) {
   const steps = 3;
   const [step, setStep] = useState(0);
 
@@ -211,8 +212,8 @@ export function ResultsWizard({ result }: { result: NppAssessmentResultRow }) {
         )}
 
         {step === steps - 1 ? (
-          <Link href="/dashboard" className={cx("block cursor-pointer")}>
-            <PrimaryButton type="button">Home</PrimaryButton>
+          <Link href={primaryCta.href} className={cx("block cursor-pointer")}>
+            <PrimaryButton type="button">{primaryCta.label}</PrimaryButton>
           </Link>
         ) : (
           <PrimaryButton type="button" onClick={() => setStep((s) => clamp(s + 1, 0, steps - 1))}>
