@@ -3,24 +3,22 @@ import { LandingHero } from "@/components/marketing/hero";
 import { SiteFooter } from "@/components/marketing/site-footer";
 import { SiteHeader } from "@/components/marketing/site-header";
 import { createClient } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
 
 export default async function Home() {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
-  if (user) redirect("/dashboard");
+  const isAuthenticated = Boolean(user);
 
   return (
     <div className="flex min-h-full flex-1 flex-col bg-canvas">
-      <SiteHeader />
+      <SiteHeader isAuthenticated={isAuthenticated} />
       <main className="flex-1">
-        <LandingHero />
+        <LandingHero isAuthenticated={isAuthenticated} />
         <FeatureGrid />
       </main>
-      <SiteFooter />
+      <SiteFooter isAuthenticated={isAuthenticated} />
     </div>
   );
 }

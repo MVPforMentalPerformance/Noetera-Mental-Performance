@@ -15,8 +15,8 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
       <header className="sticky top-0 z-40 border-b border-border/50 bg-canvas/80 backdrop-blur-xl">
         <div className="mx-auto flex w-full max-w-lg items-center justify-between px-4 pb-4 pt-6 sm:px-6 sm:pt-8">
           <Link
-            href="/dashboard"
-            aria-label="Go to dashboard"
+            href="/#top"
+            aria-label="Go to landing page"
             className="rounded-md outline-none focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
           >
             <div className="cursor-pointer">

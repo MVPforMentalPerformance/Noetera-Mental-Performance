@@ -41,7 +41,7 @@ export default async function DashboardPage() {
 
 function DashboardSkeleton() {
   return (
-    <main className="flex flex-col gap-5 sm:gap-6">
+    <main id="top" className="flex flex-col gap-5 scroll-mt-24 sm:gap-6 sm:scroll-mt-28">
       <header className="glass relative rounded-card px-5 py-6">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(980px_320px_at_22%_-30%,color-mix(in_srgb,var(--color-accent2)_14%,transparent),transparent_58%)] opacity-60" />
         <div className="relative flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
@@ -111,7 +111,7 @@ async function DashboardContent() {
             : null;
 
   return (
-    <main className="flex flex-col gap-5 sm:gap-6">
+    <main id="top" className="flex flex-col gap-5 scroll-mt-24 sm:gap-6 sm:scroll-mt-28">
       <header className="glass relative rounded-card px-5 py-6">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(980px_320px_at_22%_-30%,color-mix(in_srgb,var(--color-accent2)_14%,transparent),transparent_58%)]" />
         <div className="relative flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">

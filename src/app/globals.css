@@ -40,8 +40,15 @@
 }
 
 html {
+  scroll-behavior: smooth;
   scroll-padding-bottom: var(--app-bottom-nav-gutter);
   overflow-x: clip;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 /* Theme contract:

@@ -1,9 +1,23 @@
 import { RingProgress } from "@/components/ring-progress";
 import Link from "next/link";
 
-export function LandingHero() {
+type LandingHeroProps = {
+  isAuthenticated?: boolean;
+};
+
+export function LandingHero({ isAuthenticated = false }: LandingHeroProps) {
+  const primaryAction = isAuthenticated
+    ? { href: "/program", label: "Continue program" }
+    : { href: "/sign-up", label: "Start for free" };
+  const secondaryAction = isAuthenticated
+    ? { href: "/dashboard", label: "Open dashboard" }
+    : { href: "/sign-in", label: "Log in" };
+
   return (
-    <section className="relative overflow-hidden px-4 pb-16 pt-12 sm:px-6 sm:pb-20 sm:pt-16 lg:px-8 lg:pb-24 lg:pt-20">
+    <section
+      id="top"
+      className="relative overflow-hidden scroll-mt-20 px-4 pb-16 pt-12 sm:px-6 sm:pb-20 sm:pt-16 lg:px-8 lg:pb-24 lg:pt-20"
+    >
       {/* Background atmosphere */}
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <div className="absolute -left-20 top-0 h-72 w-72 rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--color-accent2)_16%,transparent)_0%,transparent_72%)]" />
@@ -33,16 +47,16 @@ export function LandingHero() {
 
             <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
               <Link
-                href="/sign-up"
+                href={primaryAction.href}
                 className="rounded-2xl bg-linear-to-r from-accent to-accent2 px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_42px_-26px_var(--color-shadow)] transition hover:-translate-y-0.5 hover:brightness-105 active:translate-y-0 sm:px-7 sm:py-3.5"
               >
-                Start for free
+                {primaryAction.label}
               </Link>
               <Link
-                href="/sign-in"
+                href={secondaryAction.href}
                 className="rounded-2xl border border-border/90 bg-surface/90 px-6 py-3 text-sm font-semibold text-ink transition hover:-translate-y-0.5 hover:bg-surface2/90 active:translate-y-0 sm:px-7 sm:py-3.5"
               >
-                Log in
+                {secondaryAction.label}
               </Link>
             </div>
 

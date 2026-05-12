@@ -1,7 +1,26 @@
 import Link from "next/link";
 
-export function SiteFooter() {
+type SiteFooterProps = {
+  isAuthenticated?: boolean;
+};
+
+export function SiteFooter({ isAuthenticated = false }: SiteFooterProps) {
   const year = new Date().getFullYear();
+  const primaryAction = isAuthenticated
+    ? { href: "/program", label: "Continue program" }
+    : { href: "/sign-up", label: "Start for free" };
+  const secondaryAction = isAuthenticated
+    ? { href: "/dashboard", label: "Open dashboard" }
+    : { href: "/sign-in", label: "Log in" };
+  const footerLinks = isAuthenticated
+    ? [
+        { href: "/dashboard", label: "Dashboard" },
+        { href: "/program", label: "Program" },
+      ]
+    : [
+        { href: "/sign-in", label: "Log in" },
+        { href: "/sign-up", label: "Sign up" },
+      ];
 
   return (
     <footer
@@ -21,23 +40,25 @@ export function SiteFooter() {
           />
           <div className="relative">
             <h2 className="text-3xl leading-tight text-ink sm:text-4xl">
-              Ready to perform with clarity?
+              {isAuthenticated ? "Ready to return to your next session?" : "Ready to perform with clarity?"}
             </h2>
             <p className="mx-auto mt-3 max-w-[40ch] text-sm leading-relaxed text-muted">
-              Five days. One session a day. A different relationship with pressure.
+              {isAuthenticated
+                ? "Pick up your routine, review your dashboard, and keep your cadence gentle."
+                : "Five days. One session a day. A different relationship with pressure."}
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3 sm:gap-4">
               <Link
-                href="/sign-up"
+                href={primaryAction.href}
                 className="rounded-2xl bg-linear-to-r from-accent to-accent2 px-8 py-3.5 text-sm font-semibold text-white shadow-[0_18px_45px_-30px_var(--color-shadow)] transition hover:-translate-y-0.5 hover:brightness-105 active:translate-y-0"
               >
-                Start for free
+                {primaryAction.label}
               </Link>
               <Link
-                href="/sign-in"
+                href={secondaryAction.href}
                 className="rounded-2xl border border-border/90 bg-surface/90 px-8 py-3.5 text-sm font-semibold text-ink transition hover:-translate-y-0.5 hover:bg-surface2/90 active:translate-y-0"
               >
-                Log in
+                {secondaryAction.label}
               </Link>
             </div>
           </div>
@@ -45,7 +66,7 @@ export function SiteFooter() {
 
         {/* Footer bottom row */}
         <div className="flex flex-col items-center justify-between gap-8 md:flex-row md:gap-4">
-          <Link href="/" className="flex flex-col gap-px">
+          <Link href="/#top" className="flex flex-col gap-px">
             <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted">
               Mental Clarity
             </span>
@@ -68,12 +89,15 @@ export function SiteFooter() {
             >
               hello@noetera.com
             </a>
-            <Link href="/sign-in" className="text-sm text-muted transition-colors hover:text-ink">
-              Log in
-            </Link>
-            <Link href="/sign-up" className="text-sm text-muted transition-colors hover:text-ink">
-              Sign up
-            </Link>
+            {footerLinks.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-sm text-muted transition-colors hover:text-ink"
+              >
+                {item.label}
+              </Link>
+            ))}
           </nav>
 
           <p className="text-xs text-muted/50">© {year} NOETERA</p>
