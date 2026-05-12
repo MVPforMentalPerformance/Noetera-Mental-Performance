@@ -68,8 +68,30 @@ export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {
     setIsMenuOpen(false);
   }
 
+  function handleMobileSectionClick(href: string) {
+    const targetId = href.replace(/^#/, "");
+    closeMenu();
+
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        const target = document.getElementById(targetId);
+        if (!target) return;
+
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        target.scrollIntoView({
+          behavior: reduceMotion ? "auto" : "smooth",
+          block: "start",
+        });
+
+        if (window.location.hash !== href) {
+          window.history.pushState(null, "", href);
+        }
+      });
+    });
+  }
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-canvas/80 backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-50 w-full border-b border-border/50 bg-canvas/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6 sm:py-4">
         <Link
           href="/#top"
@@ -123,8 +145,8 @@ export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {
 
       <div
         className={cx(
-          "pointer-events-none absolute inset-x-0 top-full border-b border-border/40 bg-canvas/92 opacity-0 backdrop-blur-xl transition duration-200 lg:hidden",
-          isMenuOpen && "pointer-events-auto opacity-100",
+          "absolute inset-x-0 top-full border-b border-border/40 bg-canvas/92 backdrop-blur-xl transition duration-200 lg:hidden",
+          isMenuOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
         )}
       >
         <div className="mx-auto max-w-6xl px-4 pb-5 pt-3 sm:px-6">
@@ -137,14 +159,14 @@ export function SiteHeader({ isAuthenticated = false }: SiteHeaderProps) {
           >
             <nav className="flex flex-col gap-2" aria-label="Mobile navigation">
               {marketingLinks.map((item) => (
-                <a
+                <button
                   key={item.href}
-                  href={item.href}
-                  onClick={closeMenu}
-                  className="rounded-2xl px-3 py-3 text-sm font-semibold text-ink transition hover:bg-surface/75"
+                  type="button"
+                  onClick={() => handleMobileSectionClick(item.href)}
+                  className="rounded-2xl px-3 py-3 text-left text-sm font-semibold text-ink transition hover:bg-surface/75"
                 >
                   {item.label}
-                </a>
+                </button>
               ))}
             </nav>
 

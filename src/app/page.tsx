@@ -14,7 +14,7 @@ export default async function Home() {
   return (
     <div className="flex min-h-full flex-1 flex-col bg-canvas">
       <SiteHeader isAuthenticated={isAuthenticated} />
-      <main className="flex-1">
+      <main className="flex-1 pt-18 sm:pt-20">
         <LandingHero isAuthenticated={isAuthenticated} />
         <FeatureGrid />
       </main>
