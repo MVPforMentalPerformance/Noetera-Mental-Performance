@@ -2,6 +2,8 @@ import { AppCard } from "@/components/app-card";
 import { ListRow } from "@/components/list-row";
 import { PrimaryButton } from "@/components/primary-button";
 import { ThemeControls } from "@/components/theme-controls";
+import { DOMAIN_COPY, PROFILE_COPY } from "@/lib/npp/copy";
+import { getLatestNppAssessmentComparisonForUser } from "@/lib/npp/server";
 import { getUserOrNull, getUserProfile } from "@/lib/program/server";
 import { redirect } from "next/navigation";
 import { updateDisplayNameAction } from "./_actions";
@@ -81,19 +83,37 @@ function getInitials(name: string): string {
   return name.slice(0, 2).toUpperCase();
 }
 
+function getTrendLabel(trend: "new_baseline" | "up" | "steady" | "down") {
+  if (trend === "new_baseline") return "First snapshot";
+  if (trend === "up") return "Up since last check-in";
+  if (trend === "down") return "Needs attention";
+  return "Holding steady";
+}
+
 export default async function ProfilePage({
   searchParams,
 }: {
   searchParams?: Promise<{ error?: string; saved?: string }>;
 }) {
-  const { user } = await getUserOrNull();
+  const { user, supabase } = await getUserOrNull();
   if (!user) redirect("/sign-in");
 
-  const profile = await getUserProfile(user.id);
+  const [profile, nppComparison] = await Promise.all([
+    getUserProfile(user.id, supabase),
+    getLatestNppAssessmentComparisonForUser(user.id, supabase),
+  ]);
   const { error, saved } = (await searchParams) ?? {};
 
   const displayName = profile.display_name ?? "";
   const initials = displayName ? getInitials(displayName) : (user.email?.slice(0, 2).toUpperCase() ?? "??");
+  const currentProfile = nppComparison ? PROFILE_COPY[nppComparison.latest.display_profile_key] : null;
+  const focusDomain = nppComparison ? DOMAIN_COPY[nppComparison.priority_domain_key] : null;
+  const insightsSubtitle = nppComparison
+    ? `${currentProfile?.title ?? "Current snapshot"} / ${getTrendLabel(nppComparison.trend)} / Focus: ${focusDomain?.label}`
+    : "Take NPP Lite to unlock trends and snapshots.";
+  const insightsBadge = nppComparison
+    ? new Date(nppComparison.latest.created_at).toLocaleDateString()
+    : "Start";
 
   return (
     <main className="flex flex-col gap-6">
@@ -183,10 +203,13 @@ export default async function ProfilePage({
           <ListRow
             icon={<InsightsIcon />}
             title="Performance Insights"
-            subtitle="Trends and snapshots (M2+)"
+            subtitle={insightsSubtitle}
+            subtitleWrap
+            href={nppComparison ? "/insights" : "/assessment"}
+            className="items-start"
             right={
               <span className="shrink-0 rounded-full border border-border bg-surface px-3 py-1 text-[11px] font-semibold text-muted">
-                Coming soon
+                {insightsBadge}
               </span>
             }
           />

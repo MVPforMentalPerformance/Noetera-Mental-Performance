@@ -25,6 +25,7 @@ export async function completeDayAction(formData: FormData) {
   const { error: progressError } = await supabase
     .from("program_day_progress")
     .update({
+      started_at: now,
       completed_at: now,
       reflection_payload: { choice: reflectionChoice },
     })
@@ -45,5 +46,34 @@ export async function completeDayAction(formData: FormData) {
 
   if (day < 5) redirect(`/program/day/${day + 1}`);
   redirect("/program/complete");
+}
+
+export async function markDayStartedAction(input: { day: number }) {
+  const day = clampDayIndex(input.day);
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return { ok: false as const, message: "Not signed in." };
+
+  const profile = await getUserProfile(user.id, supabase);
+  if (day > profile.program_max_unlocked_day) {
+    return { ok: false as const, message: "Day is locked." };
+  }
+
+  const { error } = await supabase
+    .from("program_day_progress")
+    .update({ started_at: new Date().toISOString() })
+    .eq("user_id", user.id)
+    .eq("day_index", day)
+    .is("started_at", null);
+
+  if (error) {
+    return { ok: false as const, message: error.message };
+  }
+
+  return { ok: true as const };
 }
 

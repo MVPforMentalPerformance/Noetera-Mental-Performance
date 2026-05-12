@@ -24,6 +24,7 @@ export function ListRow({
   icon,
   title,
   subtitle,
+  subtitleWrap,
   right,
   href,
   onClick,
@@ -32,6 +33,7 @@ export function ListRow({
   icon?: ReactNode;
   title: string;
   subtitle?: string;
+  subtitleWrap?: boolean;
   right?: ReactNode;
   href?: string;
   onClick?: () => void;
@@ -47,7 +49,16 @@ export function ListRow({
       {icon ? <span className="grid h-10 w-10 place-items-center rounded-2xl bg-(--color-glass2)">{icon}</span> : null}
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-semibold text-ink">{title}</p>
-        {subtitle ? <p className="mt-0.5 truncate text-xs text-muted">{subtitle}</p> : null}
+        {subtitle ? (
+          <p
+            className={cx(
+              "mt-0.5 text-xs text-muted",
+              subtitleWrap ? "whitespace-normal wrap-break-word leading-relaxed" : "truncate",
+            )}
+          >
+            {subtitle}
+          </p>
+        ) : null}
       </div>
       {right ? <div className="shrink-0">{right}</div> : null}
       {href || onClick ? (

@@ -3,6 +3,7 @@
 import { AppCard } from "@/components/app-card";
 import { PrimaryButton } from "@/components/primary-button";
 import { SecondaryButton } from "@/components/secondary-button";
+import { TextLink } from "@/components/text-link";
 import { cx } from "@/lib/cx";
 import { bandLabel, DERIVED_COPY, DOMAIN_COPY, PROFILE_COPY } from "@/lib/npp/copy";
 import type { ProgramCta } from "@/lib/program/cta";
@@ -221,6 +222,13 @@ export function ResultsWizard({ result, primaryCta }: { result: NppAssessmentRes
           </PrimaryButton>
         )}
       </div>
+      {step === steps - 1 ? (
+        <div className="mt-4 text-center">
+          <TextLink href="/assessment" className="text-sm">
+            Retake NPP
+          </TextLink>
+        </div>
+      ) : null}
     </AppCard>
   );
 }

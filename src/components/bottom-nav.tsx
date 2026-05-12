@@ -134,8 +134,8 @@ export function BottomNav() {
 
   return (
     <nav className="fixed inset-x-0 bottom-0 z-50">
-      <div className="mx-auto w-full max-w-lg px-2.5 pb-[calc(env(safe-area-inset-bottom)+0.7rem)] sm:px-6">
-        <div className="grid grid-cols-5 gap-1.5 rounded-[1.65rem] border border-border/90 bg-(--color-glass) p-1.5 shadow-[0_-18px_55px_-42px_var(--color-shadow)] backdrop-blur-md">
+      <div className="mx-auto w-full max-w-lg px-4 pb-[calc(env(safe-area-inset-bottom)+0.7rem)] sm:px-6">
+        <div className="glass grid grid-cols-5 gap-1.5 rounded-[1.7rem] p-1.5 shadow-[0_-18px_55px_-42px_var(--color-shadow)]">
           {items.map((item) => {
             const active = item.activeWhenStartsWith
               ? pathname.startsWith(item.activeWhenStartsWith)
@@ -156,7 +156,7 @@ export function BottomNav() {
                   className={cx(
                     "pointer-events-none absolute inset-0 rounded-[1.25rem] transition",
                     active
-                      ? "bg-linear-to-r from-accent to-accent2 shadow-[0_16px_44px_-34px_var(--color-shadow),0_0_28px_-16px_color-mix(in_srgb,var(--color-accent2)_55%,transparent)]"
+                      ? "bg-linear-to-r from-accent to-accent2 shadow-[0_16px_44px_-34px_var(--color-shadow)]"
                       : "bg-transparent",
                   )}
                 />

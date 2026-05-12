@@ -13,15 +13,19 @@ export default async function SignUpPage({
 
   return (
     <main className="flex w-full max-w-md flex-col gap-6">
-      <AppCard className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(760px_240px_at_14%_0,color-mix(in_srgb,var(--color-accent2)_20%,transparent),transparent_60%)]" />
+      <AppCard className="relative overflow-hidden rounded-4xl">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(760px_240px_at_14%_0,color-mix(in_srgb,var(--color-accent2)_12%,transparent),transparent_60%)]" />
         <div className="relative">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">
+          <div className="inline-flex rounded-full border border-border/80 bg-surface/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">
+            New account
+          </div>
+          <p className="mt-5 text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">
             Mental Clarity
           </p>
-          <h1 className="mt-2 text-4xl leading-[1.05] text-ink">Create account</h1>
-          <p className="mt-3 text-sm leading-relaxed text-muted">
-            Start your 5-day focus reset and build a steadier mental baseline.
+          <h1 className="mt-2 text-[2.9rem] leading-[0.95] text-ink">Create account</h1>
+          <p className="mt-3 max-w-[34ch] text-sm leading-relaxed text-muted">
+            Start your 5-day focus reset and enter a more premium, intentional mental
+            performance routine.
           </p>
 
           {error ? (
@@ -32,7 +36,7 @@ export default async function SignUpPage({
             </p>
           ) : null}
 
-          <form action={signUpAction} className="mt-6 flex flex-col gap-4">
+          <form action={signUpAction} className="mt-7 flex flex-col gap-4">
             <label className="flex cursor-pointer flex-col gap-1.5">
               <span className="field-label">Email</span>
               <input
@@ -57,7 +61,29 @@ export default async function SignUpPage({
             />
 
             <div className="mt-2 flex flex-col gap-3">
-              <PrimaryButton type="submit">Sign up</PrimaryButton>
+              <PrimaryButton type="submit" className="text-white">
+                Sign up
+              </PrimaryButton>
+              <div className="grid grid-cols-3 gap-3 text-left">
+                <div className="rounded-2xl border border-border/80 bg-surface/70 px-3 py-3">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted">
+                    Day 1
+                  </p>
+                  <p className="mt-1 text-sm text-ink">Assessment</p>
+                </div>
+                <div className="rounded-2xl border border-border/80 bg-surface/70 px-3 py-3">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted">
+                    Day 5
+                  </p>
+                  <p className="mt-1 text-sm text-ink">Completion</p>
+                </div>
+                <div className="rounded-2xl border border-border/80 bg-surface/70 px-3 py-3">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted">
+                    Goal
+                  </p>
+                  <p className="mt-1 text-sm text-ink">Clarity</p>
+                </div>
+              </div>
               <p className="text-center text-xs text-muted">
                 Already with us?{" "}
                 <TextLink href="/sign-in" className="text-xs">

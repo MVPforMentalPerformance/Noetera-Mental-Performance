@@ -11,7 +11,7 @@ export function getPrimaryProgramCta(
   const nextIncomplete = progress.find((d) => d.completed_at == null);
   if (!nextIncomplete) return { label: "Continue your training", href: "/program/complete" };
 
-  const started = progress.some((d) => d.completed_at != null);
+  const started = progress.some((d) => d.started_at != null || d.completed_at != null);
   return {
     label: started ? `Continue Day ${nextIncomplete.day_index}` : "Begin Day 1",
     href: `/program/day/${nextIncomplete.day_index}`,

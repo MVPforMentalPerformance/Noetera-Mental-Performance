@@ -22,8 +22,8 @@ const themeOptions = [
 ] as const;
 
 const accentOptions: { value: AccentPalette; label: string; swatch: string }[] = [
-  { value: "earth", label: "Earth", swatch: "from-[#a4632b] to-[#c9833f]" },
-  { value: "premium", label: "Premium", swatch: "from-[#9a7cff] to-[#d6b7ff]" },
+  { value: "earth", label: "Earth", swatch: "from-[#b16b3d] to-[#e7c29e]" },
+  { value: "premium", label: "Premium", swatch: "from-[#6f7b97] to-[#dbe4f2]" },
   { value: "ocean", label: "Ocean", swatch: "from-[#4bb0ff] to-[#27e3d0]" },
   { value: "forest", label: "Forest", swatch: "from-[#62d67d] to-[#b7f07a]" },
   { value: "custom", label: "Custom", swatch: "from-[#ff6b9a] to-[#ffb86b]" },

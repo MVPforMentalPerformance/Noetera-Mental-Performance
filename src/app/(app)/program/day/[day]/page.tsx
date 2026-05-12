@@ -10,6 +10,7 @@ import {
 } from "@/lib/program/server";
 import { redirect } from "next/navigation";
 import { completeDayAction } from "../../_actions";
+import { MarkDayStarted } from "./mark-day-started";
 
 function clamp(n: number, min: number, max: number) {
   return Math.max(min, Math.min(max, n));
@@ -48,6 +49,8 @@ export default async function ProgramDayPage({
 
   return (
     <main className="flex flex-col gap-6">
+      <MarkDayStarted day={day} shouldMark={!isCompleted && row.started_at == null} />
+
       <AppCard className="relative overflow-hidden">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(760px_260px_at_10%_0,color-mix(in_srgb,var(--color-accent)_22%,transparent),transparent_58%)]" />
         <div className="relative">

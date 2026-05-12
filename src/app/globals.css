@@ -2,17 +2,17 @@
 
 :root {
   color-scheme: light;
-  --canvas: #f6efe5;
-  --canvas-glow: #efe2cf;
-  --surface: #fff9f1;
-  --surface-2: #f3e7d8;
-  --ink: #2d2219;
-  --muted: #66584a;
-  --border: rgba(83, 61, 43, 0.2);
-  --shadow: rgba(60, 36, 20, 0.16);
-  --accent: #a4632b; /* Earth */
-  --accent-2: #c9833f;
-  --accent-ink: #fff6ea;
+  --canvas: #f6f4ef;
+  --canvas-glow: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f0ece4;
+  --ink: #141821;
+  --muted: #667085;
+  --border: rgba(20, 24, 33, 0.1);
+  --shadow: rgba(20, 24, 33, 0.12);
+  --accent: #9f8354;
+  --accent-2: #d8bf95;
+  --accent-ink: #12161d;
   --danger: #9d3f31;
   --success: #2f7059;
   --font-body: "Avenir Next", "Segoe UI", "Trebuchet MS", sans-serif;
@@ -20,20 +20,20 @@
   --font-code: "JetBrains Mono", "Cascadia Mono", "Consolas", monospace;
 
   /* Subtle rounding for premium blocks */
-  --radius-card: 1.25rem;
+  --radius-card: 1.5rem;
   --radius-pill: 999px;
 
-  --blur-glass: 10px;
-  --glass: color-mix(in srgb, var(--surface) 74%, transparent);
-  --glass-2: color-mix(in srgb, var(--surface-2) 68%, transparent);
-  --glass-border: color-mix(in srgb, var(--border) 70%, transparent);
+  --blur-glass: 18px;
+  --glass: color-mix(in srgb, var(--surface) 88%, transparent);
+  --glass-2: color-mix(in srgb, var(--surface-2) 82%, transparent);
+  --glass-border: color-mix(in srgb, var(--border) 80%, transparent);
   --ring-track: color-mix(in srgb, var(--border) 65%, transparent);
   --ring-shadow: color-mix(in srgb, var(--shadow) 85%, transparent);
 
-  --bg-accent-wash: color-mix(in srgb, var(--accent) 10%, transparent);
-  --bg-accent-wash-2: color-mix(in srgb, var(--accent-2) 9%, transparent);
-  --glass-shine: color-mix(in srgb, white 26%, transparent);
-  --glass-shine-2: color-mix(in srgb, white 10%, transparent);
+  --bg-accent-wash: color-mix(in srgb, var(--accent) 8%, transparent);
+  --bg-accent-wash-2: color-mix(in srgb, var(--accent-2) 12%, transparent);
+  --glass-shine: color-mix(in srgb, white 46%, transparent);
+  --glass-shine-2: color-mix(in srgb, white 16%, transparent);
 
   /* Space for fixed BottomNav + iOS home indicator; used by (app) layout */
   --app-bottom-nav-gutter: calc(6rem + env(safe-area-inset-bottom, 0px) + 0.5rem);
@@ -41,6 +41,7 @@
 
 html {
   scroll-padding-bottom: var(--app-bottom-nav-gutter);
+  overflow-x: clip;
 }
 
 /* Theme contract:
@@ -54,39 +55,41 @@ html[data-theme="light"] {
 
 html[data-theme="dark"] {
   color-scheme: dark;
-  --canvas: #0f1410;
-  --canvas-glow: #1a221a;
-  --surface: #151b15;
-  --surface-2: #101610;
-  --ink: #f2f4f0;
-  --muted: #a7b0a7;
-  --border: rgba(231, 236, 231, 0.14);
-  --shadow: rgba(0, 0, 0, 0.55);
-  --accent-ink: #0c0f0c;
+  --canvas: #0e1218;
+  --canvas-glow: #161d27;
+  --surface: #121823;
+  --surface-2: #18202c;
+  --ink: #f5f7fb;
+  --muted: #96a0af;
+  --border: rgba(245, 247, 251, 0.1);
+  --shadow: rgba(0, 0, 0, 0.48);
+  --accent: #c3a06c;
+  --accent-2: #ead8b8;
+  --accent-ink: #0e1218;
   --danger: #ff6b5e;
   --success: #3fd3a5;
 
-  --glass: color-mix(in srgb, var(--surface) 66%, transparent);
-  --glass-2: color-mix(in srgb, var(--surface-2) 60%, transparent);
+  --glass: color-mix(in srgb, var(--surface) 82%, transparent);
+  --glass-2: color-mix(in srgb, var(--surface-2) 76%, transparent);
   --glass-border: color-mix(in srgb, var(--border) 85%, transparent);
   --ring-track: color-mix(in srgb, var(--border) 75%, transparent);
   --ring-shadow: rgba(0, 0, 0, 0.65);
 
-  --bg-accent-wash: color-mix(in srgb, var(--accent) 14%, transparent);
-  --bg-accent-wash-2: color-mix(in srgb, var(--accent-2) 12%, transparent);
-  --glass-shine: color-mix(in srgb, white 10%, transparent);
-  --glass-shine-2: color-mix(in srgb, white 5%, transparent);
+  --bg-accent-wash: color-mix(in srgb, var(--accent) 10%, transparent);
+  --bg-accent-wash-2: color-mix(in srgb, var(--accent-2) 8%, transparent);
+  --glass-shine: color-mix(in srgb, white 12%, transparent);
+  --glass-shine-2: color-mix(in srgb, white 6%, transparent);
 }
 
 /* Accent palettes */
 html[data-accent="earth"] {
-  --accent: #b0712e;
-  --accent-2: #d59044;
+  --accent: #b16b3d;
+  --accent-2: #e7c29e;
 }
 
 html[data-accent="premium"] {
-  --accent: #9a7cff;
-  --accent-2: #d6b7ff;
+  --accent: #6f7b97;
+  --accent-2: #dbe4f2;
 }
 
 html[data-accent="ocean"] {
@@ -122,6 +125,7 @@ html[data-accent="custom"] {
   --color-danger: var(--danger);
   --color-success: var(--success);
   --font-sans: var(--font-body);
+  --font-display: var(--font-display);
   --font-mono: var(--font-code);
   --radius-card: var(--radius-card);
   --radius-pill: var(--radius-pill);
@@ -135,14 +139,14 @@ html[data-accent="custom"] {
 
 body {
   background:
-    radial-gradient(circle at 16% -12%, var(--bg-accent-wash) 0, transparent 48%),
-    radial-gradient(circle at 86% 8%, var(--bg-accent-wash-2) 0, transparent 52%),
-    radial-gradient(circle at 8% -4%, color-mix(in srgb, var(--color-canvasGlow) 80%, transparent) 0, transparent 52%),
-    radial-gradient(circle at 92% 0, color-mix(in srgb, var(--color-accent2) 18%, transparent) 0, transparent 48%),
+    radial-gradient(circle at 12% 0%, var(--bg-accent-wash) 0, transparent 34%),
+    radial-gradient(circle at 88% 8%, var(--bg-accent-wash-2) 0, transparent 32%),
+    linear-gradient(180deg, color-mix(in srgb, var(--color-canvasGlow) 55%, transparent) 0%, transparent 22%),
     var(--canvas);
   color: var(--ink);
   font-family: var(--font-body), "Segoe UI", sans-serif;
   letter-spacing: -0.01em;
+  overflow-x: clip;
   text-rendering: optimizeLegibility;
 }
 
@@ -158,30 +162,38 @@ h3 {
 }
 
 .field-label {
-  color: var(--muted);
-  font-size: 0.72rem;
+  color: color-mix(in srgb, var(--muted) 92%, var(--ink));
+  font-size: 0.69rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .field-input {
   cursor: text;
-  height: 2.9rem;
-  border-radius: 0.95rem;
-  border: 1px solid var(--border);
-  background: color-mix(in srgb, var(--surface) 92%, white);
-  box-shadow: 0 16px 46px -38px var(--shadow);
+  height: 3.15rem;
+  border-radius: 1rem;
+  border: 1px solid color-mix(in srgb, var(--border) 94%, transparent);
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 22%, transparent),
+    0 20px 44px -40px var(--shadow);
   color: var(--ink);
   font-size: 0.92rem;
-  padding: 0 0.85rem;
+  padding: 0 0.95rem;
   outline: none;
-  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease;
 }
 
 .field-input:focus {
-  border-color: color-mix(in srgb, var(--accent) 50%, var(--border));
-  box-shadow: 0 22px 52px -38px var(--shadow);
+  border-color: color-mix(in srgb, var(--accent) 56%, var(--border));
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--accent) 12%, transparent),
+    0 22px 52px -40px var(--shadow);
   transform: translateY(-1px);
 }
 
@@ -196,8 +208,8 @@ h3 {
   backdrop-filter: blur(var(--blur-glass)) saturate(1.15);
   -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(1.15);
   box-shadow:
-    0 24px 70px -56px var(--shadow),
-    inset 0 1px 0 color-mix(in srgb, var(--glass-shine) 60%, transparent);
+    0 24px 64px -48px var(--shadow),
+    inset 0 1px 0 color-mix(in srgb, var(--glass-shine) 72%, transparent);
   overflow: hidden;
 }
 
@@ -207,25 +219,26 @@ h3 {
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(1200px 360px at 18% -12%, var(--glass-shine), transparent 55%),
-    radial-gradient(900px 260px at 92% 10%, var(--glass-shine-2), transparent 60%);
-  opacity: 0.95;
+    linear-gradient(180deg, color-mix(in srgb, var(--glass-shine) 84%, transparent) 0%, transparent 28%),
+    radial-gradient(960px 280px at 92% 10%, var(--glass-shine-2), transparent 60%);
+  opacity: 0.9;
 }
 
 .glass::after {
   content: "";
   position: absolute;
-  inset: -40%;
+  inset: auto 0 -1px 0;
   pointer-events: none;
-  background:
-    conic-gradient(
-      from 210deg,
-      transparent 0deg,
-      color-mix(in srgb, var(--accent-2) 10%, transparent) 50deg,
-      transparent 120deg
-    );
-  opacity: 0.35;
-  transform: rotate(-10deg);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--accent-2) 28%, transparent) 18%,
+    color-mix(in srgb, white 34%, transparent) 50%,
+    color-mix(in srgb, var(--accent-2) 28%, transparent) 82%,
+    transparent
+  );
+  opacity: 0.9;
 }
 
 @keyframes rise-fade {

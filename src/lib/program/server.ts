@@ -12,6 +12,7 @@ export type ProgramDayProgressRow = {
   user_id: string;
   day_index: number;
   unlocked_at: string | null;
+  started_at: string | null;
   completed_at: string | null;
   reflection_payload: unknown | null;
 };
@@ -62,7 +63,7 @@ export async function listProgramProgress(userId: string, supabase?: SupabaseSer
   const client = supabase ?? (await createClient());
   const { data, error } = await client
     .from("program_day_progress")
-    .select("id, user_id, day_index, unlocked_at, completed_at, reflection_payload")
+    .select("id, user_id, day_index, unlocked_at, started_at, completed_at, reflection_payload")
     .eq("user_id", userId)
     .order("day_index", { ascending: true });
 
@@ -83,6 +84,7 @@ export async function ensureProgramProgressRows(userId: string, supabase?: Supab
       user_id: userId,
       day_index: day,
       unlocked_at: day === 1 ? now : null,
+      started_at: null,
       completed_at: null,
       reflection_payload: null,
     };
